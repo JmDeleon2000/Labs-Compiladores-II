@@ -1,12 +1,10 @@
-class foo 
+class foo inherits goo
 {
-    fga:int;
-    fga2:Object;
-    add(a:int, b:int):int
+    yt : int;
+    fasdf(x:String, y:goo ):int
     {
-        a.isNil( fa, 
-                si, 
-                la , 
-                sol );
+        a.isNil(yt, y);
+        a <- (new int).grr().iut();
+        b <- (new String);
     }
-};
+} ;
