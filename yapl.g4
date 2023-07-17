@@ -43,20 +43,49 @@ func_params
     :   (( ID ':' type  COMA )* ID ':' type )*;
 func_body
     :   LBRACKET  RBRACKET 
-    |   LBRACKET  statement+  RBRACKET 
+    |   LBRACKET  expr+  RBRACKET 
     ;
-statement
-    :   func_call EOS
-    |   assignment EOS
+expr    :   sub_expr EOS    ;
+sub_expr
+    :   func_call
+    |   assignment
+    |   acs_object
+    |   literal 
+    |   literal operator sub_expr
+    |   acs_object operator sub_expr
+    |   func_call operator sub_expr
+    |   left_hand_op sub_expr
+    ;
+left_hand_op
+    :   'isvoid'
+    |   '~'
+    |   'not'
+    ;
+operator
+    :   arith_op
+    |   bool_op
+    ;
+arith_op
+    :   '+'
+    |   '-'
+    |   '/'
+    |   '*'
+    ;
+bool_op
+    :   '<'
+    |   '<='
+    |   '='
     ;
 assignment
-    : ID ASSIG_OP acs_object
-    | ID ASSIG_OP literal 
-    | ID ASSIG_OP func_call
+    : ID ASSIG_OP sub_expr
     ;
 literal
     :   str_literal 
-    |   int_literal ;
+    |   int_literal 
+    |   bool_literal ;
+bool_literal
+    :   'true'
+    |   'false' ; 
 str_literal: STR_LIT ;
 int_literal: DIGITS ;
 acs_object
