@@ -1,0 +1,12 @@
+class foo 
+{
+    fga:int;
+    fga2:Object;
+    add(a:int, b:int):int
+    {
+        a.isNil( fa, 
+                si, 
+                la , 
+                sol );
+    }
+};
