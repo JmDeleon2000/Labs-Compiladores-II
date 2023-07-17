@@ -28,10 +28,13 @@ THIS_PTR   : 'SELF_TYPE' ;
 COMA: ',' ;
 type
     :   canon_type
-    |   ID
+    |   user_defined_t
     ;
 
+user_defined_t
+    :   UDT ; 
 
+UDT: [A-Z] [a-zA-Z]*;
 
 func_dec:
     ID LPAREN func_params RPAREN ':' type func_body;
@@ -71,11 +74,11 @@ subs_func
     :   SUBSCRIPT ID LPAREN call_params RPAREN ;
 
 call_params
-    :   (( ID  COMA )* ID )*;
+    :   (( acs_object  COMA )* acs_object )*;
 BOOLEAN: 'Bool' ;
 STR:    'String' ;
 OBJ:    'Object' ;
-INT:    'int' ;
+INT:    'Int' ;
 
 canon_type
     :    BOOLEAN

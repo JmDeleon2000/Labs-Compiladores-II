@@ -1,10 +1,10 @@
 class foo inherits goo
 {
-    yt : int;
-    fasdf(x:String, y:goo ):int
+    yt : Int;
+    fasdf(x:String, y:Goo ):Int
     {
         a.isNil(yt, y);
-        a <- (new int).grr().iut();
+        a <- (new Int).grr(new List).iut();
         b <- ((new String));
     }
 } ;
