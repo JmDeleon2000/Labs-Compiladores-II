@@ -32,6 +32,7 @@ type
     ;
 
 
+
 func_dec:
     ID LPAREN func_params RPAREN ':' type func_body;
 
@@ -41,26 +42,27 @@ func_body
     :   LBRACKET  RBRACKET 
     |   LBRACKET  statement+  RBRACKET 
     ;
-
 statement
     :   func_call EOS
     |   assignment EOS
     ;
 assignment
-    : ID ASSIG_OP ID 
+    : ID ASSIG_OP acs_object
     | ID ASSIG_OP literal 
     | ID ASSIG_OP func_call
-    | ID ASSIG_OP LPAREN new_op type RPAREN
     ;
 literal
     :   str_literal 
     |   int_literal ;
 str_literal: STR_LIT ;
 int_literal: DIGITS ;
+acs_object
+    :   LPAREN acs_object RPAREN
+    |   ID
+    |   new_op type
+    ;
 func_call
-    :   ID  subs_func+
-    |   LPAREN ID RPAREN subs_func+ 
-    |   LPAREN new_op type RPAREN subs_func+ 
+    :   acs_object  subs_func+
     ;
 new_op: NEW;
 NEW
@@ -71,9 +73,9 @@ subs_func
 call_params
     :   (( ID  COMA )* ID )*;
 BOOLEAN: 'Bool' ;
-STR: 'String' ;
-OBJ:  'Object' ;
-INT: 'int' ;
+STR:    'String' ;
+OBJ:    'Object' ;
+INT:    'int' ;
 
 canon_type
     :    BOOLEAN

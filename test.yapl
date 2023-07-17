@@ -5,6 +5,6 @@ class foo inherits goo
     {
         a.isNil(yt, y);
         a <- (new int).grr().iut();
-        b <- (new String);
+        b <- ((new String));
     }
 } ;
