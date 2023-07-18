@@ -12,6 +12,8 @@ class foo inherits goo
         h <- not 15+6*9-8;
         if 15*0 then 
         b <- 81 ;
+        else
+        false;
         fi
 
         while {true} loop
