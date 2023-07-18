@@ -45,7 +45,12 @@ func_body
     :   LBRACKET  RBRACKET 
     |   LBRACKET  expr+  RBRACKET 
     ;
-expr    :   sub_expr EOS    ;
+expr    
+    :   sub_expr EOS    
+    |   'if' sub_expr 'then' expr ('else' expr)? 'fi'
+    |   'while' sub_expr 'loop' expr 'pool' 
+    ;
+//TODO if, when, let
 sub_expr
     :   func_call
     |   assignment
@@ -92,6 +97,7 @@ acs_object
     :   LPAREN acs_object RPAREN
     |   ID
     |   new_op type
+    |   literal
     ;
 func_call
     :   acs_object  subs_func+
@@ -118,6 +124,6 @@ canon_type
 
 ID: 
     [a-z] ([A-Za-z0-9_])* ;
-STR_LIT: '"' [a-zA-Z _]+ '"';
+STR_LIT: '"' [a-zA-Z _]* '"';
 DIGITS : [0-9]+ ;
 SUBSCRIPT: '.' ;
