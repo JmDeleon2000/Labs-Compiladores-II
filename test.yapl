@@ -14,8 +14,10 @@ class foo inherits goo
         b <- 81 ;
         fi
 
-        while true loop
+        while {true} loop
+        {
         system32.delete();
+        }
         pool
     }
 

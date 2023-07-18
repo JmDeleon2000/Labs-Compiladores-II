@@ -49,8 +49,9 @@ expr
     :   sub_expr EOS    
     |   'if' sub_expr 'then' expr ('else' expr)? 'fi'
     |   'while' sub_expr 'loop' expr 'pool' 
+    |   LBRACKET expr RBRACKET
     ;
-//TODO if, when, let
+//TODO let
 sub_expr
     :   func_call
     |   assignment
@@ -60,6 +61,7 @@ sub_expr
     |   acs_object operator sub_expr
     |   func_call operator sub_expr
     |   left_hand_op sub_expr
+    |   LBRACKET sub_expr RBRACKET
     ;
 left_hand_op
     :   'isvoid'
