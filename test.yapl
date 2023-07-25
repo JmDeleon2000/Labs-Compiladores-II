@@ -3,24 +3,7 @@ class foo inherits goo
     yt : Int;
     fasdf(x:String, y:Goo ):Int
     {
-        a.isNil(yt, y);
-        a <- (new Int).grr(new List).iut("");
-        b <- ((new String));
-        r <- true;
-        r2 <- false;
-        "foo";
-        h <- not 15+6*9-8;
-        if 15*0 then 
-        b <- 81 ;
-        else
-        false;
-        fi
-
-        while {true} loop
-        {
-        system32.delete();
-        }
-        pool
+        h <-15+"foo";
     }
 
-} ;
+};

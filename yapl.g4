@@ -57,34 +57,52 @@ sub_expr
     |   assignment
     |   acs_object
     |   literal 
-    |   literal operator sub_expr
-    |   acs_object operator sub_expr
-    |   func_call operator sub_expr
+    |   arith_operation
     |   left_hand_op sub_expr
     |   LBRACKET sub_expr RBRACKET
+    |   bool_op sub_expr
+    ;
+arith_operation
+    :   literal arith_operator sub_expr
+    |   acs_object arith_operator sub_expr
+    |   func_call arith_operator sub_expr
     ;
 left_hand_op
     :   'isvoid'
     |   '~'
     |   'not'
     ;
-operator
-    :   arith_op
-    |   bool_op
+arith_operator
+    :   plus_op
+    |   minus_op
+    |   division_op
+    |   mul_op
     ;
-arith_op
+plus_op
     :   '+'
-    |   '-'
-    |   '/'
-    |   '*'
+    ;
+minus_op
+    :   '-'
+    ;
+division_op
+    :   '/'
+    ;
+mul_op
+    :   '*'
     ;
 bool_op
     :   '<'
     |   '<='
     |   '='
     ;
+assig_op
+    :   ASSIG_OP
+    ;
+identifier
+    :   ID
+    ;
 assignment
-    : ID ASSIG_OP sub_expr
+    : identifier assig_op sub_expr
     ;
 literal
     :   str_literal 
