@@ -3,7 +3,10 @@ class foo inherits goo
     yt : Int;
     fasdf(x:String, y:Goo ):Int
     {
-        h <-15+"foo";
-    }
+        h <-15 + 6;
+        h <-15 / 6;
+        h <-15 * 6;
+        h <-15 - 6;
+    };
 
 };

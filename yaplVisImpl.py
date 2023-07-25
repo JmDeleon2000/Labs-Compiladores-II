@@ -18,6 +18,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+ERR = 'error'
 INT = 'int'
 PLUS = '+'
 MUL = '*'
@@ -52,7 +53,7 @@ class yaplVisImpl(yaplVisitor):
         else:
             if not result[0]:
                 return (False, f'{bcolors.FAIL}Build fail. Found errors.{bcolors.ENDC}')
-        return (True, f'{bcolors.OKGREEN}Valid source{bcolors.ENDC}')
+        return (True, f'{bcolors.OKGREEN}Build success{bcolors.ENDC}')
 
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
         result = self.visitChildren(ctx)
@@ -69,8 +70,11 @@ class yaplVisImpl(yaplVisitor):
                 if i[0] != ANY:
                     return (True, i[0])
                 return (True, i[2])
-        return (False, (f'Cannot assign objects of type {result[2][1]} '
-                f'to {result[0][1]} : {ctx.getText()}'))
+        err_str = (f'Cannot assign objects of type {result[2][1]} '
+                f'to {result[0][1]} : {ctx.getText()}')
+        err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
+        print(err_str)
+        return (False, ERR)
 
     def visitArith_operation(self, ctx:yaplParser.Arith_operationContext):
         result = self.visitChildren(ctx)
@@ -89,7 +93,7 @@ class yaplVisImpl(yaplVisitor):
                 f'and {result[2][1]} for operator {result[1][1]}: {ctx.getText()}')
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
-        return (False, err_str)
+        return (False, ERR)
     
 
     # Visit a parse tree produced by yaplParser#bool_literal.
@@ -107,6 +111,20 @@ class yaplVisImpl(yaplVisitor):
     
     def visitPlus_op(self, ctx:yaplParser.Plus_opContext):
         return (True, PLUS)
+    
+        # Visit a parse tree produced by yaplParser#minus_op.
+    def visitMinus_op(self, ctx:yaplParser.Minus_opContext):
+        return (True, MIN)
+
+
+    # Visit a parse tree produced by yaplParser#division_op.
+    def visitDivision_op(self, ctx:yaplParser.Division_opContext):
+        return (True, DIV)
+
+
+    # Visit a parse tree produced by yaplParser#mul_op.
+    def visitMul_op(self, ctx:yaplParser.Mul_opContext):
+        return (True, MUL)
     
         # Visit a parse tree produced by yaplParser#assig_op.
     def visitAssig_op(self, ctx:yaplParser.Assig_opContext):

@@ -42,8 +42,8 @@ func_dec:
 func_params
     :   (( ID ':' type  COMA )* ID ':' type )*;
 func_body
-    :   LBRACKET  RBRACKET 
-    |   LBRACKET  expr+  RBRACKET 
+    :   LBRACKET  RBRACKET EOS
+    |   LBRACKET  expr+  RBRACKET EOS
     ;
 expr    
     :   sub_expr EOS    
@@ -144,6 +144,6 @@ canon_type
 
 ID: 
     [a-z] ([A-Za-z0-9_])* ;
-STR_LIT: '"' [a-zA-Z _]* '"';
+STR_LIT: '"' [a-zA-Z _(\\n)]* '"';
 DIGITS : [0-9]+ ;
 SUBSCRIPT: '.' ;

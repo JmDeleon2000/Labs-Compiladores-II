@@ -1,15 +1,48 @@
-# Evaluando:
-```{cool}
+# Failed build example:
+```{yapl}
 class foo inherits goo
 {
     yt : Int;
     fasdf(x:String, y:Goo ):Int
     {
-        a = b + c * d;
-    }
+        h <- 15 + "bar";
+        h <-"foo" + 6;
+        h <-"foo" / 6;
+        h <-"foo" * 6;
+        h <-"foo" - 6;
+        h <-15 + 6;
+        h <-15 / 6;
+        h <-15 * 6;
+        h <-15 - 6;
+    };
 
-} ;
+};
 ```
-<br/>
+<span style = "color:red">
+Unsupported operation between int and string for operator +: 15+"bar"</br>
+Unsupported operation between string and int for operator +: "foo"+6</br>
+Unsupported operation between string and int for operator /: "foo"/6</br>
+Unsupported operation between string and int for operator *: "foo"*6</br>
+Unsupported operation between string and int for operator -: "foo"-6</br>
+Build fail. Found errors.
+</span>
 
-![alt text](https://github.com/JmDeleon2000/Labs-Compiladores-II/blob/ec4223b8d617623cb19dab432c5402c42ca3ec28/antlr4_parse_tree.png)
+
+# Successful build example:
+```{yapl}
+class foo inherits goo
+{
+    yt : Int;
+    fasdf(x:String, y:Goo ):Int
+    {
+        h <-15 + 6;
+        h <-15 / 6;
+        h <-15 * 6;
+        h <-15 - 6;
+    };
+
+};
+```
+<span style = "color:green">
+Build success
+</span>
