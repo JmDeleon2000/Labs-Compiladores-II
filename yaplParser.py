@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,41,290,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,41,287,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
@@ -19,95 +19,94 @@ def serializedATN():
         2,1,3,1,3,1,3,1,3,1,3,1,4,1,4,1,4,4,4,91,8,4,11,4,12,4,92,1,4,1,
         4,1,4,1,4,3,4,99,8,4,1,5,1,5,1,5,1,5,1,6,1,6,1,6,1,6,1,6,1,7,1,7,
         3,7,112,8,7,1,8,1,8,1,9,1,9,1,9,1,9,1,9,1,9,1,9,1,9,1,10,1,10,1,
-        10,1,10,1,10,5,10,129,8,10,10,10,12,10,132,9,10,1,10,1,10,1,10,5,
-        10,137,8,10,10,10,12,10,140,9,10,1,11,1,11,1,11,1,11,1,11,4,11,147,
-        8,11,11,11,12,11,148,1,11,1,11,1,11,3,11,154,8,11,1,12,1,12,1,12,
-        1,12,1,12,1,12,1,12,1,12,1,12,3,12,165,8,12,1,12,1,12,1,12,1,12,
-        1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,3,12,179,8,12,1,13,1,13,
-        1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
-        3,13,196,8,13,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,
-        1,14,1,14,3,14,210,8,14,1,15,1,15,1,16,1,16,1,16,1,16,3,16,218,8,
-        16,1,17,1,17,1,18,1,18,1,19,1,19,1,20,1,20,1,21,1,21,1,22,1,22,1,
-        23,1,23,1,24,1,24,1,24,1,24,1,25,1,25,1,25,3,25,241,8,25,1,26,1,
-        26,1,27,1,27,1,28,1,28,1,29,1,29,1,29,1,29,1,29,1,29,1,29,1,29,1,
-        29,3,29,258,8,29,1,30,1,30,4,30,262,8,30,11,30,12,30,263,1,31,1,
-        31,1,32,1,32,1,32,1,32,1,32,1,32,1,33,1,33,1,33,5,33,277,8,33,10,
-        33,12,33,280,9,33,1,33,5,33,283,8,33,10,33,12,33,286,9,33,1,34,1,
-        34,1,34,0,0,35,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,
-        36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,0,4,1,0,11,13,
-        1,0,18,20,1,0,21,22,1,0,34,37,287,0,70,1,0,0,0,2,75,1,0,0,0,4,79,
-        1,0,0,0,6,82,1,0,0,0,8,98,1,0,0,0,10,100,1,0,0,0,12,104,1,0,0,0,
-        14,111,1,0,0,0,16,113,1,0,0,0,18,115,1,0,0,0,20,138,1,0,0,0,22,153,
-        1,0,0,0,24,178,1,0,0,0,26,195,1,0,0,0,28,209,1,0,0,0,30,211,1,0,
-        0,0,32,217,1,0,0,0,34,219,1,0,0,0,36,221,1,0,0,0,38,223,1,0,0,0,
-        40,225,1,0,0,0,42,227,1,0,0,0,44,229,1,0,0,0,46,231,1,0,0,0,48,233,
-        1,0,0,0,50,240,1,0,0,0,52,242,1,0,0,0,54,244,1,0,0,0,56,246,1,0,
-        0,0,58,257,1,0,0,0,60,259,1,0,0,0,62,265,1,0,0,0,64,267,1,0,0,0,
-        66,284,1,0,0,0,68,287,1,0,0,0,70,71,3,2,1,0,71,72,5,0,0,1,72,1,1,
-        0,0,0,73,76,3,6,3,0,74,76,3,4,2,0,75,73,1,0,0,0,75,74,1,0,0,0,76,
-        77,1,0,0,0,77,78,3,8,4,0,78,3,1,0,0,0,79,80,5,1,0,0,80,81,5,38,0,
-        0,81,5,1,0,0,0,82,83,5,1,0,0,83,84,5,38,0,0,84,85,5,2,0,0,85,86,
-        5,38,0,0,86,7,1,0,0,0,87,90,5,24,0,0,88,91,3,12,6,0,89,91,3,18,9,
-        0,90,88,1,0,0,0,90,89,1,0,0,0,91,92,1,0,0,0,92,90,1,0,0,0,92,93,
-        1,0,0,0,93,94,1,0,0,0,94,95,5,25,0,0,95,96,5,28,0,0,96,99,1,0,0,
-        0,97,99,3,10,5,0,98,87,1,0,0,0,98,97,1,0,0,0,99,9,1,0,0,0,100,101,
-        5,24,0,0,101,102,5,25,0,0,102,103,5,28,0,0,103,11,1,0,0,0,104,105,
-        5,38,0,0,105,106,5,3,0,0,106,107,3,14,7,0,107,108,5,28,0,0,108,13,
-        1,0,0,0,109,112,3,68,34,0,110,112,3,16,8,0,111,109,1,0,0,0,111,110,
-        1,0,0,0,112,15,1,0,0,0,113,114,5,32,0,0,114,17,1,0,0,0,115,116,5,
-        38,0,0,116,117,5,26,0,0,117,118,3,20,10,0,118,119,5,27,0,0,119,120,
-        5,3,0,0,120,121,3,14,7,0,121,122,3,22,11,0,122,19,1,0,0,0,123,124,
-        5,38,0,0,124,125,5,3,0,0,125,126,3,14,7,0,126,127,5,31,0,0,127,129,
-        1,0,0,0,128,123,1,0,0,0,129,132,1,0,0,0,130,128,1,0,0,0,130,131,
-        1,0,0,0,131,133,1,0,0,0,132,130,1,0,0,0,133,134,5,38,0,0,134,135,
-        5,3,0,0,135,137,3,14,7,0,136,130,1,0,0,0,137,140,1,0,0,0,138,136,
-        1,0,0,0,138,139,1,0,0,0,139,21,1,0,0,0,140,138,1,0,0,0,141,142,5,
-        24,0,0,142,143,5,25,0,0,143,154,5,28,0,0,144,146,5,24,0,0,145,147,
-        3,24,12,0,146,145,1,0,0,0,147,148,1,0,0,0,148,146,1,0,0,0,148,149,
-        1,0,0,0,149,150,1,0,0,0,150,151,5,25,0,0,151,152,5,28,0,0,152,154,
-        1,0,0,0,153,141,1,0,0,0,153,144,1,0,0,0,154,23,1,0,0,0,155,156,3,
-        26,13,0,156,157,5,28,0,0,157,179,1,0,0,0,158,159,5,4,0,0,159,160,
-        3,26,13,0,160,161,5,5,0,0,161,164,3,24,12,0,162,163,5,6,0,0,163,
-        165,3,24,12,0,164,162,1,0,0,0,164,165,1,0,0,0,165,166,1,0,0,0,166,
-        167,5,7,0,0,167,179,1,0,0,0,168,169,5,8,0,0,169,170,3,26,13,0,170,
-        171,5,9,0,0,171,172,3,24,12,0,172,173,5,10,0,0,173,179,1,0,0,0,174,
-        175,5,24,0,0,175,176,3,24,12,0,176,177,5,25,0,0,177,179,1,0,0,0,
-        178,155,1,0,0,0,178,158,1,0,0,0,178,168,1,0,0,0,178,174,1,0,0,0,
-        179,25,1,0,0,0,180,196,3,60,30,0,181,196,3,48,24,0,182,196,3,58,
-        29,0,183,196,3,50,25,0,184,196,3,28,14,0,185,186,3,30,15,0,186,187,
-        3,26,13,0,187,196,1,0,0,0,188,189,5,24,0,0,189,190,3,26,13,0,190,
-        191,5,25,0,0,191,196,1,0,0,0,192,193,3,42,21,0,193,194,3,26,13,0,
-        194,196,1,0,0,0,195,180,1,0,0,0,195,181,1,0,0,0,195,182,1,0,0,0,
-        195,183,1,0,0,0,195,184,1,0,0,0,195,185,1,0,0,0,195,188,1,0,0,0,
-        195,192,1,0,0,0,196,27,1,0,0,0,197,198,3,50,25,0,198,199,3,32,16,
-        0,199,200,3,26,13,0,200,210,1,0,0,0,201,202,3,58,29,0,202,203,3,
-        32,16,0,203,204,3,26,13,0,204,210,1,0,0,0,205,206,3,60,30,0,206,
-        207,3,32,16,0,207,208,3,26,13,0,208,210,1,0,0,0,209,197,1,0,0,0,
-        209,201,1,0,0,0,209,205,1,0,0,0,210,29,1,0,0,0,211,212,7,0,0,0,212,
-        31,1,0,0,0,213,218,3,34,17,0,214,218,3,36,18,0,215,218,3,38,19,0,
-        216,218,3,40,20,0,217,213,1,0,0,0,217,214,1,0,0,0,217,215,1,0,0,
-        0,217,216,1,0,0,0,218,33,1,0,0,0,219,220,5,14,0,0,220,35,1,0,0,0,
-        221,222,5,15,0,0,222,37,1,0,0,0,223,224,5,16,0,0,224,39,1,0,0,0,
-        225,226,5,17,0,0,226,41,1,0,0,0,227,228,7,1,0,0,228,43,1,0,0,0,229,
-        230,5,29,0,0,230,45,1,0,0,0,231,232,5,38,0,0,232,47,1,0,0,0,233,
-        234,3,46,23,0,234,235,3,44,22,0,235,236,3,26,13,0,236,49,1,0,0,0,
-        237,241,3,54,27,0,238,241,3,56,28,0,239,241,3,52,26,0,240,237,1,
-        0,0,0,240,238,1,0,0,0,240,239,1,0,0,0,241,51,1,0,0,0,242,243,7,2,
-        0,0,243,53,1,0,0,0,244,245,5,39,0,0,245,55,1,0,0,0,246,247,5,40,
-        0,0,247,57,1,0,0,0,248,249,5,26,0,0,249,250,3,58,29,0,250,251,5,
-        27,0,0,251,258,1,0,0,0,252,258,5,38,0,0,253,254,3,62,31,0,254,255,
-        3,14,7,0,255,258,1,0,0,0,256,258,3,50,25,0,257,248,1,0,0,0,257,252,
-        1,0,0,0,257,253,1,0,0,0,257,256,1,0,0,0,258,59,1,0,0,0,259,261,3,
-        58,29,0,260,262,3,64,32,0,261,260,1,0,0,0,262,263,1,0,0,0,263,261,
-        1,0,0,0,263,264,1,0,0,0,264,61,1,0,0,0,265,266,5,33,0,0,266,63,1,
-        0,0,0,267,268,5,41,0,0,268,269,5,38,0,0,269,270,5,26,0,0,270,271,
-        3,66,33,0,271,272,5,27,0,0,272,65,1,0,0,0,273,274,3,58,29,0,274,
-        275,5,31,0,0,275,277,1,0,0,0,276,273,1,0,0,0,277,280,1,0,0,0,278,
-        276,1,0,0,0,278,279,1,0,0,0,279,281,1,0,0,0,280,278,1,0,0,0,281,
-        283,3,58,29,0,282,278,1,0,0,0,283,286,1,0,0,0,284,282,1,0,0,0,284,
-        285,1,0,0,0,285,67,1,0,0,0,286,284,1,0,0,0,287,288,7,3,0,0,288,69,
-        1,0,0,0,19,75,90,92,98,111,130,138,148,153,164,178,195,209,217,240,
-        257,263,278,284
+        10,1,10,1,10,5,10,129,8,10,10,10,12,10,132,9,10,1,10,1,10,1,10,3,
+        10,137,8,10,1,11,1,11,1,11,1,11,1,11,4,11,144,8,11,11,11,12,11,145,
+        1,11,1,11,1,11,3,11,151,8,11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,
+        1,12,1,12,3,12,162,8,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,
+        1,12,1,12,1,12,1,12,3,12,176,8,12,1,13,1,13,1,13,1,13,1,13,1,13,
+        1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,3,13,193,8,13,1,14,
+        1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,3,14,207,
+        8,14,1,15,1,15,1,16,1,16,1,16,1,16,3,16,215,8,16,1,17,1,17,1,18,
+        1,18,1,19,1,19,1,20,1,20,1,21,1,21,1,22,1,22,1,23,1,23,1,24,1,24,
+        1,24,1,24,1,25,1,25,1,25,3,25,238,8,25,1,26,1,26,1,27,1,27,1,28,
+        1,28,1,29,1,29,1,29,1,29,1,29,1,29,1,29,1,29,1,29,3,29,255,8,29,
+        1,30,1,30,4,30,259,8,30,11,30,12,30,260,1,31,1,31,1,32,1,32,1,32,
+        1,32,1,32,1,32,1,33,1,33,1,33,5,33,274,8,33,10,33,12,33,277,9,33,
+        1,33,5,33,280,8,33,10,33,12,33,283,9,33,1,34,1,34,1,34,0,0,35,0,
+        2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,
+        48,50,52,54,56,58,60,62,64,66,68,0,4,1,0,11,13,1,0,18,20,1,0,21,
+        22,1,0,34,37,284,0,70,1,0,0,0,2,75,1,0,0,0,4,79,1,0,0,0,6,82,1,0,
+        0,0,8,98,1,0,0,0,10,100,1,0,0,0,12,104,1,0,0,0,14,111,1,0,0,0,16,
+        113,1,0,0,0,18,115,1,0,0,0,20,136,1,0,0,0,22,150,1,0,0,0,24,175,
+        1,0,0,0,26,192,1,0,0,0,28,206,1,0,0,0,30,208,1,0,0,0,32,214,1,0,
+        0,0,34,216,1,0,0,0,36,218,1,0,0,0,38,220,1,0,0,0,40,222,1,0,0,0,
+        42,224,1,0,0,0,44,226,1,0,0,0,46,228,1,0,0,0,48,230,1,0,0,0,50,237,
+        1,0,0,0,52,239,1,0,0,0,54,241,1,0,0,0,56,243,1,0,0,0,58,254,1,0,
+        0,0,60,256,1,0,0,0,62,262,1,0,0,0,64,264,1,0,0,0,66,281,1,0,0,0,
+        68,284,1,0,0,0,70,71,3,2,1,0,71,72,5,0,0,1,72,1,1,0,0,0,73,76,3,
+        6,3,0,74,76,3,4,2,0,75,73,1,0,0,0,75,74,1,0,0,0,76,77,1,0,0,0,77,
+        78,3,8,4,0,78,3,1,0,0,0,79,80,5,1,0,0,80,81,3,16,8,0,81,5,1,0,0,
+        0,82,83,5,1,0,0,83,84,3,16,8,0,84,85,5,2,0,0,85,86,3,14,7,0,86,7,
+        1,0,0,0,87,90,5,24,0,0,88,91,3,12,6,0,89,91,3,18,9,0,90,88,1,0,0,
+        0,90,89,1,0,0,0,91,92,1,0,0,0,92,90,1,0,0,0,92,93,1,0,0,0,93,94,
+        1,0,0,0,94,95,5,25,0,0,95,96,5,28,0,0,96,99,1,0,0,0,97,99,3,10,5,
+        0,98,87,1,0,0,0,98,97,1,0,0,0,99,9,1,0,0,0,100,101,5,24,0,0,101,
+        102,5,25,0,0,102,103,5,28,0,0,103,11,1,0,0,0,104,105,5,38,0,0,105,
+        106,5,3,0,0,106,107,3,14,7,0,107,108,5,28,0,0,108,13,1,0,0,0,109,
+        112,3,68,34,0,110,112,3,16,8,0,111,109,1,0,0,0,111,110,1,0,0,0,112,
+        15,1,0,0,0,113,114,5,32,0,0,114,17,1,0,0,0,115,116,5,38,0,0,116,
+        117,5,26,0,0,117,118,3,20,10,0,118,119,5,27,0,0,119,120,5,3,0,0,
+        120,121,3,14,7,0,121,122,3,22,11,0,122,19,1,0,0,0,123,124,5,38,0,
+        0,124,125,5,3,0,0,125,126,3,14,7,0,126,127,5,31,0,0,127,129,1,0,
+        0,0,128,123,1,0,0,0,129,132,1,0,0,0,130,128,1,0,0,0,130,131,1,0,
+        0,0,131,133,1,0,0,0,132,130,1,0,0,0,133,134,5,38,0,0,134,135,5,3,
+        0,0,135,137,3,14,7,0,136,130,1,0,0,0,136,137,1,0,0,0,137,21,1,0,
+        0,0,138,139,5,24,0,0,139,140,5,25,0,0,140,151,5,28,0,0,141,143,5,
+        24,0,0,142,144,3,24,12,0,143,142,1,0,0,0,144,145,1,0,0,0,145,143,
+        1,0,0,0,145,146,1,0,0,0,146,147,1,0,0,0,147,148,5,25,0,0,148,149,
+        5,28,0,0,149,151,1,0,0,0,150,138,1,0,0,0,150,141,1,0,0,0,151,23,
+        1,0,0,0,152,153,3,26,13,0,153,154,5,28,0,0,154,176,1,0,0,0,155,156,
+        5,4,0,0,156,157,3,26,13,0,157,158,5,5,0,0,158,161,3,24,12,0,159,
+        160,5,6,0,0,160,162,3,24,12,0,161,159,1,0,0,0,161,162,1,0,0,0,162,
+        163,1,0,0,0,163,164,5,7,0,0,164,176,1,0,0,0,165,166,5,8,0,0,166,
+        167,3,26,13,0,167,168,5,9,0,0,168,169,3,24,12,0,169,170,5,10,0,0,
+        170,176,1,0,0,0,171,172,5,24,0,0,172,173,3,24,12,0,173,174,5,25,
+        0,0,174,176,1,0,0,0,175,152,1,0,0,0,175,155,1,0,0,0,175,165,1,0,
+        0,0,175,171,1,0,0,0,176,25,1,0,0,0,177,193,3,60,30,0,178,193,3,48,
+        24,0,179,193,3,58,29,0,180,193,3,50,25,0,181,193,3,28,14,0,182,183,
+        3,30,15,0,183,184,3,26,13,0,184,193,1,0,0,0,185,186,5,24,0,0,186,
+        187,3,26,13,0,187,188,5,25,0,0,188,193,1,0,0,0,189,190,3,42,21,0,
+        190,191,3,26,13,0,191,193,1,0,0,0,192,177,1,0,0,0,192,178,1,0,0,
+        0,192,179,1,0,0,0,192,180,1,0,0,0,192,181,1,0,0,0,192,182,1,0,0,
+        0,192,185,1,0,0,0,192,189,1,0,0,0,193,27,1,0,0,0,194,195,3,50,25,
+        0,195,196,3,32,16,0,196,197,3,26,13,0,197,207,1,0,0,0,198,199,3,
+        58,29,0,199,200,3,32,16,0,200,201,3,26,13,0,201,207,1,0,0,0,202,
+        203,3,60,30,0,203,204,3,32,16,0,204,205,3,26,13,0,205,207,1,0,0,
+        0,206,194,1,0,0,0,206,198,1,0,0,0,206,202,1,0,0,0,207,29,1,0,0,0,
+        208,209,7,0,0,0,209,31,1,0,0,0,210,215,3,34,17,0,211,215,3,36,18,
+        0,212,215,3,38,19,0,213,215,3,40,20,0,214,210,1,0,0,0,214,211,1,
+        0,0,0,214,212,1,0,0,0,214,213,1,0,0,0,215,33,1,0,0,0,216,217,5,14,
+        0,0,217,35,1,0,0,0,218,219,5,15,0,0,219,37,1,0,0,0,220,221,5,16,
+        0,0,221,39,1,0,0,0,222,223,5,17,0,0,223,41,1,0,0,0,224,225,7,1,0,
+        0,225,43,1,0,0,0,226,227,5,29,0,0,227,45,1,0,0,0,228,229,5,38,0,
+        0,229,47,1,0,0,0,230,231,3,46,23,0,231,232,3,44,22,0,232,233,3,26,
+        13,0,233,49,1,0,0,0,234,238,3,54,27,0,235,238,3,56,28,0,236,238,
+        3,52,26,0,237,234,1,0,0,0,237,235,1,0,0,0,237,236,1,0,0,0,238,51,
+        1,0,0,0,239,240,7,2,0,0,240,53,1,0,0,0,241,242,5,39,0,0,242,55,1,
+        0,0,0,243,244,5,40,0,0,244,57,1,0,0,0,245,246,5,26,0,0,246,247,3,
+        58,29,0,247,248,5,27,0,0,248,255,1,0,0,0,249,255,5,38,0,0,250,251,
+        3,62,31,0,251,252,3,14,7,0,252,255,1,0,0,0,253,255,3,50,25,0,254,
+        245,1,0,0,0,254,249,1,0,0,0,254,250,1,0,0,0,254,253,1,0,0,0,255,
+        59,1,0,0,0,256,258,3,58,29,0,257,259,3,64,32,0,258,257,1,0,0,0,259,
+        260,1,0,0,0,260,258,1,0,0,0,260,261,1,0,0,0,261,61,1,0,0,0,262,263,
+        5,33,0,0,263,63,1,0,0,0,264,265,5,41,0,0,265,266,5,38,0,0,266,267,
+        5,26,0,0,267,268,3,66,33,0,268,269,5,27,0,0,269,65,1,0,0,0,270,271,
+        3,58,29,0,271,272,5,31,0,0,272,274,1,0,0,0,273,270,1,0,0,0,274,277,
+        1,0,0,0,275,273,1,0,0,0,275,276,1,0,0,0,276,278,1,0,0,0,277,275,
+        1,0,0,0,278,280,3,58,29,0,279,275,1,0,0,0,280,283,1,0,0,0,281,279,
+        1,0,0,0,281,282,1,0,0,0,282,67,1,0,0,0,283,281,1,0,0,0,284,285,7,
+        3,0,0,285,69,1,0,0,0,19,75,90,92,98,111,130,136,145,150,161,175,
+        192,206,214,237,254,260,275,281
     ]
 
 class yaplParser ( Parser ):
@@ -351,8 +350,9 @@ class yaplParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ID(self):
-            return self.getToken(yaplParser.ID, 0)
+        def user_defined_t(self):
+            return self.getTypedRuleContext(yaplParser.User_defined_tContext,0)
+
 
         def getRuleIndex(self):
             return yaplParser.RULE_type_def
@@ -375,7 +375,7 @@ class yaplParser ( Parser ):
             self.state = 79
             self.match(yaplParser.T__0)
             self.state = 80
-            self.match(yaplParser.ID)
+            self.user_defined_t()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -392,11 +392,13 @@ class yaplParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ID(self, i:int=None):
-            if i is None:
-                return self.getTokens(yaplParser.ID)
-            else:
-                return self.getToken(yaplParser.ID, i)
+        def user_defined_t(self):
+            return self.getTypedRuleContext(yaplParser.User_defined_tContext,0)
+
+
+        def type_(self):
+            return self.getTypedRuleContext(yaplParser.TypeContext,0)
+
 
         def getRuleIndex(self):
             return yaplParser.RULE_inherited_type_def
@@ -419,11 +421,11 @@ class yaplParser ( Parser ):
             self.state = 82
             self.match(yaplParser.T__0)
             self.state = 83
-            self.match(yaplParser.ID)
+            self.user_defined_t()
             self.state = 84
             self.match(yaplParser.T__1)
             self.state = 85
-            self.match(yaplParser.ID)
+            self.type_()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -849,10 +851,10 @@ class yaplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 138
+            self.state = 136
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==38:
+            if _la==38:
                 self.state = 130
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
@@ -876,9 +878,7 @@ class yaplParser ( Parser ):
                 self.match(yaplParser.T__2)
                 self.state = 135
                 self.type_()
-                self.state = 140
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
+
 
         except RecognitionException as re:
             localctx.exception = re
@@ -930,38 +930,38 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 22, self.RULE_func_body)
         self._la = 0 # Token type
         try:
-            self.state = 153
+            self.state = 150
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 141
+                self.state = 138
                 self.match(yaplParser.LBRACKET)
-                self.state = 142
+                self.state = 139
                 self.match(yaplParser.RBRACKET)
-                self.state = 143
+                self.state = 140
                 self.match(yaplParser.EOS)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 144
+                self.state = 141
                 self.match(yaplParser.LBRACKET)
-                self.state = 146 
+                self.state = 143 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 145
+                    self.state = 142
                     self.expr()
-                    self.state = 148 
+                    self.state = 145 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 1932827310352) != 0)):
                         break
 
-                self.state = 150
+                self.state = 147
                 self.match(yaplParser.RBRACKET)
-                self.state = 151
+                self.state = 148
                 self.match(yaplParser.EOS)
                 pass
 
@@ -1020,62 +1020,62 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 24, self.RULE_expr)
         self._la = 0 # Token type
         try:
-            self.state = 178
+            self.state = 175
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 155
+                self.state = 152
                 self.sub_expr()
-                self.state = 156
+                self.state = 153
                 self.match(yaplParser.EOS)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 158
+                self.state = 155
                 self.match(yaplParser.T__3)
-                self.state = 159
+                self.state = 156
                 self.sub_expr()
-                self.state = 160
+                self.state = 157
                 self.match(yaplParser.T__4)
-                self.state = 161
+                self.state = 158
                 self.expr()
-                self.state = 164
+                self.state = 161
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==6:
-                    self.state = 162
+                    self.state = 159
                     self.match(yaplParser.T__5)
-                    self.state = 163
+                    self.state = 160
                     self.expr()
 
 
-                self.state = 166
+                self.state = 163
                 self.match(yaplParser.T__6)
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 168
+                self.state = 165
                 self.match(yaplParser.T__7)
-                self.state = 169
+                self.state = 166
                 self.sub_expr()
-                self.state = 170
+                self.state = 167
                 self.match(yaplParser.T__8)
-                self.state = 171
+                self.state = 168
                 self.expr()
-                self.state = 172
+                self.state = 169
                 self.match(yaplParser.T__9)
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 174
+                self.state = 171
                 self.match(yaplParser.LBRACKET)
-                self.state = 175
+                self.state = 172
                 self.expr()
-                self.state = 176
+                self.state = 173
                 self.match(yaplParser.RBRACKET)
                 pass
 
@@ -1151,62 +1151,62 @@ class yaplParser ( Parser ):
         localctx = yaplParser.Sub_exprContext(self, self._ctx, self.state)
         self.enterRule(localctx, 26, self.RULE_sub_expr)
         try:
-            self.state = 195
+            self.state = 192
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 180
+                self.state = 177
                 self.func_call()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 181
+                self.state = 178
                 self.assignment()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 182
+                self.state = 179
                 self.acs_object()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 183
+                self.state = 180
                 self.literal()
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 184
+                self.state = 181
                 self.arith_operation()
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
-                self.state = 185
+                self.state = 182
                 self.left_hand_op()
-                self.state = 186
+                self.state = 183
                 self.sub_expr()
                 pass
 
             elif la_ == 7:
                 self.enterOuterAlt(localctx, 7)
-                self.state = 188
+                self.state = 185
                 self.match(yaplParser.LBRACKET)
-                self.state = 189
+                self.state = 186
                 self.sub_expr()
-                self.state = 190
+                self.state = 187
                 self.match(yaplParser.RBRACKET)
                 pass
 
             elif la_ == 8:
                 self.enterOuterAlt(localctx, 8)
-                self.state = 192
+                self.state = 189
                 self.bool_op()
-                self.state = 193
+                self.state = 190
                 self.sub_expr()
                 pass
 
@@ -1264,36 +1264,36 @@ class yaplParser ( Parser ):
         localctx = yaplParser.Arith_operationContext(self, self._ctx, self.state)
         self.enterRule(localctx, 28, self.RULE_arith_operation)
         try:
-            self.state = 209
+            self.state = 206
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 197
+                self.state = 194
                 self.literal()
-                self.state = 198
+                self.state = 195
                 self.arith_operator()
-                self.state = 199
+                self.state = 196
                 self.sub_expr()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 201
+                self.state = 198
                 self.acs_object()
-                self.state = 202
+                self.state = 199
                 self.arith_operator()
-                self.state = 203
+                self.state = 200
                 self.sub_expr()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 205
+                self.state = 202
                 self.func_call()
-                self.state = 206
+                self.state = 203
                 self.arith_operator()
-                self.state = 207
+                self.state = 204
                 self.sub_expr()
                 pass
 
@@ -1334,7 +1334,7 @@ class yaplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 211
+            self.state = 208
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 14336) != 0)):
                 self._errHandler.recoverInline(self)
@@ -1390,27 +1390,27 @@ class yaplParser ( Parser ):
         localctx = yaplParser.Arith_operatorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_arith_operator)
         try:
-            self.state = 217
+            self.state = 214
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [14]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 213
+                self.state = 210
                 self.plus_op()
                 pass
             elif token in [15]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 214
+                self.state = 211
                 self.minus_op()
                 pass
             elif token in [16]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 215
+                self.state = 212
                 self.division_op()
                 pass
             elif token in [17]:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 216
+                self.state = 213
                 self.mul_op()
                 pass
             else:
@@ -1451,7 +1451,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 34, self.RULE_plus_op)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 219
+            self.state = 216
             self.match(yaplParser.T__13)
         except RecognitionException as re:
             localctx.exception = re
@@ -1488,7 +1488,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 36, self.RULE_minus_op)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 221
+            self.state = 218
             self.match(yaplParser.T__14)
         except RecognitionException as re:
             localctx.exception = re
@@ -1525,7 +1525,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 38, self.RULE_division_op)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 223
+            self.state = 220
             self.match(yaplParser.T__15)
         except RecognitionException as re:
             localctx.exception = re
@@ -1562,7 +1562,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 40, self.RULE_mul_op)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 225
+            self.state = 222
             self.match(yaplParser.T__16)
         except RecognitionException as re:
             localctx.exception = re
@@ -1600,7 +1600,7 @@ class yaplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 227
+            self.state = 224
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 1835008) != 0)):
                 self._errHandler.recoverInline(self)
@@ -1644,7 +1644,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 44, self.RULE_assig_op)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 229
+            self.state = 226
             self.match(yaplParser.ASSIG_OP)
         except RecognitionException as re:
             localctx.exception = re
@@ -1683,7 +1683,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 46, self.RULE_identifier)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 231
+            self.state = 228
             self.match(yaplParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -1731,11 +1731,11 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 48, self.RULE_assignment)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 233
+            self.state = 230
             self.identifier()
-            self.state = 234
+            self.state = 231
             self.assig_op()
-            self.state = 235
+            self.state = 232
             self.sub_expr()
         except RecognitionException as re:
             localctx.exception = re
@@ -1782,22 +1782,22 @@ class yaplParser ( Parser ):
         localctx = yaplParser.LiteralContext(self, self._ctx, self.state)
         self.enterRule(localctx, 50, self.RULE_literal)
         try:
-            self.state = 240
+            self.state = 237
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [39]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 237
+                self.state = 234
                 self.str_literal()
                 pass
             elif token in [40]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 238
+                self.state = 235
                 self.int_literal()
                 pass
             elif token in [21, 22]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 239
+                self.state = 236
                 self.bool_literal()
                 pass
             else:
@@ -1839,7 +1839,7 @@ class yaplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 242
+            self.state = 239
             _la = self._input.LA(1)
             if not(_la==21 or _la==22):
                 self._errHandler.recoverInline(self)
@@ -1883,7 +1883,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 54, self.RULE_str_literal)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 244
+            self.state = 241
             self.match(yaplParser.STR_LIT)
         except RecognitionException as re:
             localctx.exception = re
@@ -1922,7 +1922,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 56, self.RULE_int_literal)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 246
+            self.state = 243
             self.match(yaplParser.DIGITS)
         except RecognitionException as re:
             localctx.exception = re
@@ -1982,33 +1982,33 @@ class yaplParser ( Parser ):
         localctx = yaplParser.Acs_objectContext(self, self._ctx, self.state)
         self.enterRule(localctx, 58, self.RULE_acs_object)
         try:
-            self.state = 257
+            self.state = 254
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [26]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 248
+                self.state = 245
                 self.match(yaplParser.LPAREN)
-                self.state = 249
+                self.state = 246
                 self.acs_object()
-                self.state = 250
+                self.state = 247
                 self.match(yaplParser.RPAREN)
                 pass
             elif token in [38]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 252
+                self.state = 249
                 self.match(yaplParser.ID)
                 pass
             elif token in [33]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 253
+                self.state = 250
                 self.new_op()
-                self.state = 254
+                self.state = 251
                 self.type_()
                 pass
             elif token in [21, 22, 39, 40]:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 256
+                self.state = 253
                 self.literal()
                 pass
             else:
@@ -2060,15 +2060,15 @@ class yaplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 259
+            self.state = 256
             self.acs_object()
-            self.state = 261 
+            self.state = 258 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 260
+                self.state = 257
                 self.subs_func()
-                self.state = 263 
+                self.state = 260 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==41):
@@ -2111,7 +2111,7 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 62, self.RULE_new_op)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 265
+            self.state = 262
             self.match(yaplParser.NEW)
         except RecognitionException as re:
             localctx.exception = re
@@ -2163,15 +2163,15 @@ class yaplParser ( Parser ):
         self.enterRule(localctx, 64, self.RULE_subs_func)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 267
+            self.state = 264
             self.match(yaplParser.SUBSCRIPT)
-            self.state = 268
+            self.state = 265
             self.match(yaplParser.ID)
-            self.state = 269
+            self.state = 266
             self.match(yaplParser.LPAREN)
-            self.state = 270
+            self.state = 267
             self.call_params()
-            self.state = 271
+            self.state = 268
             self.match(yaplParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -2221,26 +2221,26 @@ class yaplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 284
+            self.state = 281
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & 1932808683520) != 0):
-                self.state = 278
+                self.state = 275
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,17,self._ctx)
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
-                        self.state = 273
+                        self.state = 270
                         self.acs_object()
-                        self.state = 274
+                        self.state = 271
                         self.match(yaplParser.COMA) 
-                    self.state = 280
+                    self.state = 277
                     self._errHandler.sync(self)
                     _alt = self._interp.adaptivePredict(self._input,17,self._ctx)
 
-                self.state = 281
+                self.state = 278
                 self.acs_object()
-                self.state = 286
+                self.state = 283
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -2291,7 +2291,7 @@ class yaplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 287
+            self.state = 284
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 257698037760) != 0)):
                 self._errHandler.recoverInline(self)

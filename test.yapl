@@ -1,4 +1,4 @@
-class foo inherits goo
+class Foo inherits Goo
 {
     yt : Int;
     fasdf(x:String, y:Goo ):Int

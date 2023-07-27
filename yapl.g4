@@ -6,8 +6,8 @@ class_def
 
 WS: [ \t\r\n]+ -> skip;
 
-type_def: 'class' ID;
-inherited_type_def: 'class'  ID  'inherits' ID;
+type_def: 'class' user_defined_t;
+inherited_type_def: 'class'  user_defined_t  'inherits' type;
 
 class_body
     :    (LBRACKET (mem_dec | func_dec)+ RBRACKET  EOS)
@@ -40,7 +40,7 @@ func_dec:
     ID LPAREN func_params RPAREN ':' type func_body;
 
 func_params
-    :   (( ID ':' type  COMA )* ID ':' type )*;
+    :   (( ID ':' type  COMA )* ID ':' type )?;
 func_body
     :   LBRACKET  RBRACKET EOS
     |   LBRACKET  expr+  RBRACKET EOS
@@ -144,6 +144,7 @@ canon_type
 
 ID: 
     [a-z] ([A-Za-z0-9_])* ;
-STR_LIT: '"' [a-zA-Z _(\\n)]* '"';
+
+STR_LIT: '"' [a-zA-Z _]* '"';
 DIGITS : [0-9]+ ;
 SUBSCRIPT: '.' ;
