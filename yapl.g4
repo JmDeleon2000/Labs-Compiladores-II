@@ -16,7 +16,10 @@ class_body
 empty_class_body: LBRACKET RBRACKET  EOS ;
 
 mem_dec: 
-    ID ':' type EOS;
+    mem_name ':' type EOS;
+
+mem_name:
+    ID;
 
 LBRACKET: '{';
 RBRACKET: '}';
@@ -31,10 +34,6 @@ type
     |   user_defined_t
     ;
 
-user_defined_t
-    :   UDT ; 
-
-UDT: [A-Z] [a-zA-Z]*;
 
 func_dec:
     ID LPAREN func_params RPAREN ':' type func_body;
@@ -47,10 +46,13 @@ func_body
     ;
 expr    
     :   sub_expr EOS    
-    |   'if' sub_expr 'then' expr ('else' expr)? 'fi'
-    |   'while' sub_expr 'loop' expr 'pool' 
-    |   LBRACKET expr RBRACKET
+    |   'if' bool_expr 'then' expr 'else' expr 'fi'
+    |   'while' bool_expr 'loop' expr 'pool' 
+    |   scope_def
     ;
+bool_expr: sub_expr;
+scope_def:
+    LBRACKET expr RBRACKET;
 //TODO let
 sub_expr
     :   func_call
@@ -142,6 +144,10 @@ canon_type
     |   OBJ
     ;
 
+user_defined_t
+    :   UDT ; 
+
+UDT: [A-Z] [a-zA-Z]*;
 ID: 
     [a-z] ([A-Za-z0-9_])* ;
 

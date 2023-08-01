@@ -1,12 +1,17 @@
 class Foo inherits Goo
 {
     yt : Int;
+    yt2 : Int;
+    yt3 : String;
     fasdf(x:String, y:Goo ):Int
     {
-        h <-15 + 6;
-        h <-15 / 6;
-        h <-15 * 6;
-        h <-15 - 6;
+        yt <-15 + 6;
+        yt <-15 - 6;
+        if 5 then
+        yt <-15 / 6;
+        else
+        yt <-15 * 6;
+        fi
     };
 
 };

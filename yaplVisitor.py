@@ -44,13 +44,13 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by yaplParser#type.
-    def visitType(self, ctx:yaplParser.TypeContext):
+    # Visit a parse tree produced by yaplParser#mem_name.
+    def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by yaplParser#user_defined_t.
-    def visitUser_defined_t(self, ctx:yaplParser.User_defined_tContext):
+    # Visit a parse tree produced by yaplParser#type.
+    def visitType(self, ctx:yaplParser.TypeContext):
         return self.visitChildren(ctx)
 
 
@@ -71,6 +71,16 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#expr.
     def visitExpr(self, ctx:yaplParser.ExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#bool_expr.
+    def visitBool_expr(self, ctx:yaplParser.Bool_exprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#scope_def.
+    def visitScope_def(self, ctx:yaplParser.Scope_defContext):
         return self.visitChildren(ctx)
 
 
@@ -181,6 +191,11 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#canon_type.
     def visitCanon_type(self, ctx:yaplParser.Canon_typeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#user_defined_t.
+    def visitUser_defined_t(self, ctx:yaplParser.User_defined_tContext):
         return self.visitChildren(ctx)
 
 
