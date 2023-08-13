@@ -7,31 +7,6 @@ else:
 
 from yaplVisitor import yaplVisitor
 
-#def treeRedef(ParseTreeVisitor):
-#    def aggregateResult(self, aggregate, nextResult):
-#        if aggregate and nextResult:
-#            if type(aggregate) == list:
-#                return aggregate + [nextResult]
-#            else:
-#                return [aggregate, nextResult]
-#        elif aggregate:
-#            return aggregate
-#        return nextResult
-#
-#del ParseTreeVisitor
-#
-#def ParseTreeVisitor(treeRedef):
-#    def aggregateResult(self, aggregate, nextResult):
-#        if aggregate and nextResult:
-#            if type(aggregate) == list:
-#                return aggregate + [nextResult]
-#            else:
-#                return [aggregate, nextResult]
-#        elif aggregate:
-#            return aggregate
-#        return nextResult
-#
-#del treeRedef
 
 class bcolors:
     HEADER = '\033[95m'
@@ -45,6 +20,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 IO = 'IO'
+OBJ = 'Object'
 ERR = 'error'
 INT = 'int'
 PLUS = '+'
@@ -54,7 +30,6 @@ MIN = '-'
 ASIG = '<-'
 BOOL = 'bool'
 STR = 'string'
-ANY = 'any'
 SUPPORTED = {
     PLUS:[(INT, INT, INT),],
     DIV:[(INT, INT, INT),],
@@ -62,26 +37,23 @@ SUPPORTED = {
     MIN:[(INT, INT, INT),],
     ASIG:[(INT, INT, INT),
           (STR, STR, STR),
-          (BOOL, BOOL, BOOL),
-          (ANY, INT, INT),
-          (ANY, STR, STR),
-          (ANY, BOOL, BOOL),],
+          (BOOL, BOOL, BOOL),],
 }
 CAN_BE_BOOL = [BOOL, INT, ]
+
+VALID_TYPES = [IO, BOOL, STR, INT, ]
 
 
 class yaplVisImpl(yaplVisitor):    
 
     def __init__(self):
-        self.cur_dis = 0
-        self.current_scope = 0
-        self.sym_table = {}
-        self.scopes = [self.sym_table]
+        self.current_scope = {'id': 0, 'name': 'global', 'table':dict(), 'current_displacement':0}
+        self.scopes = [self.current_scope]
+        self.id_counter = 0
     
     # Visit a parse tree produced by yaplParser#yapl_src.
     def visitYapl_src(self, ctx:yaplParser.Yapl_srcContext):
         result = self.visitChildren(ctx)
-        print(result)
         if type(result) == list:
             for i in result:
                 if not i[0]:
@@ -112,6 +84,7 @@ class yaplVisImpl(yaplVisitor):
 
     def visitArith_operation(self, ctx:yaplParser.Arith_operationContext):
         result = self.visitChildren(ctx)
+        print(result)
         if type(result) == list:
             for i in result:
                 if not i[0]:
@@ -167,9 +140,11 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#identifier.
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
         txt = ctx.getText()
-        if (hash(txt) in self.scopes[self.current_scope]):
-            return (True, self.scopes[self.current_scope][hash(txt)][1])
-        err_msg = f'{bcolors.FAIL}Cannot assign to variable "{txt}" it is declared!{bcolors.ENDC}'
+        new_id = hash(txt)
+        for i in self.scopes:#TODO  check it it is accesible
+            if new_id in i['table']:
+                return (True, i['table'][hash(txt)]['type'])
+        err_msg = f'{bcolors.FAIL}Cannot assign to variable "{txt}" because it is not declared!{bcolors.ENDC}'
         print(err_msg)
         return (False, err_msg)
 
@@ -179,12 +154,21 @@ class yaplVisImpl(yaplVisitor):
     def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
         return (True, ctx.getText())
 
+    def getDisplacement(self, size):
+        current = self.current_scope['current_displacement']
+        self.current_scope['current_displacement']+=size
+        return current
+
     # Visit a parse tree produced by yaplParser#mem_dec.
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
-        # name, type, scope, size, displacement
-        self.sym_table[hash(res[0][1])] = (res[0][1], res[1][1], self.current_scope, res[1][2], self.cur_dis)
-        self.cur_dis += res[1][2]
+        
+        # type, scope, size, displacement
+        self.current_scope['table'][hash(res[0][1])] = {'type':res[1][1], 
+                                                        'scope':self.current_scope['id'], 
+                                                        'size':res[1][2], 
+                                                        'displacement':self.getDisplacement(res[1][2])}
+
         #print(self.scopes[self.current_scope])
         return (True, 'Member declaration') 
     
@@ -200,6 +184,8 @@ class yaplVisImpl(yaplVisitor):
             return (True, BOOL, 1)
         if txt == 'IO':
             return (True, IO, 8)
+        if txt == 'Object':
+            return (True, OBJ, 8)
         return (False, ERR)
 
     # Visit a parse tree produced by yaplParser#scope_def.
@@ -219,6 +205,63 @@ class yaplVisImpl(yaplVisitor):
             err_str = f'{bcolors.FAIL}Expected {ctx.getText()} to be a valid boolean expression {bcolors.ENDC}'
             print(err_str)
             return (False, err_str)
+    
+
+    def visitType_def(self, ctx:yaplParser.Type_defContext):
+        VALID_TYPES.append(ctx.getText()[5::])
+        return (True, 'Foo')
+    
+    def visitValid_inheritance(self, ctx:yaplParser.Valid_inheritanceContext):
+        class_name = ctx.getText()
+        if class_name in VALID_TYPES:
+            return (True, class_name)
+        err_msg = f'{bcolors.FAIL}Cannot inheret from {class_name} because it was not previosly defined{bcolors.ENDC}'
+        print(err_msg)
+        return (False, err_msg)
+    
+    def getScopeId(self):
+        self.id_counter+=1
+        return self.id_counter
+
+    # Visit a parse tree produced by yaplParser#func_dec.
+    def visitFunc_dec(self, ctx:yaplParser.Func_decContext):
+        func_name = ctx.getText().split('(')[0]
+        func_scope = {'id': self.getScopeId(), 
+                        'name': func_name, 
+                        'table':dict(),
+                        'current_displacement':0}
+        self.scopes.append(func_scope)
+        self.current_scope = func_scope
+        res = self.visitChildren(ctx)
+        
         return res
+    
+    # Visit a parse tree produced by yaplParser#func_params.
+    def visitFunc_params(self, ctx:yaplParser.Func_paramsContext):
+        res = self.visitChildren(ctx)
+        if res:
+            for i in res:
+                self.current_scope['table'][i['Parname']] = {'type':i['type'],
+                                                    'scope':self.current_scope['id'],
+                                                    'size':i['size'],
+                                                    'displacement':self.getDisplacement(i['size'])}
+
+        return (True, '')
+
+    # Visit a parse tree produced by yaplParser#param_dec.
+    def visitParam_dec(self, ctx:yaplParser.Param_decContext):
+        res = self.visitChildren(ctx)
+        parname, partype = ctx.getText().split(':') 
+        return ({'Parname': parname, 'type':res[1], 'size':res[2]})
+
+    # Visit a parse tree produced by yaplParser#acs_object.
+    def visitAcs_object(self, ctx:yaplParser.Acs_objectContext):
+        varname = ctx.getText()
+        for i in self.scopes:
+            if varname in i['table']:
+                return (True, i['table'][varname]['type'])
+        err_msg = f"{bcolors.FAIL}Cannot use {varname} before it's declared!{bcolors.ENDC}"
+        print(err_msg)
+        return (False, err_msg)
 
 del yaplVisitor

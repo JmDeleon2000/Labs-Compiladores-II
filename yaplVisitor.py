@@ -29,6 +29,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#valid_inheritance.
+    def visitValid_inheritance(self, ctx:yaplParser.Valid_inheritanceContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#class_body.
     def visitClass_body(self, ctx:yaplParser.Class_bodyContext):
         return self.visitChildren(ctx)
@@ -49,6 +54,16 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#canon_type.
+    def visitCanon_type(self, ctx:yaplParser.Canon_typeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#user_defined_t.
+    def visitUser_defined_t(self, ctx:yaplParser.User_defined_tContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#type.
     def visitType(self, ctx:yaplParser.TypeContext):
         return self.visitChildren(ctx)
@@ -59,6 +74,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#param_dec.
+    def visitParam_dec(self, ctx:yaplParser.Param_decContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#func_params.
     def visitFunc_params(self, ctx:yaplParser.Func_paramsContext):
         return self.visitChildren(ctx)
@@ -66,6 +86,11 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#func_body.
     def visitFunc_body(self, ctx:yaplParser.Func_bodyContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#ret_expr.
+    def visitRet_expr(self, ctx:yaplParser.Ret_exprContext):
         return self.visitChildren(ctx)
 
 
@@ -186,16 +211,6 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#call_params.
     def visitCall_params(self, ctx:yaplParser.Call_paramsContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by yaplParser#canon_type.
-    def visitCanon_type(self, ctx:yaplParser.Canon_typeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by yaplParser#user_defined_t.
-    def visitUser_defined_t(self, ctx:yaplParser.User_defined_tContext):
         return self.visitChildren(ctx)
 
 

@@ -7,10 +7,11 @@ class_def
 WS: [ \t\r\n]+ -> skip;
 
 type_def: 'class' user_defined_t;
-inherited_type_def: 'class'  user_defined_t  'inherits' type;
+inherited_type_def: type_def  'inherits' valid_inheritance;
+valid_inheritance: type;
 
 class_body
-    :    (LBRACKET (mem_dec | func_dec)+ RBRACKET  EOS)
+    :    (LBRACKET (mem_dec)* (func_dec)* RBRACKET  EOS)
     |    empty_class_body ;
 
 empty_class_body: LBRACKET RBRACKET  EOS ;
@@ -29,6 +30,16 @@ EOS: ';' ;
 ASSIG_OP: '<-' ;
 THIS_PTR   : 'SELF_TYPE' ;
 COMA: ',' ;
+
+canon_type
+    :   'Bool' 
+    |   'String'
+    |   'Object'
+    |   'Int'
+    ;
+
+user_defined_t
+    :   UDT ; 
 type
     :   canon_type
     |   user_defined_t
@@ -37,15 +48,19 @@ type
 
 func_dec:
     ID LPAREN func_params RPAREN ':' type func_body;
+param_dec:
+    ID ':' type;
 
 func_params
-    :   (( ID ':' type  COMA )* ID ':' type )?;
+    :   (( param_dec  COMA )* param_dec )?;
 func_body
     :   LBRACKET  RBRACKET EOS
-    |   LBRACKET  expr+  RBRACKET EOS
+    |   LBRACKET  (expr EOS)* ret_expr  RBRACKET EOS
     ;
+ret_expr:
+    expr;
 expr    
-    :   sub_expr EOS    
+    :   sub_expr     
     |   'if' bool_expr 'then' expr 'else' expr 'fi'
     |   'while' bool_expr 'loop' expr 'pool' 
     |   scope_def
@@ -55,9 +70,9 @@ scope_def:
     LBRACKET expr RBRACKET;
 //TODO let
 sub_expr
-    :   func_call
+    :   acs_object
     |   assignment
-    |   acs_object
+    |   func_call
     |   literal 
     |   arith_operation
     |   left_hand_op sub_expr
@@ -123,6 +138,7 @@ acs_object
     ;
 func_call
     :   acs_object  subs_func+
+    |   ID call_params
     ;
 new_op: NEW;
 NEW
@@ -132,25 +148,12 @@ subs_func
 
 call_params
     :   (( acs_object  COMA )* acs_object )*;
-BOOLEAN: 'Bool' ;
-STR:    'String' ;
-OBJ:    'Object' ;
-INT:    'Int' ;
 
-canon_type
-    :    BOOLEAN
-    |   STR
-    |   INT
-    |   OBJ
-    ;
-
-user_defined_t
-    :   UDT ; 
 
 UDT: [A-Z] [a-zA-Z]*;
 ID: 
     [a-z] ([A-Za-z0-9_])* ;
 
-STR_LIT: '"' [a-zA-Z _]* '"';
+STR_LIT: '"' [a-zA-Z _,.]* '"';
 DIGITS : [0-9]+ ;
 SUBSCRIPT: '.' ;
