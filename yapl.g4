@@ -77,6 +77,7 @@ sub_expr
     |   arith_operation
     |   left_hand_op sub_expr
     |   LBRACKET sub_expr RBRACKET
+    |   LPAREN sub_expr RPAREN
     |   bool_op sub_expr
     ;
 arith_operation
@@ -131,8 +132,7 @@ bool_literal
 str_literal: STR_LIT ;
 int_literal: DIGITS ;
 acs_object
-    :   LPAREN acs_object RPAREN
-    |   ID
+    :   ID
     |   new_op type
     |   literal
     ;
@@ -147,7 +147,7 @@ subs_func
     :   SUBSCRIPT ID LPAREN call_params RPAREN ;
 
 call_params
-    :   (( acs_object  COMA )* acs_object )*;
+    :   ((sub_expr  COMA )*sub_expr )*;
 
 
 UDT: [A-Z] [a-zA-Z]*;

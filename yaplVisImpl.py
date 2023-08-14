@@ -50,6 +50,8 @@ class yaplVisImpl(yaplVisitor):
         self.current_scope = {'id': 0, 'name': 'global', 'table':dict(), 'current_displacement':0}
         self.scopes = [self.current_scope]
         self.id_counter = 0
+        self.temp_count = 0
+        self.temp_to_name_map = dict()
     
     # Visit a parse tree produced by yaplParser#yapl_src.
     def visitYapl_src(self, ctx:yaplParser.Yapl_srcContext):
@@ -84,7 +86,6 @@ class yaplVisImpl(yaplVisitor):
 
     def visitArith_operation(self, ctx:yaplParser.Arith_operationContext):
         result = self.visitChildren(ctx)
-        print(result)
         if type(result) == list:
             for i in result:
                 if not i[0]:
@@ -105,15 +106,27 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#bool_literal.
     def visitBool_literal(self, ctx:yaplParser.Bool_literalContext):
+        self.current_scope['table'][self.name_to_temp(ctx.getText())] = {'type':BOOL, 
+                                                'scope':self.current_scope['id'], 
+                                                'size':1, 
+                                                'displacement':self.getDisplacement(1)}
         return (True, BOOL)
 
 
     # Visit a parse tree produced by yaplParser#str_literal.
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
+        self.current_scope['table'][self.name_to_temp(ctx.getText())] = {'type':STR, 
+                                                'scope':self.current_scope['id'], 
+                                                'size':8, 
+                                                'displacement':self.getDisplacement(8)}
         return (True, STR)
 
     # Visit a parse tree produced by yaplParser#int_literal.
     def visitInt_literal(self, ctx:yaplParser.Int_literalContext):
+        self.current_scope['table'][self.name_to_temp(ctx.getText())] = {'type':INT, 
+                                        'scope':self.current_scope['id'], 
+                                        'size':4, 
+                                        'displacement':self.getDisplacement(4)}
         return (True, INT)
     
     def visitPlus_op(self, ctx:yaplParser.Plus_opContext):
@@ -148,7 +161,14 @@ class yaplVisImpl(yaplVisitor):
         print(err_msg)
         return (False, err_msg)
 
-
+    def name_to_temp(self, name):
+        for t, n in self.temp_to_name_map.items():
+            if n == name:
+                return t
+        new_temp = f't{self.temp_count}'
+        self.temp_count +=1
+        self.temp_to_name_map[new_temp] = name
+        return new_temp
 
     # Visit a parse tree produced by yaplParser#mem_name.
     def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
@@ -233,7 +253,7 @@ class yaplVisImpl(yaplVisitor):
         self.scopes.append(func_scope)
         self.current_scope = func_scope
         res = self.visitChildren(ctx)
-        
+
         return res
     
     # Visit a parse tree produced by yaplParser#func_params.
@@ -246,21 +266,35 @@ class yaplVisImpl(yaplVisitor):
                                                     'size':i['size'],
                                                     'displacement':self.getDisplacement(i['size'])}
 
-        return (True, '')
+        return (True, 'func params')
 
     # Visit a parse tree produced by yaplParser#param_dec.
     def visitParam_dec(self, ctx:yaplParser.Param_decContext):
         res = self.visitChildren(ctx)
-        parname, partype = ctx.getText().split(':') 
+        parname = self.name_to_temp(ctx.getText().split(':')[0])
         return ({'Parname': parname, 'type':res[1], 'size':res[2]})
 
     # Visit a parse tree produced by yaplParser#acs_object.
     def visitAcs_object(self, ctx:yaplParser.Acs_objectContext):
-        varname = ctx.getText()
+        result = self.visitChildren(ctx)
+        #print(self.current_scope['table'])
+        #print(ctx.getText())
+        #print(self.temp_to_name_map)
+        varname = self.name_to_temp(ctx.getText())
+        if result:
+            if type(result) == list:
+                for i in result:
+                    if not i[0]:
+                        return (False, i[1])
+            else:
+                if not result[0]:
+                    return (False, result[1])       
+        
+        
         for i in self.scopes:
             if varname in i['table']:
                 return (True, i['table'][varname]['type'])
-        err_msg = f"{bcolors.FAIL}Cannot use {varname} before it's declared!{bcolors.ENDC}"
+        err_msg = f"{bcolors.FAIL}Cannot use {ctx.getText()} before it's declared!{bcolors.ENDC}"
         print(err_msg)
         return (False, err_msg)
 
