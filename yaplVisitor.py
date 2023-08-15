@@ -59,6 +59,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#ret_type.
+    def visitRet_type(self, ctx:yaplParser.Ret_typeContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#user_defined_t.
     def visitUser_defined_t(self, ctx:yaplParser.User_defined_tContext):
         return self.visitChildren(ctx)
@@ -66,6 +71,11 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#type.
     def visitType(self, ctx:yaplParser.TypeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#sign_dec.
+    def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
         return self.visitChildren(ctx)
 
 
@@ -114,6 +124,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#bool_operation.
+    def visitBool_operation(self, ctx:yaplParser.Bool_operationContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#arith_operation.
     def visitArith_operation(self, ctx:yaplParser.Arith_operationContext):
         return self.visitChildren(ctx)
@@ -149,8 +164,8 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by yaplParser#bool_op.
-    def visitBool_op(self, ctx:yaplParser.Bool_opContext):
+    # Visit a parse tree produced by yaplParser#bool_operator.
+    def visitBool_operator(self, ctx:yaplParser.Bool_operatorContext):
         return self.visitChildren(ctx)
 
 

@@ -38,6 +38,8 @@ canon_type
     |   'Int'
     ;
 
+ret_type:
+    type;
 user_defined_t
     :   UDT ; 
 type
@@ -45,9 +47,9 @@ type
     |   user_defined_t
     ;
 
-
+sign_dec: ID LPAREN func_params RPAREN ':' ret_type;
 func_dec:
-    ID LPAREN func_params RPAREN ':' type func_body;
+    sign_dec func_body;
 param_dec:
     ID ':' type;
 
@@ -60,10 +62,10 @@ func_body
 ret_expr:
     expr;
 expr    
-    :   sub_expr     
-    |   'if' bool_expr 'then' expr 'else' expr 'fi'
+    :   'if' bool_expr 'then' expr 'else' expr 'fi'
     |   'while' bool_expr 'loop' expr 'pool' 
     |   scope_def
+    |   sub_expr 
     ;
 bool_expr: sub_expr;
 scope_def:
@@ -75,10 +77,14 @@ sub_expr
     |   func_call
     |   literal 
     |   arith_operation
+    |   bool_operation
     |   left_hand_op sub_expr
-    |   LBRACKET sub_expr RBRACKET
     |   LPAREN sub_expr RPAREN
-    |   bool_op sub_expr
+    ;
+bool_operation
+    :   literal bool_operator sub_expr
+    |   acs_object bool_operator sub_expr
+    |   func_call bool_operator sub_expr
     ;
 arith_operation
     :   literal arith_operator sub_expr
@@ -108,7 +114,7 @@ division_op
 mul_op
     :   '*'
     ;
-bool_op
+bool_operator
     :   '<'
     |   '<='
     |   '='
@@ -137,8 +143,8 @@ acs_object
     |   literal
     ;
 func_call
-    :   acs_object  subs_func+
-    |   ID call_params
+    :   ID LPAREN call_params RPAREN
+    |   acs_object  subs_func+
     ;
 new_op: NEW;
 NEW

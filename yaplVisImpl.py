@@ -27,6 +27,9 @@ PLUS = '+'
 MUL = '*'
 DIV = '/'
 MIN = '-'
+LT = '<'
+LTEQ = '<='
+EQUAL = '='
 ASIG = '<-'
 BOOL = 'bool'
 STR = 'string'
@@ -35,13 +38,16 @@ SUPPORTED = {
     DIV:[(INT, INT, INT),],
     MUL:[(INT, INT, INT),],
     MIN:[(INT, INT, INT),],
+    LT:[(INT, INT, BOOL),],
+    LTEQ:[(INT, INT, BOOL),],
+    EQUAL:[(INT, INT, BOOL),],
     ASIG:[(INT, INT, INT),
           (STR, STR, STR),
           (BOOL, BOOL, BOOL),],
 }
 CAN_BE_BOOL = [BOOL, INT, ]
 
-VALID_TYPES = [IO, BOOL, STR, INT, ]
+TYPE_TABLE = {IO:OBJ, BOOL:OBJ, STR:OBJ, INT:OBJ, OBJ:None}
 
 
 class yaplVisImpl(yaplVisitor):    
@@ -102,7 +108,30 @@ class yaplVisImpl(yaplVisitor):
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
         return (False, ERR)
-    
+
+    # Visit a parse tree produced by yaplParser#bool_operator.
+    def visitBool_operator(self, ctx:yaplParser.Bool_operatorContext):
+        return (True, ctx.getText())
+
+    # Visit a parse tree produced by yaplParser#bool_operation.
+    def visitBool_operation(self, ctx:yaplParser.Bool_operationContext):
+        result = self.visitChildren(ctx)
+        if type(result) == list:
+            for i in result:
+                if not i[0]:
+                    return (False, i[1])
+        else:
+            if not result[0]:
+                return (False, result[1])
+        for i in SUPPORTED[result[1][1]]:
+            if (i[0] == result[0][1] and 
+                i[1] == result[2][1]):
+                return (True, i[2])
+        err_str = (f'Unsupported operation between {result[0][1]} '
+                f'and {result[2][1]} for operator {result[1][1]}: {ctx.getText()}')
+        err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
+        print(err_str)
+        return (False, ERR)
 
     # Visit a parse tree produced by yaplParser#bool_literal.
     def visitBool_literal(self, ctx:yaplParser.Bool_literalContext):
@@ -226,14 +255,18 @@ class yaplVisImpl(yaplVisitor):
             print(err_str)
             return (False, err_str)
     
+    # Visit a parse tree produced by yaplParser#inherited_type_def.
+    def visitInherited_type_def(self, ctx:yaplParser.Inherited_type_defContext):
+        return self.visitChildren(ctx)
 
     def visitType_def(self, ctx:yaplParser.Type_defContext):
-        VALID_TYPES.append(ctx.getText()[5::])
-        return (True, 'Foo')
+        type_name = ctx.getText()[5::]
+        TYPE_TABLE[type_name] = OBJ
+        return (True, type_name)
     
     def visitValid_inheritance(self, ctx:yaplParser.Valid_inheritanceContext):
         class_name = ctx.getText()
-        if class_name in VALID_TYPES:
+        if class_name in TYPE_TABLE:
             return (True, class_name)
         err_msg = f'{bcolors.FAIL}Cannot inheret from {class_name} because it was not previosly defined{bcolors.ENDC}'
         print(err_msg)
@@ -249,10 +282,13 @@ class yaplVisImpl(yaplVisitor):
         func_scope = {'id': self.getScopeId(), 
                         'name': func_name, 
                         'table':dict(),
-                        'current_displacement':0}
+                        'current_displacement':0}#TODO cambiar al valor que sí es
         self.scopes.append(func_scope)
         self.current_scope = func_scope
         res = self.visitChildren(ctx)
+        self.scopes.pop()
+        self.current_scope = self.scopes[-1]
+        #TODO ingresar la firma de la función a la tabla
 
         return res
     
@@ -265,8 +301,10 @@ class yaplVisImpl(yaplVisitor):
                                                     'scope':self.current_scope['id'],
                                                     'size':i['size'],
                                                     'displacement':self.getDisplacement(i['size'])}
-
-        return (True, 'func params')
+        par_spec = None
+        if res:
+            par_spec = [i['type'] for i in res]
+        return (True, {'func params':par_spec})
 
     # Visit a parse tree produced by yaplParser#param_dec.
     def visitParam_dec(self, ctx:yaplParser.Param_decContext):
@@ -297,5 +335,45 @@ class yaplVisImpl(yaplVisitor):
         err_msg = f"{bcolors.FAIL}Cannot use {ctx.getText()} before it's declared!{bcolors.ENDC}"
         print(err_msg)
         return (False, err_msg)
+    
+
+    def GetCommonAncestor(self, type_a, type_b):
+
+        temp_a = type_a
+        while temp_a:
+            temp_b = type_b
+            while temp_b:
+                if temp_a == temp_b:
+                    return type_a
+                temp_b = TYPE_TABLE[temp_b]
+            temp_a = TYPE_TABLE[temp_a]
+        
+        return None
+
+    # Visit a parse tree produced by yaplParser#ret_expr.
+    def visitRet_expr(self, ctx:yaplParser.Ret_exprContext):
+        res = self.visitChildren(ctx)
+        #if self.current_scope['ret_type'] == OBJ:
+        #    return (True, self.current_scope['ret_type'])inheritor
+        ret_t = self.current_scope['ret_type']
+        expr_t = res[1]
+
+        ancestor = self.GetCommonAncestor(ret_t, expr_t)
+        if ancestor:
+            return (True, ancestor)
+
+        err_msg = (f"{bcolors.FAIL}Function {self.current_scope['name']} cannot return " 
+                f"'{ctx.getText()}' since it yields. Expecting {res[1]} or inheritor {ret_t}{bcolors.ENDC}")
+        print(err_msg)
+        return (False, err_msg)
+    
+
+    # Visit a parse tree produced by yaplParser#sign_dec.
+    def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
+        res = self.visitChildren(ctx)
+        #print(res)
+        self.current_scope['ret_type'] = res[1][1]
+        self.current_scope['param_type'] = res[0][1]['func params']
+        return res
 
 del yaplVisitor

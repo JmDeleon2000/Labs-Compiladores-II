@@ -5,9 +5,8 @@ class Main inherits IO
     { 
         a + b
     } ; 
-    main() : Object 
+    main() : Object
     { 
-        h <- 7;
-        out_string("Hello, world.") 
+        7 < 6
     } ; 
 } ; 
