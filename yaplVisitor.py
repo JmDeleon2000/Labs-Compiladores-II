@@ -104,6 +104,16 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#if_stmt.
+    def visitIf_stmt(self, ctx:yaplParser.If_stmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#while_loop.
+    def visitWhile_loop(self, ctx:yaplParser.While_loopContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#expr.
     def visitExpr(self, ctx:yaplParser.ExprContext):
         return self.visitChildren(ctx)
@@ -116,6 +126,11 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#scope_def.
     def visitScope_def(self, ctx:yaplParser.Scope_defContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#func_call.
+    def visitFunc_call(self, ctx:yaplParser.Func_callContext):
         return self.visitChildren(ctx)
 
 
@@ -206,11 +221,6 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#acs_object.
     def visitAcs_object(self, ctx:yaplParser.Acs_objectContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by yaplParser#func_call.
-    def visitFunc_call(self, ctx:yaplParser.Func_callContext):
         return self.visitChildren(ctx)
 
 

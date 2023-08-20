@@ -46,8 +46,14 @@ SUPPORTED = {
           (BOOL, BOOL, BOOL),],
 }
 CAN_BE_BOOL = [BOOL, INT, ]
-
-TYPE_TABLE = {IO:OBJ, BOOL:OBJ, STR:OBJ, INT:OBJ, OBJ:None}
+out_string_info = {'args_types':[STR], 'ret_t':IO}
+type_name_info = {'args_types':[INT, INT], 'ret_t':STR}
+substr_info = {'args_types':[None], 'ret_t':STR}
+TYPE_TABLE = {IO:   {'parent':OBJ, 'functions':{'out_string':out_string_info}}, 
+              BOOL: {'parent':OBJ, 'functions':dict()}, 
+              STR:  {'parent':OBJ, 'functions':{'substr':substr_info}}, 
+              INT:  {'parent':OBJ, 'functions':dict()}, 
+              OBJ:  {'parent':None, 'functions':{'type_name':type_name_info}}}
 
 
 class yaplVisImpl(yaplVisitor):    
@@ -61,50 +67,50 @@ class yaplVisImpl(yaplVisitor):
     
     # Visit a parse tree produced by yaplParser#yapl_src.
     def visitYapl_src(self, ctx:yaplParser.Yapl_srcContext):
-        result = self.visitChildren(ctx)
-        if type(result) == list:
-            for i in result:
+        res = self.visitChildren(ctx)
+        if type(res) == list:
+            for i in res:
                 if not i[0]:
                     return (False, f'{bcolors.FAIL}Build fail. Found errors.{bcolors.ENDC}')
         else:
-            if not result[0]:
+            if not res[0]:
                 return (False, f'{bcolors.FAIL}Build fail. Found errors.{bcolors.ENDC}')
         return (True, f'{bcolors.OKGREEN}Build success{bcolors.ENDC}')
 
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
-        result = self.visitChildren(ctx)
-        if type(result) == list:
-            for i in result:
+        res = self.visitChildren(ctx)
+        if type(res) == list:
+            for i in res:
                 if not i[0]:
                     return (False, i[1])
         else:
-            if not result[0]:
-                return (False, result[1])
-        for i in SUPPORTED[result[1][1]]:
-            if (i[0] == result[0][1] and 
-                i[1] == result[2][1]):
+            if not res[0]:
+                return (False, res[1])
+        for i in SUPPORTED[res[1][1]]:
+            if (i[0] == res[0][1] and 
+                i[1] == res[2][1]):
                 return (True, i[2])
-        err_str = (f'Cannot assign objects of type {result[2][1]} '
-                f'to {result[0][1]} : {ctx.getText()}')
+        err_str = (f'Cannot assign objects of type {res[2][1]} '
+                f'to {res[0][1]} : {ctx.getText()}')
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
         return (False, ERR)
 
     def visitArith_operation(self, ctx:yaplParser.Arith_operationContext):
-        result = self.visitChildren(ctx)
-        if type(result) == list:
-            for i in result:
+        res = self.visitChildren(ctx)
+        if type(res) == list:
+            for i in res:
                 if not i[0]:
                     return (False, i[1])
         else:
-            if not result[0]:
-                return (False, result[1])
-        for i in SUPPORTED[result[1][1]]:
-            if (i[0] == result[0][1] and 
-                i[1] == result[2][1]):
+            if not res[0]:
+                return (False, res[1])
+        for i in SUPPORTED[res[1][1]]:
+            if (i[0] == res[0][1] and 
+                i[1] == res[2][1]):
                 return (True, i[2])
-        err_str = (f'Unsupported operation between {result[0][1]} '
-                f'and {result[2][1]} for operator {result[1][1]}: {ctx.getText()}')
+        err_str = (f'Unsupported operation between {res[0][1]} '
+                f'and {res[2][1]} for operator {res[1][1]}: {ctx.getText()}')
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
         return (False, ERR)
@@ -115,20 +121,20 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#bool_operation.
     def visitBool_operation(self, ctx:yaplParser.Bool_operationContext):
-        result = self.visitChildren(ctx)
-        if type(result) == list:
-            for i in result:
+        res = self.visitChildren(ctx)
+        if type(res) == list:
+            for i in res:
                 if not i[0]:
                     return (False, i[1])
         else:
-            if not result[0]:
-                return (False, result[1])
-        for i in SUPPORTED[result[1][1]]:
-            if (i[0] == result[0][1] and 
-                i[1] == result[2][1]):
+            if not res[0]:
+                return (False, res[1])
+        for i in SUPPORTED[res[1][1]]:
+            if (i[0] == res[0][1] and 
+                i[1] == res[2][1]):
                 return (True, i[2])
-        err_str = (f'Unsupported operation between {result[0][1]} '
-                f'and {result[2][1]} for operator {result[1][1]}: {ctx.getText()}')
+        err_str = (f'Unsupported operation between {res[0][1]} '
+                f'and {res[2][1]} for operator {res[1][1]}: {ctx.getText()}')
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
         return (False, ERR)
@@ -239,11 +245,13 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#scope_def.
     def visitScope_def(self, ctx:yaplParser.Scope_defContext):
-        current_scope += 1
-        result = self.visitChildren(ctx)
-        self.cur_dis = 0
-        current_scope -= 1
-        return result
+        #current_scope += 1
+        res = self.visitChildren(ctx)
+        #self.cur_dis = 0
+        #current_scope -= 1
+        if type(res) == list:
+            return res[-1]
+        return res
     
     # Visit a parse tree produced by yaplParser#bool_expr.
     def visitBool_expr(self, ctx:yaplParser.Bool_exprContext):
@@ -257,11 +265,13 @@ class yaplVisImpl(yaplVisitor):
     
     # Visit a parse tree produced by yaplParser#inherited_type_def.
     def visitInherited_type_def(self, ctx:yaplParser.Inherited_type_defContext):
-        return self.visitChildren(ctx)
+        res = self.visitChildren(ctx)
+        TYPE_TABLE[res[0][1]]['parent'] = res[1][1]
+        return res[0]
 
     def visitType_def(self, ctx:yaplParser.Type_defContext):
         type_name = ctx.getText()[5::]
-        TYPE_TABLE[type_name] = OBJ
+        TYPE_TABLE[type_name] = {'parent':OBJ}
         return (True, type_name)
     
     def visitValid_inheritance(self, ctx:yaplParser.Valid_inheritanceContext):
@@ -314,19 +324,19 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#acs_object.
     def visitAcs_object(self, ctx:yaplParser.Acs_objectContext):
-        result = self.visitChildren(ctx)
+        res = self.visitChildren(ctx)
         #print(self.current_scope['table'])
         #print(ctx.getText())
         #print(self.temp_to_name_map)
         varname = self.name_to_temp(ctx.getText())
-        if result:
-            if type(result) == list:
-                for i in result:
+        if res:
+            if type(res) == list:
+                for i in res:
                     if not i[0]:
                         return (False, i[1])
             else:
-                if not result[0]:
-                    return (False, result[1])       
+                if not res[0]:
+                    return (False, res[1])       
         
         
         for i in self.scopes:
@@ -344,26 +354,42 @@ class yaplVisImpl(yaplVisitor):
             temp_b = type_b
             while temp_b:
                 if temp_a == temp_b:
-                    return type_a
-                temp_b = TYPE_TABLE[temp_b]
-            temp_a = TYPE_TABLE[temp_a]
+                    return temp_a
+                temp_b = TYPE_TABLE[temp_b]['parent']
+            temp_a = TYPE_TABLE[temp_a]['parent']
+        
+        return None
+    
+    def CanImplicitCast(self, maybe_parent_type, type_b):
+        maybe_parent_type
+        temp_b = type_b
+        while temp_b:
+            if maybe_parent_type == temp_b:
+                return maybe_parent_type
+            temp_b = TYPE_TABLE[temp_b]['parent']
         
         return None
 
     # Visit a parse tree produced by yaplParser#ret_expr.
     def visitRet_expr(self, ctx:yaplParser.Ret_exprContext):
         res = self.visitChildren(ctx)
-        #if self.current_scope['ret_type'] == OBJ:
-        #    return (True, self.current_scope['ret_type'])inheritor
+        if res:
+            if type(res) == list:
+                for i in res:
+                    if not i[0]:
+                        return (False, i[1])
+            else:
+                if not res[0]:
+                    return (False, res[1])   
         ret_t = self.current_scope['ret_type']
         expr_t = res[1]
 
-        ancestor = self.GetCommonAncestor(ret_t, expr_t)
+        ancestor = self.CanImplicitCast(ret_t, expr_t)
         if ancestor:
             return (True, ancestor)
 
         err_msg = (f"{bcolors.FAIL}Function {self.current_scope['name']} cannot return " 
-                f"'{ctx.getText()}' since it yields. Expecting {res[1]} or inheritor {ret_t}{bcolors.ENDC}")
+                f"'{ctx.getText()}' since it yields {res[1]}. Expecting {ret_t} or inheritor {bcolors.ENDC}")
         print(err_msg)
         return (False, err_msg)
     
@@ -371,9 +397,36 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#sign_dec.
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
         res = self.visitChildren(ctx)
-        #print(res)
         self.current_scope['ret_type'] = res[1][1]
         self.current_scope['param_type'] = res[0][1]['func params']
         return res
+    
+
+    # Visit a parse tree produced by yaplParser#while_loop.
+    def visitWhile_loop(self, ctx:yaplParser.While_loopContext):
+        res = self.visitChildren(ctx)
+        if res:
+            if type(res) == list:
+                for i in res:
+                    if not i[0]:
+                        return (False, i[1])
+            else:
+                if not res[0]:
+                    return (False, res[1])     
+        return (True, OBJ)
+
+    # Visit a parse tree produced by yaplParser#if_stmt.
+    def visitIf_stmt(self, ctx:yaplParser.If_stmtContext):
+        res = self.visitChildren(ctx)
+        if res:
+            if type(res) == list:
+                for i in res:
+                    if not i[0]:
+                        return (False, i[1])
+            else:
+                if not res[0]:
+                    return (False, res[1])     
+        ancestor = self.GetCommonAncestor(res[1][1], res[2][1])
+        return (True, ancestor)
 
 del yaplVisitor

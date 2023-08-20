@@ -6,6 +6,8 @@ class_def
 
 WS: [ \t\r\n]+ -> skip;
 
+COMMENT: '(*' . '*)' -> skip;
+
 type_def: 'class' user_defined_t;
 inherited_type_def: type_def  'inherits' valid_inheritance;
 valid_inheritance: type;
@@ -56,21 +58,28 @@ param_dec:
 func_params
     :   (( param_dec  COMA )* param_dec )?;
 func_body
-    :   LBRACKET  RBRACKET EOS
-    |   LBRACKET  (expr EOS)* ret_expr  RBRACKET EOS
+    :   LBRACKET ret_expr? RBRACKET EOS
     ;
 ret_expr:
     expr;
+if_stmt:
+    'if' bool_expr 'then' expr 'else' expr 'fi';
+while_loop:
+    'while' bool_expr 'loop' expr 'pool';
 expr    
-    :   'if' bool_expr 'then' expr 'else' expr 'fi'
-    |   'while' bool_expr 'loop' expr 'pool' 
+    :   if_stmt
+    |   while_loop
     |   scope_def
     |   sub_expr 
     ;
 bool_expr: sub_expr;
 scope_def:
-    LBRACKET expr RBRACKET;
+    LBRACKET (expr EOS)+ RBRACKET;
 //TODO let
+func_call
+    :   ID LPAREN call_params RPAREN
+    |   acs_object  subs_func+
+    ;
 sub_expr
     :   acs_object
     |   assignment
@@ -142,15 +151,12 @@ acs_object
     |   new_op type
     |   literal
     ;
-func_call
-    :   ID LPAREN call_params RPAREN
-    |   acs_object  subs_func+
-    ;
+
 new_op: NEW;
 NEW
     :   'new'   ;
 subs_func
-    :   SUBSCRIPT ID LPAREN call_params RPAREN ;
+    :   SUBSCRIPT LPAREN call_params RPAREN ;
 
 call_params
     :   ((sub_expr  COMA )*sub_expr )*;
@@ -160,6 +166,6 @@ UDT: [A-Z] [a-zA-Z]*;
 ID: 
     [a-z] ([A-Za-z0-9_])* ;
 
-STR_LIT: '"' [a-zA-Z _,.]* '"';
+STR_LIT: '"' ~('\r' | '\n' | '"')* '"';
 DIGITS : [0-9]+ ;
 SUBSCRIPT: '.' ;
