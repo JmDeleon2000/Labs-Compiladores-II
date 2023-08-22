@@ -76,8 +76,10 @@ bool_expr: sub_expr;
 scope_def:
     LBRACKET (expr EOS)+ RBRACKET;
 //TODO let
+func_name:
+    ID;
 func_call
-    :   ID LPAREN call_params RPAREN
+    :   func_name LPAREN call_params RPAREN
     |   acs_object  subs_func+
     ;
 sub_expr
@@ -148,15 +150,15 @@ str_literal: STR_LIT ;
 int_literal: DIGITS ;
 acs_object
     :   ID
-    |   new_op type
+    |   new_call
     |   literal
     ;
 
-new_op: NEW;
+new_call: NEW type;
 NEW
     :   'new'   ;
 subs_func
-    :   SUBSCRIPT LPAREN call_params RPAREN ;
+    :   SUBSCRIPT func_name LPAREN call_params RPAREN ;
 
 call_params
     :   ((sub_expr  COMA )*sub_expr )*;
