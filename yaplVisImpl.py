@@ -242,6 +242,8 @@ class yaplVisImpl(yaplVisitor):
             return (True, IO, 8)
         if txt == 'Object':
             return (True, OBJ, 8)
+        if txt == 'SELF_TYPE':
+            return (True, self.class_name, 8)
         return (False, ERR)
 
     # Visit a parse tree produced by yaplParser#scope_def.
@@ -475,22 +477,32 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#call_params.
     def visitCall_params(self, ctx:yaplParser.Call_paramsContext):
         res = self.visitChildren(ctx)
-        arg_types = [i[1] for i in res]
+        if type(res) == list:
+            arg_types = [i[1] for i in res]
+        else:
+            arg_types = [res[1]]
 
         namespace = self.class_name
 
         if self.call_namespace:
             namespace = self.call_namespace
         
-        func_info = TYPE_TABLE[namespace]['functions'][self.calling_func]
+        func_info = None
+        while namespace:
+            if self.calling_func in TYPE_TABLE[namespace]['functions']:
+                func_info = TYPE_TABLE[namespace]['functions'][self.calling_func]
+                break
+            namespace = TYPE_TABLE[namespace]['parent']
 
-
-        expected_args = func_info['args_types']
-        if expected_args == arg_types:
-            return (True, func_info['ret_t'])
+        if func_info:
+            expected_args = func_info['args_types']
+            if expected_args == arg_types:
+                return (True, func_info['ret_t'])
         
         err_msg = f"{bcolors.FAIL}Recieved {arg_types} instead of the expected: {expected_args} in a call to function '{self.calling_func}'{bcolors.ENDC}"
         print(err_msg)
         return (False, err_msg)
+    
+
 
 del yaplVisitor

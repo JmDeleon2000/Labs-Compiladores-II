@@ -6,7 +6,7 @@ class_def
 
 WS: [ \t\r\n]+ -> skip;
 
-COMMENT: '(*' . '*)' -> skip;
+COMMENT: '(' '*' .* '*' ')' -> skip;
 
 type_def: 'class' user_defined_t;
 inherited_type_def: type_def  'inherits' valid_inheritance;
@@ -38,6 +38,7 @@ canon_type
     |   'String'
     |   'Object'
     |   'Int'
+    |   'SELF_TYPE'
     ;
 
 ret_type:
