@@ -7,7 +7,7 @@ class_def
 WS: [ \t\r\n]+ -> skip;
 
 MULTILINECOMMENT: '(' '*' (.)* '*' ')' -> skip;
-COMMENT: '--' (.)* [\r\n]+ -> skip;
+COMMENT: '--' (~[\r\n])+ -> skip;
 
 type_def: 'class' user_defined_t;
 inherited_type_def: type_def  'inherits' valid_inheritance;
@@ -19,8 +19,9 @@ class_body
 
 empty_class_body: LBRACKET RBRACKET  EOS ;
 
-mem_dec: 
-    mem_name ':' type EOS;
+mem_dec 
+    :   mem_name ':' type EOS
+    |   mem_name ':' type '<-' expr EOS;
 
 mem_name:
     ID;
@@ -68,6 +69,7 @@ if_stmt:
     'if' bool_expr 'then' expr 'else' expr 'fi';
 while_loop:
     'while' bool_expr 'loop' expr 'pool';
+bool_expr: expr;
 expr    
     :   func_call
     |   LPAREN expr RPAREN
@@ -76,8 +78,8 @@ expr
     |   sub_expr 
     |   new_call
     |   scope_def
+    |   assignment
     ;
-bool_expr: sub_expr;
 
 //TODO let
 func_name:
@@ -90,7 +92,6 @@ func_call
 record_type: expr;
 sub_expr
     :   acs_object
-    |   assignment
     |   literal 
     |   arith_operation
     |   bool_operation
@@ -103,7 +104,7 @@ bool_operation
     |   func_call bool_operator sub_expr
     ;
 arith_operation
-    :   literal arith_operator sub_expr
+    :   literal arith_operator expr
     |   acs_object arith_operator sub_expr
     |   func_call arith_operator sub_expr
     ;
