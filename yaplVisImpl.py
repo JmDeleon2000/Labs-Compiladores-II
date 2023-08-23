@@ -46,6 +46,8 @@ SUPPORTED = {
           (BOOL, BOOL, BOOL),],
 }
 CAN_BE_BOOL = [BOOL, INT, ]
+
+
 out_string_info = {'args_types':[STR], 'ret_t':IO}
 type_name_info = {'args_types':[], 'ret_t':STR}
 substr_info = {'args_types':[INT, INT], 'ret_t':STR}
@@ -219,6 +221,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#mem_dec.
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
+
         
         # type, scope, size, displacement
         self.current_scope['table'][self.name_to_temp(res[0][1])] = {'type':res[1][1], 
@@ -556,5 +559,15 @@ class yaplVisImpl(yaplVisitor):
     def visitNew_call(self, ctx:yaplParser.New_callContext):
         res = self.visitChildren(ctx)
         return res
+
+    # Visit a parse tree produced by yaplParser#mem_asig.
+    def visitMem_asig(self, ctx:yaplParser.Mem_asigContext):
+        res = self.visitChildren(ctx)
+        if res[0][1] == res[1][1]:
+            return res[0]
+        
+        err_msg = f"{bcolors.FAIL}Cannot assign expresion of type {res[1][1]} to member of type {res[0][1]}{bcolors.ENDC}"
+        print(err_msg)
+        return (False, err_msg)
 
 del yaplVisitor

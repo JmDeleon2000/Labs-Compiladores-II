@@ -21,8 +21,8 @@ empty_class_body: LBRACKET RBRACKET  EOS ;
 
 mem_dec 
     :   mem_name ':' type EOS
-    |   mem_name ':' type '<-' expr EOS;
-
+    |   mem_name ':' mem_asig EOS;
+mem_asig: type '<-' expr;
 mem_name:
     ID;
 

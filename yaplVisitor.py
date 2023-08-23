@@ -49,6 +49,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#mem_asig.
+    def visitMem_asig(self, ctx:yaplParser.Mem_asigContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#mem_name.
     def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
         return self.visitChildren(ctx)
@@ -114,13 +119,13 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by yaplParser#expr.
-    def visitExpr(self, ctx:yaplParser.ExprContext):
+    # Visit a parse tree produced by yaplParser#bool_expr.
+    def visitBool_expr(self, ctx:yaplParser.Bool_exprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by yaplParser#bool_expr.
-    def visitBool_expr(self, ctx:yaplParser.Bool_exprContext):
+    # Visit a parse tree produced by yaplParser#expr.
+    def visitExpr(self, ctx:yaplParser.ExprContext):
         return self.visitChildren(ctx)
 
 
