@@ -6,7 +6,8 @@ class_def
 
 WS: [ \t\r\n]+ -> skip;
 
-COMMENT: '(' '*' .* '*' ')' -> skip;
+MULTILINECOMMENT: '(' '*' (.)* '*' ')' -> skip;
+COMMENT: '--' (.)* [\r\n]+ -> skip;
 
 type_def: 'class' user_defined_t;
 inherited_type_def: type_def  'inherits' valid_inheritance;
@@ -68,31 +69,34 @@ if_stmt:
 while_loop:
     'while' bool_expr 'loop' expr 'pool';
 expr    
-    :   if_stmt
+    :   func_call
+    |   LPAREN expr RPAREN
+    |   if_stmt
     |   while_loop
-    |   scope_def
     |   sub_expr 
+    |   new_call
+    |   scope_def
     ;
 bool_expr: sub_expr;
-scope_def:
-    LBRACKET (expr EOS)+ RBRACKET;
+
 //TODO let
 func_name:
     ID;
 func_call
     :   func_name LPAREN call_params RPAREN
-    |   acs_object  subs_func+
+    |   acs_object subs_func
+    |   LPAREN record_type RPAREN subs_func
     ;
+record_type: expr;
 sub_expr
     :   acs_object
     |   assignment
-    |   func_call
     |   literal 
     |   arith_operation
     |   bool_operation
-    |   left_hand_op sub_expr
-    |   LPAREN sub_expr RPAREN
+    |   left_hand_operation
     ;
+left_hand_operation: left_hand_op sub_expr;
 bool_operation
     :   literal bool_operator sub_expr
     |   acs_object bool_operator sub_expr
@@ -151,20 +155,22 @@ str_literal: STR_LIT ;
 int_literal: DIGITS ;
 acs_object
     :   ID
-    |   new_call
     |   literal
     ;
 
-new_call: NEW type;
+new_call
+    :   NEW type;
 NEW
     :   'new'   ;
 subs_func
-    :   SUBSCRIPT func_name LPAREN call_params RPAREN ;
+    :   SUBSCRIPT func_name LPAREN call_params RPAREN
+    |   SUBSCRIPT func_name LPAREN call_params RPAREN  subs_func;
 
 call_params
-    :   ((sub_expr  COMA )*sub_expr )*;
+    :   ((expr  COMA )*expr )*;
 
-
+scope_def:
+    LBRACKET (expr EOS)+ RBRACKET;
 UDT: [A-Z] [a-zA-Z]*;
 ID: 
     [a-z] ([A-Za-z0-9_])* ;
