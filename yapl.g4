@@ -93,10 +93,13 @@ func_name:
     ID;
 func_call
     :   func_name LPAREN call_params RPAREN
-    |   acs_object subs_func
+    |   record_type_bruh subs_func
     |   LPAREN record_type RPAREN subs_func
     ;
-record_type: expr;
+record_type
+    : expr;
+record_type_bruh
+    : acs_object;
 sub_expr
     :   acs_object
     |   literal 

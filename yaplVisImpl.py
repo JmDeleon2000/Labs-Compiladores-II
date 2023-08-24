@@ -85,6 +85,7 @@ class yaplVisImpl(yaplVisitor):
 
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
         res = self.visitChildren(ctx)
+        
         if type(res) == list:
             for i in res:
                 if not i[0]:
@@ -297,6 +298,7 @@ class yaplVisImpl(yaplVisitor):
                                                         'scope':self.current_scope['id'], 
                                                         'size':8, 
                                                         'displacement':self.getDisplacement(8)}
+        SUPPORTED[ASIG].append([type_name, type_name, type_name])
         return (True, type_name)
     
     def visitValid_inheritance(self, ctx:yaplParser.Valid_inheritanceContext):
@@ -476,6 +478,8 @@ class yaplVisImpl(yaplVisitor):
         if self.call_type:
             call_namespace = self.call_type
 
+        #print(f'Searching for {func_name} in {call_namespace}')
+        
         if func_name in TYPE_TABLE[call_namespace]['functions']:
             self.calling_func.append(func_name)
             return (True, TYPE_TABLE[call_namespace]['functions'][func_name]['ret_t'])
@@ -522,6 +526,9 @@ class yaplVisImpl(yaplVisitor):
 
         if self.call_type:
             namespace = self.call_type
+
+        if len(self.calling_func) < 1:
+            return (False, 'Function not annotated')
         calling_func = self.calling_func.pop()
 
         func_info = None
@@ -553,6 +560,15 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#record_type.
     def visitRecord_type(self, ctx:yaplParser.Record_typeContext):
+        res = self.visitChildren(ctx)
+        if type(res) == list:
+            self.call_type = res[-1][1]
+        else:
+            self.call_type = res[1]
+        return (True, self.call_type)
+    
+    # Visit a parse tree produced by yaplParser#record_type_bruh.
+    def visitRecord_type_bruh(self, ctx:yaplParser.Record_type_bruhContext):
         res = self.visitChildren(ctx)
         if type(res) == list:
             self.call_type = res[-1][1]

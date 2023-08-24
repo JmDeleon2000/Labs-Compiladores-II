@@ -154,6 +154,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#record_type_bruh.
+    def visitRecord_type_bruh(self, ctx:yaplParser.Record_type_bruhContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#sub_expr.
     def visitSub_expr(self, ctx:yaplParser.Sub_exprContext):
         return self.visitChildren(ctx)
