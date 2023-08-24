@@ -49,13 +49,15 @@ CAN_BE_BOOL = [BOOL, INT, ]
 
 
 out_string_info = {'args_types':[STR], 'ret_t':IO}
+out_int_info = {'args_types':[INT], 'ret_t':IO}
 type_name_info = {'args_types':[], 'ret_t':STR}
 substr_info = {'args_types':[INT, INT], 'ret_t':STR}
-TYPE_TABLE = {IO:   {'parent':OBJ, 'functions':{'out_string':out_string_info}}, 
-              BOOL: {'parent':OBJ, 'functions':dict()}, 
-              STR:  {'parent':OBJ, 'functions':{'substr':substr_info}}, 
-              INT:  {'parent':OBJ, 'functions':dict()}, 
-              OBJ:  {'parent':None, 'functions':{'type_name':type_name_info}}}
+TYPE_TABLE = {IO:   {'size':8, 'parent':OBJ, 'functions':{'out_string':out_string_info,
+                                                          'out_int':out_int_info}}, 
+              BOOL: {'size':1, 'parent':OBJ, 'functions':dict()}, 
+              STR:  {'size':8, 'parent':OBJ, 'functions':{'substr':substr_info}}, 
+              INT:  {'size':4, 'parent':OBJ, 'functions':dict()}, 
+              OBJ:  {'size':8, 'parent':None, 'functions':{'type_name':type_name_info}}}
 
 
 class yaplVisImpl(yaplVisitor):    
@@ -222,15 +224,23 @@ class yaplVisImpl(yaplVisitor):
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
 
-        
+        if res:
+            if type(res) == list:
+                for i in res:
+                    if not i[0]:
+                        return (False, i[1])
+            else:
+                if not res[0]:
+                    return (False, res[1])  
+
+
         # type, scope, size, displacement
         self.current_scope['table'][self.name_to_temp(res[0][1])] = {'type':res[1][1], 
                                                         'scope':self.current_scope['id'], 
                                                         'size':res[1][2], 
                                                         'displacement':self.getDisplacement(res[1][2])}
 
-        #print(self.scopes[self.current_scope])
-        return (True, 'Member declaration') 
+        return (True, res[1][1]) 
     
 
     # Visit a parse tree produced by yaplParser#canon_type.
@@ -281,6 +291,7 @@ class yaplVisImpl(yaplVisitor):
         type_name = ctx.getText()[5::]
         TYPE_TABLE[type_name] = {'parent':OBJ}
         TYPE_TABLE[type_name]['functions'] = dict()
+        TYPE_TABLE[type_name]['size'] = 8
         self.class_name = type_name
         self.current_scope['table'][self.name_to_temp('self')] = {'type':type_name, 
                                                         'scope':self.current_scope['id'], 
@@ -313,9 +324,7 @@ class yaplVisImpl(yaplVisitor):
         self.scopes.pop()
         self.current_scope = self.scopes[-1]
 
-        func_info = {'args_types':res[0][1]['func params'],
-                    'ret_t':res[1][1]}
-        TYPE_TABLE[self.class_name]['functions'][func_name] = func_info
+        
 
         return res
     
@@ -323,6 +332,8 @@ class yaplVisImpl(yaplVisitor):
     def visitFunc_params(self, ctx:yaplParser.Func_paramsContext):
         res = self.visitChildren(ctx)
         if res:
+            if type(res) != list:
+                res = [res]
             for i in res:
                 self.current_scope['table'][i['Parname']] = {'type':i['type'],
                                                     'scope':self.current_scope['id'],
@@ -355,7 +366,6 @@ class yaplVisImpl(yaplVisitor):
                 if not res[0]:
                     return (False, res[1])       
         
-
         for i in self.scopes:
             if varname in i['table']:
                 return (True, i['table'][varname]['type'])
@@ -423,8 +433,12 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#sign_dec.
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
         res = self.visitChildren(ctx)
+        func_name = ctx.getText().split('(')[0]
         self.current_scope['ret_type'] = res[1][1]
         self.current_scope['param_type'] = res[0][1]['func params']
+        func_info = {'args_types':res[0][1]['func params'],
+                    'ret_t':res[1][1]}
+        TYPE_TABLE[self.class_name]['functions'][func_name] = func_info
         return res
     
 
@@ -566,7 +580,43 @@ class yaplVisImpl(yaplVisitor):
         if res[0][1] == res[1][1]:
             return res[0]
         
-        err_msg = f"{bcolors.FAIL}Cannot assign expresion of type {res[1][1]} to member of type {res[0][1]}{bcolors.ENDC}"
+        err_msg = f"{bcolors.FAIL}Cannot initialize member of type {res[1][1]} with expression that yields type {res[0][1]}{bcolors.ENDC}"
+        print(err_msg)
+        return (False, err_msg)
+
+    # Visit a parse tree produced by yaplParser#let_stmt.
+    def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
+        res = self.visitChildren(ctx)
+        return res
+
+    # Visit a parse tree produced by yaplParser#let_type_dec.
+    def visitLet_type_dec(self, ctx:yaplParser.Let_type_decContext):
+        res = self.visitChildren(ctx)
+        
+        if res:
+            if type(res) == list:
+                for i in res:
+                    if not i[0]:
+                        return (False, i[1])
+            else:
+                if not res[0]:
+                    return (False, res[1])  
+
+        if type(res) != list:
+            res = [res]
+        # type, scope, size, displacement
+        self.current_scope['table'][self.name_to_temp(ctx.getText().split(':')[0])] = {'type':res[0][1], 
+                                                        'scope':self.current_scope['id'], 
+                                                        'size':res[0][2], 
+                                                        'displacement':self.getDisplacement(res[0][2])}
+        return res
+
+    # Visit a parse tree produced by yaplParser#user_defined_t.
+    def visitUser_defined_t(self, ctx:yaplParser.User_defined_tContext):
+        type_name = ctx.getText()
+        if type_name in TYPE_TABLE:
+            return (True, type_name, TYPE_TABLE[type_name]['size'])
+        err_msg = f"{bcolors.FAIL}Invalid use of undeclared type: {type_name}{bcolors.ENDC}"
         print(err_msg)
         return (False, err_msg)
 

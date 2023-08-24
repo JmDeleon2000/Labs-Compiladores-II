@@ -129,6 +129,16 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#let_stmt.
+    def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#let_type_dec.
+    def visitLet_type_dec(self, ctx:yaplParser.Let_type_decContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#func_name.
     def visitFunc_name(self, ctx:yaplParser.Func_nameContext):
         return self.visitChildren(ctx)

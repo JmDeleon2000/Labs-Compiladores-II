@@ -1,5 +1,5 @@
 grammar yapl;		
-yapl_src: class_def EOF ;
+yapl_src: (class_def )+ EOF ;
 class_def
     :   (inherited_type_def
     |  type_def) class_body;
@@ -79,9 +79,16 @@ expr
     |   new_call
     |   scope_def
     |   assignment
+    |   let_stmt
+    ;
+let_stmt
+    :   'let' let_type_dec 'in' expr;
+
+let_type_dec
+    :   ID ':' type
+    |   ID ':' mem_asig
     ;
 
-//TODO let
 func_name:
     ID;
 func_call
@@ -97,16 +104,16 @@ sub_expr
     |   bool_operation
     |   left_hand_operation
     ;
-left_hand_operation: left_hand_op sub_expr;
+left_hand_operation: left_hand_op expr;
 bool_operation
-    :   literal bool_operator sub_expr
-    |   acs_object bool_operator sub_expr
-    |   func_call bool_operator sub_expr
+    :   literal bool_operator expr
+    |   acs_object bool_operator expr
+    |   func_call bool_operator expr
     ;
 arith_operation
     :   literal arith_operator expr
-    |   acs_object arith_operator sub_expr
-    |   func_call arith_operator sub_expr
+    |   acs_object arith_operator expr
+    |   func_call arith_operator expr
     ;
 left_hand_op
     :   'isvoid'
@@ -143,7 +150,7 @@ identifier
     :   ID
     ;
 assignment
-    : identifier assig_op sub_expr
+    : identifier assig_op expr
     ;
 literal
     :   str_literal 
