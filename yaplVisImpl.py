@@ -482,6 +482,8 @@ class yaplVisImpl(yaplVisitor):
             call_namespace = self.call_type
 
         #print(f'Searching for {func_name} in {call_namespace}')
+        if not call_namespace in TYPE_TABLE:
+            return (False, 'type_error')
         
         if func_name in TYPE_TABLE[call_namespace]['functions']:
             self.calling_func.append(func_name)
@@ -519,11 +521,16 @@ class yaplVisImpl(yaplVisitor):
         res = self.visitChildren(ctx)
         if res:
             if type(res) == list:
+                for i in res:
+                    if not i[0]:
+                        return (False, i[1])
                 arg_types = [i[1] for i in res]
             else:
                 arg_types = [res[1]]
         else:
             arg_types = []
+            if not res[0]:
+                return (False, res[1]) 
 
         namespace = self.class_name
 
@@ -536,6 +543,8 @@ class yaplVisImpl(yaplVisitor):
 
         func_info = None
         while namespace:
+            if namespace not in TYPE_TABLE:
+                break
             if calling_func in TYPE_TABLE[namespace]['functions']:
                 func_info = TYPE_TABLE[namespace]['functions'][calling_func]
                 break

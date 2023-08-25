@@ -27,8 +27,8 @@ class Fibonacci {
 
 class Main inherits IO {
     n: Int <- 10;
-  	facto: Factorial;
-  	fibo: Fibonacci;
+  	facto: Factoriall;
+  	fibo: Fibonaccii;
   
   	main() : SELF_TYPE {
 	{

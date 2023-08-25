@@ -6,6 +6,7 @@ from yaplLexer import yaplLexer
 from yaplParser import yaplParser
 from yaplVisImpl import yaplVisImpl
 import contextlib, io
+import sys
 
 
 def compile(text):
@@ -14,16 +15,21 @@ def compile(text):
     input_stream = FileStream('temp.txt')
     lexer = yaplLexer(input_stream)
     stream = CommonTokenStream(lexer)
-    parser = yaplParser(stream)
+    with contextlib.redirect_stdout(f):
+        parser = yaplParser(stream)
+
     tree = parser.yapl_src()
     visitor = yaplVisImpl()
     f = io.StringIO()
-    with contextlib.redirect_stdout(f):
+    #with contextlib.redirect_stdout(f):
+    with open('report', 'w') as sys.stdout:
         res = visitor.visitYapl_src(tree.getRuleContext())
     
     st.markdown(res[1], unsafe_allow_html=True)
     if not res[0]:
-        st.markdown(f.getvalue(), unsafe_allow_html=True)
+        with open('report', 'r') as f:
+            for l in f.readlines():
+                st.markdown(l, unsafe_allow_html=True)
 
 st.title('Yes, this is Yet Another COOL compiler')
 
