@@ -12,13 +12,13 @@ class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKCYAN = '\033[96m'
-    #OKGREEN = '\033[92m'
-    OKGREEN = "<span style='color:green'>"
+    OKGREEN = '\033[92m'
+    #OKGREEN = "<span style='color:green'>"
     WARNING = '\033[93m'
-   # FAIL = '\033[91m'
-    FAIL = "<span style='color:red'>"
-    ENDC = '</span>'
-    #ENDC = '\033[0m'
+    FAIL = '\033[91m'
+    #FAIL = "<span style='color:red'>"
+    #ENDC = '</span>'
+    ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
