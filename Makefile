@@ -10,3 +10,6 @@ gui:
 
 comp:
 	antlr4 -Dlanguage=Python3 -visitor -no-listener yapl.g4
+
+run_gui:
+	streamlit run frontend.py
