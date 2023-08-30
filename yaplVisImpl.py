@@ -106,29 +106,6 @@ class yaplVisImpl(yaplVisitor):
         print(err_str)
         return (False, ERR)
 
-    def visitArith_operation(self, ctx:yaplParser.Arith_operationContext):
-        res = self.visitChildren(ctx)
-        if type(res) == list:
-            for i in res:
-                if not i[0]:
-                    return (False, i[1])
-        else:
-            if not res[0]:
-                return (False, res[1])
-        for i in SUPPORTED[res[1][1]]:
-            if (i[0] == res[0][1] and 
-                i[1] == res[2][1]):
-                return (True, i[2])
-        err_str = (f'Unsupported operation between {res[0][1]} '
-                f'and {res[2][1]} for operator {res[1][1]}: {ctx.getText()}')
-        err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
-        print(err_str)
-        return (False, ERR)
-
-    # Visit a parse tree produced by yaplParser#bool_operator.
-    def visitBool_operator(self, ctx:yaplParser.Bool_operatorContext):
-        return (True, ctx.getText())
-
     # Visit a parse tree produced by yaplParser#bool_operation.
     def visitBool_operation(self, ctx:yaplParser.Bool_operationContext):
         res = self.visitChildren(ctx)
@@ -191,9 +168,6 @@ class yaplVisImpl(yaplVisitor):
     def visitMul_op(self, ctx:yaplParser.Mul_opContext):
         return (True, MUL)
     
-        # Visit a parse tree produced by yaplParser#assig_op.
-    def visitAssig_op(self, ctx:yaplParser.Assig_opContext):
-        return (True, ASIG)
     
     # Visit a parse tree produced by yaplParser#identifier.
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
@@ -247,22 +221,6 @@ class yaplVisImpl(yaplVisitor):
         return (True, res[1][1]) 
     
 
-    # Visit a parse tree produced by yaplParser#canon_type.
-    def visitCanon_type(self, ctx:yaplParser.Canon_typeContext):
-        txt = ctx.getText()
-        if txt == 'Int':
-            return (True, INT, 4)
-        if txt == 'String':
-            return (True, STR, 8)
-        if txt == 'Bool':
-            return (True, BOOL, 1)
-        if txt == 'IO':
-            return (True, IO, 8)
-        if txt == 'Object':
-            return (True, OBJ, 8)
-        if txt == 'SELF_TYPE':
-            return (True, self.class_name, 8)
-        return (False, ERR)
 
     # Visit a parse tree produced by yaplParser#scope_def.
     def visitScope_def(self, ctx:yaplParser.Scope_defContext):
@@ -348,36 +306,12 @@ class yaplVisImpl(yaplVisitor):
         if res:
             par_spec = [i['type'] for i in res]
         return (True, {'func params':par_spec})
-
-    # Visit a parse tree produced by yaplParser#param_dec.
-    def visitParam_dec(self, ctx:yaplParser.Param_decContext):
-        res = self.visitChildren(ctx)
-        parname = self.name_to_temp(ctx.getText().split(':')[0])
-        return ({'Parname': parname, 'type':res[1], 'size':res[2]})
-
-    # Visit a parse tree produced by yaplParser#acs_object.
-    def visitAcs_object(self, ctx:yaplParser.Acs_objectContext):
-        res = self.visitChildren(ctx)
-        #print(self.current_scope['table'])
-        #print(ctx.getText())
-        #print(self.temp_to_name_map)
-        varname = self.name_to_temp(ctx.getText())
-        if res:
-            if type(res) == list:
-                for i in res:
-                    if not i[0]:
-                        return (False, i[1])
-            else:
-                if not res[0]:
-                    return (False, res[1])       
-        
-        for i in self.scopes:
-            if varname in i['table']:
-                return (True, i['table'][varname]['type'])
-        err_msg = f"{bcolors.FAIL}Cannot use {ctx.getText()} before it's declared!{bcolors.ENDC}"
-        print(err_msg)
-        return (False, err_msg)
     
+    # Visit a parse tree produced by yaplParser#formal.
+    def visitFormal(self, ctx:yaplParser.FormalContext):
+        res = self.visitChildren(ctx)
+        print(res)
+        return res    
 
     def GetCommonAncestor(self, type_a, type_b):
 
@@ -519,6 +453,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#call_params.
     def visitCall_params(self, ctx:yaplParser.Call_paramsContext):
         res = self.visitChildren(ctx)
+        print(res)
         if res:
             if type(res) == list:
                 for i in res:
@@ -560,33 +495,7 @@ class yaplVisImpl(yaplVisitor):
         print(err_msg)
         return (False, err_msg)
     
-    # Visit a parse tree produced by yaplParser#left_hand_op.
-    def visitLeft_hand_op(self, ctx:yaplParser.Left_hand_opContext):
-        return (True, ctx.getText())
     
-    # Visit a parse tree produced by yaplParser#left_hand_operation.
-    def visitLeft_hand_operation(self, ctx:yaplParser.Left_hand_operationContext):
-        res = self.visitChildren(ctx)
-        #TODO distinguir entre cada uno para código
-        return (True, BOOL)
-
-    # Visit a parse tree produced by yaplParser#record_type.
-    def visitRecord_type(self, ctx:yaplParser.Record_typeContext):
-        res = self.visitChildren(ctx)
-        if type(res) == list:
-            self.call_type = res[-1][1]
-        else:
-            self.call_type = res[1]
-        return (True, self.call_type)
-    
-    # Visit a parse tree produced by yaplParser#record_type_bruh.
-    def visitRecord_type_bruh(self, ctx:yaplParser.Record_type_bruhContext):
-        res = self.visitChildren(ctx)
-        if type(res) == list:
-            self.call_type = res[-1][1]
-        else:
-            self.call_type = res[1]
-        return (True, self.call_type)
 
     # Visit a parse tree produced by yaplParser#subs_func.
     def visitSubs_func(self, ctx:yaplParser.Subs_funcContext):
@@ -605,6 +514,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#mem_asig.
     def visitMem_asig(self, ctx:yaplParser.Mem_asigContext):
         res = self.visitChildren(ctx)
+        print(res)
         if res[0][1] == res[1][1]:
             return res[0]
         

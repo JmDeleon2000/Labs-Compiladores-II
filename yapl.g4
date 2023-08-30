@@ -1,191 +1,111 @@
-grammar yapl;		
-yapl_src: (class_def )+ EOF ;
-class_def
-    :   (inherited_type_def
-    |  type_def) class_body;
+grammar yapl;
 
-WS: [ \t\r\n]+ -> skip;
 
-MULTILINECOMMENT: '(' '*' (.)* '*' ')' -> skip;
-COMMENT: '--' (~[\r\n])+ -> skip;
+COMMENT: START_COMMENT .*? END_COMMENT -> skip;
+LINE_COMMENT: '--' .*? '\n' -> skip;
+WS: [ \t\r\n\f]+ -> skip;
 
-type_def: 'class' user_defined_t;
-inherited_type_def: type_def  'inherits' valid_inheritance;
-valid_inheritance: type;
+yapl_src: (class_grammar ';')+;
+class_grammar: (inherited_type_def | type_def) '{' (feature ';')* '}';
+feature: func_dec
+| mem_dec;
+formal: ID ':' type;
+expr: expr('@'called_type)? subs_func # bigexpr
+| func_name '(' call_params ')' # func_call
+| IF bool_expr THEN expr ELSE expr FI # if_stmt
+| WHILE bool_expr LOOP expr POOL # while_loop
+| '{' (expr ';')+ '}' # scope_def
+| let_stmt # let
+| NEW type # new_call
+| '~' expr # negation
+| ISVOID expr # isvoid
+| expr mul_op expr # arith_operation
+| expr division_op expr # arith_operation
+| expr plus_op expr # arith_operation
+| expr minus_op expr # arith_operation
+| expr (LESS_THAN | LESS_EQUAL | EQUAL) expr # bool_operation
+| NOT expr # not
+| '(' expr ')' # paren
+| ID # identifier
+| INT # int_literal
+| STRING # str_literal
+| TRUE # bool_literal
+| FALSE # bool_literal
+| ID ASSIGN_OP expr # assignment; 
 
-class_body
-    :    (LBRACKET (mem_dec)* (func_dec)* RBRACKET  EOS)
-    |    empty_class_body ;
 
-empty_class_body: LBRACKET RBRACKET  EOS ;
-
-mem_dec 
-    :   mem_name ':' type EOS
-    |   mem_name ':' mem_asig EOS;
-mem_asig: type '<-' expr;
-mem_name:
-    ID;
-
-LBRACKET: '{';
-RBRACKET: '}';
-LPAREN: '(' ;
-RPAREN: ')' ;
-EOS: ';' ;
-ASSIG_OP: '<-' ;
-THIS_PTR   : 'SELF_TYPE' ;
-COMA: ',' ;
-
-canon_type
-    :   'Bool' 
-    |   'String'
-    |   'Object'
-    |   'Int'
-    |   'SELF_TYPE'
-    ;
-
-ret_type:
-    type;
-user_defined_t
-    :   UDT ; 
-type
-    :   canon_type
-    |   user_defined_t
-    ;
-
-sign_dec: ID LPAREN func_params RPAREN ':' ret_type;
-func_dec:
-    sign_dec func_body;
-param_dec:
-    ID ':' type;
-
-func_params
-    :   (( param_dec  COMA )* param_dec )?;
-func_body
-    :   LBRACKET ret_expr? RBRACKET EOS
-    ;
-ret_expr:
-    expr;
-if_stmt:
-    'if' bool_expr 'then' expr 'else' expr 'fi';
-while_loop:
-    'while' bool_expr 'loop' expr 'pool';
-bool_expr: expr;
-expr    
-    :   func_call
-    |   LPAREN expr RPAREN
-    |   if_stmt
-    |   while_loop
-    |   sub_expr 
-    |   new_call
-    |   scope_def
-    |   assignment
-    |   let_stmt
-    ;
 let_stmt
     :   'let' let_type_dec 'in' expr;
-
 let_type_dec
     :   ID ':' type
     |   ID ':' mem_asig
     ;
+mem_asig: type '<-' expr;
+subs_func: '.' func_name '(' call_params ')';
+type_def: CLASS user_defined_t;
+inherited_type_def: type_def  'inherits' valid_inheritance;
+valid_inheritance: type;
+user_defined_t: type;
 
-func_name:
-    ID;
-func_call
-    :   func_name LPAREN call_params RPAREN
-    |   record_type_bruh subs_func
-    |   LPAREN record_type RPAREN subs_func
-    ;
-record_type
-    : expr;
-record_type_bruh
-    : acs_object;
-sub_expr
-    :   acs_object
-    |   literal 
-    |   arith_operation
-    |   bool_operation
-    |   left_hand_operation
-    ;
-left_hand_operation: left_hand_op expr;
-bool_operation
-    :   literal bool_operator expr
-    |   acs_object bool_operator expr
-    |   func_call bool_operator expr
-    ;
-arith_operation
-    :   literal arith_operator expr
-    |   acs_object arith_operator expr
-    |   func_call arith_operator expr
-    ;
-left_hand_op
-    :   'isvoid'
-    |   '~'
-    |   'not'
-    ;
-arith_operator
-    :   plus_op
-    |   minus_op
-    |   division_op
-    |   mul_op
-    ;
-plus_op
-    :   '+'
-    ;
-minus_op
-    :   '-'
-    ;
-division_op
-    :   '/'
-    ;
-mul_op
-    :   '*'
-    ;
-bool_operator
-    :   '<'
-    |   '<='
-    |   '='
-    ;
-assig_op
-    :   ASSIG_OP
-    ;
-identifier
-    :   ID
-    ;
-assignment
-    : identifier assig_op expr
-    ;
-literal
-    :   str_literal 
-    |   int_literal 
-    |   bool_literal ;
-bool_literal
-    :   'true'
-    |   'false' ; 
-str_literal: STR_LIT ;
-int_literal: DIGITS ;
-acs_object
-    :   ID
-    |   literal
-    ;
+called_type: type;
 
-new_call
-    :   NEW type;
-NEW
-    :   'new'   ;
-subs_func
-    :   SUBSCRIPT func_name LPAREN call_params RPAREN
-    |   SUBSCRIPT func_name LPAREN call_params RPAREN  subs_func;
+mul_op:    MULT;
+division_op:    DIV;
+plus_op:   PLUS;
+minus_op:  MINUS;
 
-call_params
-    :   ((expr  COMA )*expr )*;
+bool_expr:
+    expr;
+sign_dec: ID '(' func_params ')' ':' ret_type;
+func_dec:
+    sign_dec func_body;
+func_body:   '{' ret_expr? '}' ;
+mem_dec:  mem_name ':' type (ASSIGN_OP expr)?;
 
-scope_def:
-    LBRACKET (expr EOS)+ RBRACKET;
-UDT: [A-Z] [a-zA-Z]*;
-ID: 
-    [a-z] ([A-Za-z0-9_])* ;
+mem_name: ID;
+type: TYPE;
+func_params:   (( formal  ',' )* formal )?;
+ret_type:   type;
+ret_expr: expr;
+func_name:  ID;
+call_params:   ((expr  ',' )*expr )*;
 
-STR_LIT: '"' ~('\r' | '\n' | '"')* '"';
-DIGITS : [0-9]+ ;
-SUBSCRIPT: '.' ;
+//reserved keywords case insensitive
+CLASS: [Cc][Ll][Aa][Ss][Ss];
+INHERITS: [Ii][Nn][Hh][Ee][Rr][Ii][Tt][Ss];
+ELSE: [Ee][Ll][Ss][Ee];
+IF: [Ii][Ff];
+THEN: [Tt][Hh][Ee][Nn];
+FI: [Ff][Ii];
+LOOP: [Ll][Oo][Oo][Pp];
+POOL: [Pp][Oo][Oo][Ll];
+IN: [Ii][Nn];
+ISVOID: [Ii][Ss][Vv][Oo][Ii][Dd];
+WHILE: [Ww][Hh][Ii][Ll][Ee];
+NEW: [Nn][Ee][Ww];
+NOT: [Nn][Oo][Tt];
+LET: [Ll][Ee][Tt];
+//reserved keywords case sensitive
+TRUE: 'true';
+FALSE: 'false';
+
+STRING: '"'  .*?  '"' ;
+
+//Other types
+ASSIGN_OP: '<-';
+ID: [a-z][_a-zA-Z0-9]*; //start with minuscule letter
+TYPE: [A-Z][_a-zA-Z0-9]*; //start with mayus letter
+INT: [0-9]+;
+START_COMMENT: '(*';
+END_COMMENT: '*)';
+
+PLUS: '+';
+MINUS: '-';
+MULT: '*';
+DIV: '/';
+EQUAL: '=';
+LESS_THAN: '<';
+LESS_EQUAL: '<=';
+
+
+

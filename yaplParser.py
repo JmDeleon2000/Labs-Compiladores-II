@@ -10,139 +10,98 @@ else:
 
 def serializedATN():
     return [
-        4,1,45,398,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,47,278,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
-        2,27,7,27,2,28,7,28,2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,2,33,
-        7,33,2,34,7,34,2,35,7,35,2,36,7,36,2,37,7,37,2,38,7,38,2,39,7,39,
-        2,40,7,40,2,41,7,41,2,42,7,42,2,43,7,43,2,44,7,44,2,45,7,45,2,46,
-        7,46,2,47,7,47,2,48,7,48,2,49,7,49,2,50,7,50,2,51,7,51,2,52,7,52,
-        1,0,4,0,108,8,0,11,0,12,0,109,1,0,1,0,1,1,1,1,3,1,116,8,1,1,1,1,
-        1,1,2,1,2,1,2,1,3,1,3,1,3,1,3,1,4,1,4,1,5,1,5,5,5,131,8,5,10,5,12,
-        5,134,9,5,1,5,5,5,137,8,5,10,5,12,5,140,9,5,1,5,1,5,1,5,3,5,145,
-        8,5,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,3,7,
-        161,8,7,1,8,1,8,1,8,1,8,1,9,1,9,1,10,1,10,1,11,1,11,1,12,1,12,1,
-        13,1,13,3,13,177,8,13,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,15,1,
-        15,1,15,1,16,1,16,1,16,1,16,1,17,1,17,1,17,5,17,196,8,17,10,17,12,
-        17,199,9,17,1,17,3,17,202,8,17,1,18,1,18,3,18,206,8,18,1,18,1,18,
-        1,18,1,19,1,19,1,20,1,20,1,20,1,20,1,20,1,20,1,20,1,20,1,21,1,21,
-        1,21,1,21,1,21,1,21,1,22,1,22,1,23,1,23,1,23,1,23,1,23,1,23,1,23,
-        1,23,1,23,1,23,1,23,1,23,3,23,241,8,23,1,24,1,24,1,24,1,24,1,24,
-        1,25,1,25,1,25,1,25,1,25,1,25,3,25,254,8,25,1,26,1,26,1,27,1,27,
-        1,27,1,27,1,27,1,27,1,27,1,27,1,27,1,27,1,27,1,27,1,27,3,27,271,
-        8,27,1,28,1,28,1,29,1,29,1,30,1,30,1,30,1,30,1,30,3,30,282,8,30,
-        1,31,1,31,1,31,1,32,1,32,1,32,1,32,1,32,1,32,1,32,1,32,1,32,1,32,
-        1,32,1,32,3,32,299,8,32,1,33,1,33,1,33,1,33,1,33,1,33,1,33,1,33,
-        1,33,1,33,1,33,1,33,3,33,313,8,33,1,34,1,34,1,35,1,35,1,35,1,35,
-        3,35,321,8,35,1,36,1,36,1,37,1,37,1,38,1,38,1,39,1,39,1,40,1,40,
-        1,41,1,41,1,42,1,42,1,43,1,43,1,43,1,43,1,44,1,44,1,44,3,44,344,
-        8,44,1,45,1,45,1,46,1,46,1,47,1,47,1,48,1,48,3,48,354,8,48,1,49,
-        1,49,1,49,1,50,1,50,1,50,1,50,1,50,1,50,1,50,1,50,1,50,1,50,1,50,
-        1,50,1,50,3,50,372,8,50,1,51,1,51,1,51,5,51,377,8,51,10,51,12,51,
-        380,9,51,1,51,5,51,383,8,51,10,51,12,51,386,9,51,1,52,1,52,1,52,
-        1,52,4,52,392,8,52,11,52,12,52,393,1,52,1,52,1,52,0,0,53,0,2,4,6,
-        8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,
-        52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,
-        96,98,100,102,104,0,4,2,0,4,7,38,38,1,0,17,19,1,0,24,26,1,0,27,28,
-        383,0,107,1,0,0,0,2,115,1,0,0,0,4,119,1,0,0,0,6,122,1,0,0,0,8,126,
-        1,0,0,0,10,144,1,0,0,0,12,146,1,0,0,0,14,160,1,0,0,0,16,162,1,0,
-        0,0,18,166,1,0,0,0,20,168,1,0,0,0,22,170,1,0,0,0,24,172,1,0,0,0,
-        26,176,1,0,0,0,28,178,1,0,0,0,30,185,1,0,0,0,32,188,1,0,0,0,34,201,
-        1,0,0,0,36,203,1,0,0,0,38,210,1,0,0,0,40,212,1,0,0,0,42,220,1,0,
-        0,0,44,226,1,0,0,0,46,240,1,0,0,0,48,242,1,0,0,0,50,253,1,0,0,0,
-        52,255,1,0,0,0,54,270,1,0,0,0,56,272,1,0,0,0,58,274,1,0,0,0,60,281,
-        1,0,0,0,62,283,1,0,0,0,64,298,1,0,0,0,66,312,1,0,0,0,68,314,1,0,
-        0,0,70,320,1,0,0,0,72,322,1,0,0,0,74,324,1,0,0,0,76,326,1,0,0,0,
-        78,328,1,0,0,0,80,330,1,0,0,0,82,332,1,0,0,0,84,334,1,0,0,0,86,336,
-        1,0,0,0,88,343,1,0,0,0,90,345,1,0,0,0,92,347,1,0,0,0,94,349,1,0,
-        0,0,96,353,1,0,0,0,98,355,1,0,0,0,100,371,1,0,0,0,102,384,1,0,0,
-        0,104,387,1,0,0,0,106,108,3,2,1,0,107,106,1,0,0,0,108,109,1,0,0,
-        0,109,107,1,0,0,0,109,110,1,0,0,0,110,111,1,0,0,0,111,112,5,0,0,
-        1,112,1,1,0,0,0,113,116,3,6,3,0,114,116,3,4,2,0,115,113,1,0,0,0,
-        115,114,1,0,0,0,116,117,1,0,0,0,117,118,3,10,5,0,118,3,1,0,0,0,119,
-        120,5,1,0,0,120,121,3,24,12,0,121,5,1,0,0,0,122,123,3,4,2,0,123,
-        124,5,2,0,0,124,125,3,8,4,0,125,7,1,0,0,0,126,127,3,26,13,0,127,
-        9,1,0,0,0,128,132,5,32,0,0,129,131,3,14,7,0,130,129,1,0,0,0,131,
-        134,1,0,0,0,132,130,1,0,0,0,132,133,1,0,0,0,133,138,1,0,0,0,134,
-        132,1,0,0,0,135,137,3,30,15,0,136,135,1,0,0,0,137,140,1,0,0,0,138,
-        136,1,0,0,0,138,139,1,0,0,0,139,141,1,0,0,0,140,138,1,0,0,0,141,
-        142,5,33,0,0,142,145,5,36,0,0,143,145,3,12,6,0,144,128,1,0,0,0,144,
-        143,1,0,0,0,145,11,1,0,0,0,146,147,5,32,0,0,147,148,5,33,0,0,148,
-        149,5,36,0,0,149,13,1,0,0,0,150,151,3,18,9,0,151,152,5,3,0,0,152,
-        153,3,26,13,0,153,154,5,36,0,0,154,161,1,0,0,0,155,156,3,18,9,0,
-        156,157,5,3,0,0,157,158,3,16,8,0,158,159,5,36,0,0,159,161,1,0,0,
-        0,160,150,1,0,0,0,160,155,1,0,0,0,161,15,1,0,0,0,162,163,3,26,13,
-        0,163,164,5,37,0,0,164,165,3,46,23,0,165,17,1,0,0,0,166,167,5,42,
-        0,0,167,19,1,0,0,0,168,169,7,0,0,0,169,21,1,0,0,0,170,171,3,26,13,
-        0,171,23,1,0,0,0,172,173,5,41,0,0,173,25,1,0,0,0,174,177,3,20,10,
-        0,175,177,3,24,12,0,176,174,1,0,0,0,176,175,1,0,0,0,177,27,1,0,0,
-        0,178,179,5,42,0,0,179,180,5,34,0,0,180,181,3,34,17,0,181,182,5,
-        35,0,0,182,183,5,3,0,0,183,184,3,22,11,0,184,29,1,0,0,0,185,186,
-        3,28,14,0,186,187,3,36,18,0,187,31,1,0,0,0,188,189,5,42,0,0,189,
-        190,5,3,0,0,190,191,3,26,13,0,191,33,1,0,0,0,192,193,3,32,16,0,193,
-        194,5,39,0,0,194,196,1,0,0,0,195,192,1,0,0,0,196,199,1,0,0,0,197,
-        195,1,0,0,0,197,198,1,0,0,0,198,200,1,0,0,0,199,197,1,0,0,0,200,
-        202,3,32,16,0,201,197,1,0,0,0,201,202,1,0,0,0,202,35,1,0,0,0,203,
-        205,5,32,0,0,204,206,3,38,19,0,205,204,1,0,0,0,205,206,1,0,0,0,206,
-        207,1,0,0,0,207,208,5,33,0,0,208,209,5,36,0,0,209,37,1,0,0,0,210,
-        211,3,46,23,0,211,39,1,0,0,0,212,213,5,8,0,0,213,214,3,44,22,0,214,
-        215,5,9,0,0,215,216,3,46,23,0,216,217,5,10,0,0,217,218,3,46,23,0,
-        218,219,5,11,0,0,219,41,1,0,0,0,220,221,5,12,0,0,221,222,3,44,22,
-        0,222,223,5,13,0,0,223,224,3,46,23,0,224,225,5,14,0,0,225,43,1,0,
-        0,0,226,227,3,46,23,0,227,45,1,0,0,0,228,241,3,54,27,0,229,230,5,
-        34,0,0,230,231,3,46,23,0,231,232,5,35,0,0,232,241,1,0,0,0,233,241,
-        3,40,20,0,234,241,3,42,21,0,235,241,3,60,30,0,236,241,3,98,49,0,
-        237,241,3,104,52,0,238,241,3,86,43,0,239,241,3,48,24,0,240,228,1,
-        0,0,0,240,229,1,0,0,0,240,233,1,0,0,0,240,234,1,0,0,0,240,235,1,
-        0,0,0,240,236,1,0,0,0,240,237,1,0,0,0,240,238,1,0,0,0,240,239,1,
-        0,0,0,241,47,1,0,0,0,242,243,5,15,0,0,243,244,3,50,25,0,244,245,
-        5,16,0,0,245,246,3,46,23,0,246,49,1,0,0,0,247,248,5,42,0,0,248,249,
-        5,3,0,0,249,254,3,26,13,0,250,251,5,42,0,0,251,252,5,3,0,0,252,254,
-        3,16,8,0,253,247,1,0,0,0,253,250,1,0,0,0,254,51,1,0,0,0,255,256,
-        5,42,0,0,256,53,1,0,0,0,257,258,3,52,26,0,258,259,5,34,0,0,259,260,
-        3,102,51,0,260,261,5,35,0,0,261,271,1,0,0,0,262,263,3,58,29,0,263,
-        264,3,100,50,0,264,271,1,0,0,0,265,266,5,34,0,0,266,267,3,56,28,
-        0,267,268,5,35,0,0,268,269,3,100,50,0,269,271,1,0,0,0,270,257,1,
-        0,0,0,270,262,1,0,0,0,270,265,1,0,0,0,271,55,1,0,0,0,272,273,3,46,
-        23,0,273,57,1,0,0,0,274,275,3,96,48,0,275,59,1,0,0,0,276,282,3,96,
-        48,0,277,282,3,88,44,0,278,282,3,66,33,0,279,282,3,64,32,0,280,282,
-        3,62,31,0,281,276,1,0,0,0,281,277,1,0,0,0,281,278,1,0,0,0,281,279,
-        1,0,0,0,281,280,1,0,0,0,282,61,1,0,0,0,283,284,3,68,34,0,284,285,
-        3,46,23,0,285,63,1,0,0,0,286,287,3,88,44,0,287,288,3,80,40,0,288,
-        289,3,46,23,0,289,299,1,0,0,0,290,291,3,96,48,0,291,292,3,80,40,
-        0,292,293,3,46,23,0,293,299,1,0,0,0,294,295,3,54,27,0,295,296,3,
-        80,40,0,296,297,3,46,23,0,297,299,1,0,0,0,298,286,1,0,0,0,298,290,
-        1,0,0,0,298,294,1,0,0,0,299,65,1,0,0,0,300,301,3,88,44,0,301,302,
-        3,70,35,0,302,303,3,46,23,0,303,313,1,0,0,0,304,305,3,96,48,0,305,
-        306,3,70,35,0,306,307,3,46,23,0,307,313,1,0,0,0,308,309,3,54,27,
-        0,309,310,3,70,35,0,310,311,3,46,23,0,311,313,1,0,0,0,312,300,1,
-        0,0,0,312,304,1,0,0,0,312,308,1,0,0,0,313,67,1,0,0,0,314,315,7,1,
-        0,0,315,69,1,0,0,0,316,321,3,72,36,0,317,321,3,74,37,0,318,321,3,
-        76,38,0,319,321,3,78,39,0,320,316,1,0,0,0,320,317,1,0,0,0,320,318,
-        1,0,0,0,320,319,1,0,0,0,321,71,1,0,0,0,322,323,5,20,0,0,323,73,1,
-        0,0,0,324,325,5,21,0,0,325,75,1,0,0,0,326,327,5,22,0,0,327,77,1,
-        0,0,0,328,329,5,23,0,0,329,79,1,0,0,0,330,331,7,2,0,0,331,81,1,0,
-        0,0,332,333,5,37,0,0,333,83,1,0,0,0,334,335,5,42,0,0,335,85,1,0,
-        0,0,336,337,3,84,42,0,337,338,3,82,41,0,338,339,3,46,23,0,339,87,
-        1,0,0,0,340,344,3,92,46,0,341,344,3,94,47,0,342,344,3,90,45,0,343,
-        340,1,0,0,0,343,341,1,0,0,0,343,342,1,0,0,0,344,89,1,0,0,0,345,346,
-        7,3,0,0,346,91,1,0,0,0,347,348,5,43,0,0,348,93,1,0,0,0,349,350,5,
-        44,0,0,350,95,1,0,0,0,351,354,5,42,0,0,352,354,3,88,44,0,353,351,
-        1,0,0,0,353,352,1,0,0,0,354,97,1,0,0,0,355,356,5,40,0,0,356,357,
-        3,26,13,0,357,99,1,0,0,0,358,359,5,45,0,0,359,360,3,52,26,0,360,
-        361,5,34,0,0,361,362,3,102,51,0,362,363,5,35,0,0,363,372,1,0,0,0,
-        364,365,5,45,0,0,365,366,3,52,26,0,366,367,5,34,0,0,367,368,3,102,
-        51,0,368,369,5,35,0,0,369,370,3,100,50,0,370,372,1,0,0,0,371,358,
-        1,0,0,0,371,364,1,0,0,0,372,101,1,0,0,0,373,374,3,46,23,0,374,375,
-        5,39,0,0,375,377,1,0,0,0,376,373,1,0,0,0,377,380,1,0,0,0,378,376,
-        1,0,0,0,378,379,1,0,0,0,379,381,1,0,0,0,380,378,1,0,0,0,381,383,
-        3,46,23,0,382,378,1,0,0,0,383,386,1,0,0,0,384,382,1,0,0,0,384,385,
-        1,0,0,0,385,103,1,0,0,0,386,384,1,0,0,0,387,391,5,32,0,0,388,389,
-        3,46,23,0,389,390,5,36,0,0,390,392,1,0,0,0,391,388,1,0,0,0,392,393,
-        1,0,0,0,393,391,1,0,0,0,393,394,1,0,0,0,394,395,1,0,0,0,395,396,
-        5,33,0,0,396,105,1,0,0,0,23,109,115,132,138,144,160,176,197,201,
-        205,240,253,270,281,298,312,320,343,353,371,378,384,393
+        2,27,7,27,2,28,7,28,2,29,7,29,1,0,1,0,1,0,4,0,64,8,0,11,0,12,0,65,
+        1,1,1,1,3,1,70,8,1,1,1,1,1,1,1,1,1,5,1,76,8,1,10,1,12,1,79,9,1,1,
+        1,1,1,1,2,1,2,3,2,85,8,2,1,3,1,3,1,3,1,3,1,4,1,4,1,4,1,4,1,4,1,4,
+        1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,
+        1,4,1,4,4,4,115,8,4,11,4,12,4,116,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,
+        4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,
+        4,142,8,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,
+        4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,166,8,4,1,4,5,4,169,8,4,10,
+        4,12,4,172,9,4,1,5,1,5,1,5,1,5,1,5,1,6,1,6,1,6,1,6,1,6,1,6,3,6,185,
+        8,6,1,7,1,7,1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,8,1,9,1,9,1,9,1,10,1,10,
+        1,10,1,10,1,11,1,11,1,12,1,12,1,13,1,13,1,14,1,14,1,15,1,15,1,16,
+        1,16,1,17,1,17,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,20,
+        1,20,1,20,1,21,1,21,3,21,232,8,21,1,21,1,21,1,22,1,22,1,22,1,22,
+        1,22,3,22,241,8,22,1,23,1,23,1,24,1,24,1,25,1,25,1,25,5,25,250,8,
+        25,10,25,12,25,253,9,25,1,25,3,25,256,8,25,1,26,1,26,1,27,1,27,1,
+        28,1,28,1,29,1,29,1,29,5,29,267,8,29,10,29,12,29,270,9,29,1,29,5,
+        29,273,8,29,10,29,12,29,276,9,29,1,29,0,1,8,30,0,2,4,6,8,10,12,14,
+        16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,
+        0,1,1,0,44,46,281,0,63,1,0,0,0,2,69,1,0,0,0,4,84,1,0,0,0,6,86,1,
+        0,0,0,8,141,1,0,0,0,10,173,1,0,0,0,12,184,1,0,0,0,14,186,1,0,0,0,
+        16,190,1,0,0,0,18,196,1,0,0,0,20,199,1,0,0,0,22,203,1,0,0,0,24,205,
+        1,0,0,0,26,207,1,0,0,0,28,209,1,0,0,0,30,211,1,0,0,0,32,213,1,0,
+        0,0,34,215,1,0,0,0,36,217,1,0,0,0,38,219,1,0,0,0,40,226,1,0,0,0,
+        42,229,1,0,0,0,44,235,1,0,0,0,46,242,1,0,0,0,48,244,1,0,0,0,50,255,
+        1,0,0,0,52,257,1,0,0,0,54,259,1,0,0,0,56,261,1,0,0,0,58,274,1,0,
+        0,0,60,61,3,2,1,0,61,62,5,1,0,0,62,64,1,0,0,0,63,60,1,0,0,0,64,65,
+        1,0,0,0,65,63,1,0,0,0,65,66,1,0,0,0,66,1,1,0,0,0,67,70,3,20,10,0,
+        68,70,3,18,9,0,69,67,1,0,0,0,69,68,1,0,0,0,70,71,1,0,0,0,71,77,5,
+        2,0,0,72,73,3,4,2,0,73,74,5,1,0,0,74,76,1,0,0,0,75,72,1,0,0,0,76,
+        79,1,0,0,0,77,75,1,0,0,0,77,78,1,0,0,0,78,80,1,0,0,0,79,77,1,0,0,
+        0,80,81,5,3,0,0,81,3,1,0,0,0,82,85,3,40,20,0,83,85,3,44,22,0,84,
+        82,1,0,0,0,84,83,1,0,0,0,85,5,1,0,0,0,86,87,5,32,0,0,87,88,5,4,0,
+        0,88,89,3,48,24,0,89,7,1,0,0,0,90,91,6,4,-1,0,91,92,3,56,28,0,92,
+        93,5,6,0,0,93,94,3,58,29,0,94,95,5,7,0,0,95,142,1,0,0,0,96,97,5,
+        17,0,0,97,98,3,36,18,0,98,99,5,18,0,0,99,100,3,8,4,0,100,101,5,16,
+        0,0,101,102,3,8,4,0,102,103,5,19,0,0,103,142,1,0,0,0,104,105,5,24,
+        0,0,105,106,3,36,18,0,106,107,5,20,0,0,107,108,3,8,4,0,108,109,5,
+        21,0,0,109,142,1,0,0,0,110,114,5,2,0,0,111,112,3,8,4,0,112,113,5,
+        1,0,0,113,115,1,0,0,0,114,111,1,0,0,0,115,116,1,0,0,0,116,114,1,
+        0,0,0,116,117,1,0,0,0,117,118,1,0,0,0,118,119,5,3,0,0,119,142,1,
+        0,0,0,120,142,3,10,5,0,121,122,5,25,0,0,122,142,3,48,24,0,123,124,
+        5,8,0,0,124,142,3,8,4,15,125,126,5,23,0,0,126,142,3,8,4,14,127,128,
+        5,26,0,0,128,142,3,8,4,8,129,130,5,6,0,0,130,131,3,8,4,0,131,132,
+        5,7,0,0,132,142,1,0,0,0,133,142,5,32,0,0,134,142,5,34,0,0,135,142,
+        5,30,0,0,136,142,5,28,0,0,137,142,5,29,0,0,138,139,5,32,0,0,139,
+        140,5,31,0,0,140,142,3,8,4,1,141,90,1,0,0,0,141,96,1,0,0,0,141,104,
+        1,0,0,0,141,110,1,0,0,0,141,120,1,0,0,0,141,121,1,0,0,0,141,123,
+        1,0,0,0,141,125,1,0,0,0,141,127,1,0,0,0,141,129,1,0,0,0,141,133,
+        1,0,0,0,141,134,1,0,0,0,141,135,1,0,0,0,141,136,1,0,0,0,141,137,
+        1,0,0,0,141,138,1,0,0,0,142,170,1,0,0,0,143,144,10,13,0,0,144,145,
+        3,28,14,0,145,146,3,8,4,14,146,169,1,0,0,0,147,148,10,12,0,0,148,
+        149,3,30,15,0,149,150,3,8,4,13,150,169,1,0,0,0,151,152,10,11,0,0,
+        152,153,3,32,16,0,153,154,3,8,4,12,154,169,1,0,0,0,155,156,10,10,
+        0,0,156,157,3,34,17,0,157,158,3,8,4,11,158,169,1,0,0,0,159,160,10,
+        9,0,0,160,161,7,0,0,0,161,169,3,8,4,10,162,165,10,22,0,0,163,164,
+        5,5,0,0,164,166,3,26,13,0,165,163,1,0,0,0,165,166,1,0,0,0,166,167,
+        1,0,0,0,167,169,3,16,8,0,168,143,1,0,0,0,168,147,1,0,0,0,168,151,
+        1,0,0,0,168,155,1,0,0,0,168,159,1,0,0,0,168,162,1,0,0,0,169,172,
+        1,0,0,0,170,168,1,0,0,0,170,171,1,0,0,0,171,9,1,0,0,0,172,170,1,
+        0,0,0,173,174,5,9,0,0,174,175,3,12,6,0,175,176,5,10,0,0,176,177,
+        3,8,4,0,177,11,1,0,0,0,178,179,5,32,0,0,179,180,5,4,0,0,180,185,
+        3,48,24,0,181,182,5,32,0,0,182,183,5,4,0,0,183,185,3,14,7,0,184,
+        178,1,0,0,0,184,181,1,0,0,0,185,13,1,0,0,0,186,187,3,48,24,0,187,
+        188,5,31,0,0,188,189,3,8,4,0,189,15,1,0,0,0,190,191,5,11,0,0,191,
+        192,3,56,28,0,192,193,5,6,0,0,193,194,3,58,29,0,194,195,5,7,0,0,
+        195,17,1,0,0,0,196,197,5,14,0,0,197,198,3,24,12,0,198,19,1,0,0,0,
+        199,200,3,18,9,0,200,201,5,12,0,0,201,202,3,22,11,0,202,21,1,0,0,
+        0,203,204,3,48,24,0,204,23,1,0,0,0,205,206,3,48,24,0,206,25,1,0,
+        0,0,207,208,3,48,24,0,208,27,1,0,0,0,209,210,5,42,0,0,210,29,1,0,
+        0,0,211,212,5,43,0,0,212,31,1,0,0,0,213,214,5,40,0,0,214,33,1,0,
+        0,0,215,216,5,41,0,0,216,35,1,0,0,0,217,218,3,8,4,0,218,37,1,0,0,
+        0,219,220,5,32,0,0,220,221,5,6,0,0,221,222,3,50,25,0,222,223,5,7,
+        0,0,223,224,5,4,0,0,224,225,3,52,26,0,225,39,1,0,0,0,226,227,3,38,
+        19,0,227,228,3,42,21,0,228,41,1,0,0,0,229,231,5,2,0,0,230,232,3,
+        54,27,0,231,230,1,0,0,0,231,232,1,0,0,0,232,233,1,0,0,0,233,234,
+        5,3,0,0,234,43,1,0,0,0,235,236,3,46,23,0,236,237,5,4,0,0,237,240,
+        3,48,24,0,238,239,5,31,0,0,239,241,3,8,4,0,240,238,1,0,0,0,240,241,
+        1,0,0,0,241,45,1,0,0,0,242,243,5,32,0,0,243,47,1,0,0,0,244,245,5,
+        33,0,0,245,49,1,0,0,0,246,247,3,6,3,0,247,248,5,13,0,0,248,250,1,
+        0,0,0,249,246,1,0,0,0,250,253,1,0,0,0,251,249,1,0,0,0,251,252,1,
+        0,0,0,252,254,1,0,0,0,253,251,1,0,0,0,254,256,3,6,3,0,255,251,1,
+        0,0,0,255,256,1,0,0,0,256,51,1,0,0,0,257,258,3,48,24,0,258,53,1,
+        0,0,0,259,260,3,8,4,0,260,55,1,0,0,0,261,262,5,32,0,0,262,57,1,0,
+        0,0,263,264,3,8,4,0,264,265,5,13,0,0,265,267,1,0,0,0,266,263,1,0,
+        0,0,267,270,1,0,0,0,268,266,1,0,0,0,268,269,1,0,0,0,269,271,1,0,
+        0,0,270,268,1,0,0,0,271,273,3,8,4,0,272,268,1,0,0,0,273,276,1,0,
+        0,0,274,272,1,0,0,0,274,275,1,0,0,0,275,59,1,0,0,0,276,274,1,0,0,
+        0,16,65,69,77,84,116,141,165,168,170,184,231,240,251,255,268,274
     ]
 
 class yaplParser ( Parser ):
@@ -155,94 +114,65 @@ class yaplParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'class'", "'inherits'", "':'", "'Bool'", 
-                     "'String'", "'Object'", "'Int'", "'if'", "'then'", 
-                     "'else'", "'fi'", "'while'", "'loop'", "'pool'", "'let'", 
-                     "'in'", "'isvoid'", "'~'", "'not'", "'+'", "'-'", "'/'", 
-                     "'*'", "'<'", "'<='", "'='", "'true'", "'false'", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "'{'", "'}'", "'('", "')'", 
-                     "';'", "'<-'", "'SELF_TYPE'", "','", "'new'", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "<INVALID>", "'.'" ]
+    literalNames = [ "<INVALID>", "';'", "'{'", "'}'", "':'", "'@'", "'('", 
+                     "')'", "'~'", "'let'", "'in'", "'.'", "'inherits'", 
+                     "','", "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "'true'", "'false'", "<INVALID>", 
+                     "'<-'", "<INVALID>", "<INVALID>", "<INVALID>", "'(*'", 
+                     "'*)'", "<INVALID>", "<INVALID>", "<INVALID>", "'+'", 
+                     "'-'", "'*'", "'/'", "'='", "'<'", "'<='" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "WS", "MULTILINECOMMENT", "COMMENT", 
-                      "LBRACKET", "RBRACKET", "LPAREN", "RPAREN", "EOS", 
-                      "ASSIG_OP", "THIS_PTR", "COMA", "NEW", "UDT", "ID", 
-                      "STR_LIT", "DIGITS", "SUBSCRIPT" ]
+                      "<INVALID>", "<INVALID>", "CLASS", "INHERITS", "ELSE", 
+                      "IF", "THEN", "FI", "LOOP", "POOL", "IN", "ISVOID", 
+                      "WHILE", "NEW", "NOT", "LET", "TRUE", "FALSE", "STRING", 
+                      "ASSIGN_OP", "ID", "TYPE", "INT", "START_COMMENT", 
+                      "END_COMMENT", "COMMENT", "LINE_COMMENT", "WS", "PLUS", 
+                      "MINUS", "MULT", "DIV", "EQUAL", "LESS_THAN", "LESS_EQUAL", 
+                      "ERROR" ]
 
     RULE_yapl_src = 0
-    RULE_class_def = 1
-    RULE_type_def = 2
-    RULE_inherited_type_def = 3
-    RULE_valid_inheritance = 4
-    RULE_class_body = 5
-    RULE_empty_class_body = 6
-    RULE_mem_dec = 7
-    RULE_mem_asig = 8
-    RULE_mem_name = 9
-    RULE_canon_type = 10
-    RULE_ret_type = 11
+    RULE_class_grammar = 1
+    RULE_feature = 2
+    RULE_formal = 3
+    RULE_expr = 4
+    RULE_let_stmt = 5
+    RULE_let_type_dec = 6
+    RULE_mem_asig = 7
+    RULE_subs_func = 8
+    RULE_type_def = 9
+    RULE_inherited_type_def = 10
+    RULE_valid_inheritance = 11
     RULE_user_defined_t = 12
-    RULE_type = 13
-    RULE_sign_dec = 14
-    RULE_func_dec = 15
-    RULE_param_dec = 16
-    RULE_func_params = 17
-    RULE_func_body = 18
-    RULE_ret_expr = 19
-    RULE_if_stmt = 20
-    RULE_while_loop = 21
-    RULE_bool_expr = 22
-    RULE_expr = 23
-    RULE_let_stmt = 24
-    RULE_let_type_dec = 25
-    RULE_func_name = 26
-    RULE_func_call = 27
-    RULE_record_type = 28
-    RULE_record_type_bruh = 29
-    RULE_sub_expr = 30
-    RULE_left_hand_operation = 31
-    RULE_bool_operation = 32
-    RULE_arith_operation = 33
-    RULE_left_hand_op = 34
-    RULE_arith_operator = 35
-    RULE_plus_op = 36
-    RULE_minus_op = 37
-    RULE_division_op = 38
-    RULE_mul_op = 39
-    RULE_bool_operator = 40
-    RULE_assig_op = 41
-    RULE_identifier = 42
-    RULE_assignment = 43
-    RULE_literal = 44
-    RULE_bool_literal = 45
-    RULE_str_literal = 46
-    RULE_int_literal = 47
-    RULE_acs_object = 48
-    RULE_new_call = 49
-    RULE_subs_func = 50
-    RULE_call_params = 51
-    RULE_scope_def = 52
+    RULE_called_type = 13
+    RULE_mul_op = 14
+    RULE_division_op = 15
+    RULE_plus_op = 16
+    RULE_minus_op = 17
+    RULE_bool_expr = 18
+    RULE_sign_dec = 19
+    RULE_func_dec = 20
+    RULE_func_body = 21
+    RULE_mem_dec = 22
+    RULE_mem_name = 23
+    RULE_type = 24
+    RULE_func_params = 25
+    RULE_ret_type = 26
+    RULE_ret_expr = 27
+    RULE_func_name = 28
+    RULE_call_params = 29
 
-    ruleNames =  [ "yapl_src", "class_def", "type_def", "inherited_type_def", 
-                   "valid_inheritance", "class_body", "empty_class_body", 
-                   "mem_dec", "mem_asig", "mem_name", "canon_type", "ret_type", 
-                   "user_defined_t", "type", "sign_dec", "func_dec", "param_dec", 
-                   "func_params", "func_body", "ret_expr", "if_stmt", "while_loop", 
-                   "bool_expr", "expr", "let_stmt", "let_type_dec", "func_name", 
-                   "func_call", "record_type", "record_type_bruh", "sub_expr", 
-                   "left_hand_operation", "bool_operation", "arith_operation", 
-                   "left_hand_op", "arith_operator", "plus_op", "minus_op", 
-                   "division_op", "mul_op", "bool_operator", "assig_op", 
-                   "identifier", "assignment", "literal", "bool_literal", 
-                   "str_literal", "int_literal", "acs_object", "new_call", 
-                   "subs_func", "call_params", "scope_def" ]
+    ruleNames =  [ "yapl_src", "class_grammar", "feature", "formal", "expr", 
+                   "let_stmt", "let_type_dec", "mem_asig", "subs_func", 
+                   "type_def", "inherited_type_def", "valid_inheritance", 
+                   "user_defined_t", "called_type", "mul_op", "division_op", 
+                   "plus_op", "minus_op", "bool_expr", "sign_dec", "func_dec", 
+                   "func_body", "mem_dec", "mem_name", "type", "func_params", 
+                   "ret_type", "ret_expr", "func_name", "call_params" ]
 
     EOF = Token.EOF
     T__0=1
@@ -258,38 +188,40 @@ class yaplParser ( Parser ):
     T__10=11
     T__11=12
     T__12=13
-    T__13=14
-    T__14=15
-    T__15=16
-    T__16=17
-    T__17=18
-    T__18=19
-    T__19=20
-    T__20=21
-    T__21=22
-    T__22=23
-    T__23=24
-    T__24=25
-    T__25=26
-    T__26=27
-    T__27=28
-    WS=29
-    MULTILINECOMMENT=30
-    COMMENT=31
-    LBRACKET=32
-    RBRACKET=33
-    LPAREN=34
-    RPAREN=35
-    EOS=36
-    ASSIG_OP=37
-    THIS_PTR=38
-    COMA=39
-    NEW=40
-    UDT=41
-    ID=42
-    STR_LIT=43
-    DIGITS=44
-    SUBSCRIPT=45
+    CLASS=14
+    INHERITS=15
+    ELSE=16
+    IF=17
+    THEN=18
+    FI=19
+    LOOP=20
+    POOL=21
+    IN=22
+    ISVOID=23
+    WHILE=24
+    NEW=25
+    NOT=26
+    LET=27
+    TRUE=28
+    FALSE=29
+    STRING=30
+    ASSIGN_OP=31
+    ID=32
+    TYPE=33
+    INT=34
+    START_COMMENT=35
+    END_COMMENT=36
+    COMMENT=37
+    LINE_COMMENT=38
+    WS=39
+    PLUS=40
+    MINUS=41
+    MULT=42
+    DIV=43
+    EQUAL=44
+    LESS_THAN=45
+    LESS_EQUAL=46
+    ERROR=47
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -307,14 +239,11 @@ class yaplParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def EOF(self):
-            return self.getToken(yaplParser.EOF, 0)
-
-        def class_def(self, i:int=None):
+        def class_grammar(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(yaplParser.Class_defContext)
+                return self.getTypedRuleContexts(yaplParser.Class_grammarContext)
             else:
-                return self.getTypedRuleContext(yaplParser.Class_defContext,i)
+                return self.getTypedRuleContext(yaplParser.Class_grammarContext,i)
 
 
         def getRuleIndex(self):
@@ -336,20 +265,20 @@ class yaplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 107 
+            self.state = 63 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 106
-                self.class_def()
-                self.state = 109 
+                self.state = 60
+                self.class_grammar()
+                self.state = 61
+                self.match(yaplParser.T__0)
+                self.state = 65 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==1):
+                if not (_la==14):
                     break
 
-            self.state = 111
-            self.match(yaplParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -359,16 +288,12 @@ class yaplParser ( Parser ):
         return localctx
 
 
-    class Class_defContext(ParserRuleContext):
+    class Class_grammarContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
-        def class_body(self):
-            return self.getTypedRuleContext(yaplParser.Class_bodyContext,0)
-
 
         def inherited_type_def(self):
             return self.getTypedRuleContext(yaplParser.Inherited_type_defContext,0)
@@ -378,272 +303,62 @@ class yaplParser ( Parser ):
             return self.getTypedRuleContext(yaplParser.Type_defContext,0)
 
 
+        def feature(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(yaplParser.FeatureContext)
+            else:
+                return self.getTypedRuleContext(yaplParser.FeatureContext,i)
+
+
         def getRuleIndex(self):
-            return yaplParser.RULE_class_def
+            return yaplParser.RULE_class_grammar
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitClass_def" ):
-                return visitor.visitClass_def(self)
+            if hasattr( visitor, "visitClass_grammar" ):
+                return visitor.visitClass_grammar(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def class_def(self):
+    def class_grammar(self):
 
-        localctx = yaplParser.Class_defContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 2, self.RULE_class_def)
+        localctx = yaplParser.Class_grammarContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 2, self.RULE_class_grammar)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 115
+            self.state = 69
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
             if la_ == 1:
-                self.state = 113
+                self.state = 67
                 self.inherited_type_def()
                 pass
 
             elif la_ == 2:
-                self.state = 114
+                self.state = 68
                 self.type_def()
                 pass
 
 
-            self.state = 117
-            self.class_body()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Type_defContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def user_defined_t(self):
-            return self.getTypedRuleContext(yaplParser.User_defined_tContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_type_def
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitType_def" ):
-                return visitor.visitType_def(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def type_def(self):
-
-        localctx = yaplParser.Type_defContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 4, self.RULE_type_def)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 119
-            self.match(yaplParser.T__0)
-            self.state = 120
-            self.user_defined_t()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Inherited_type_defContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def type_def(self):
-            return self.getTypedRuleContext(yaplParser.Type_defContext,0)
-
-
-        def valid_inheritance(self):
-            return self.getTypedRuleContext(yaplParser.Valid_inheritanceContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_inherited_type_def
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInherited_type_def" ):
-                return visitor.visitInherited_type_def(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def inherited_type_def(self):
-
-        localctx = yaplParser.Inherited_type_defContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_inherited_type_def)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 122
-            self.type_def()
-            self.state = 123
+            self.state = 71
             self.match(yaplParser.T__1)
-            self.state = 124
-            self.valid_inheritance()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Valid_inheritanceContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def type_(self):
-            return self.getTypedRuleContext(yaplParser.TypeContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_valid_inheritance
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitValid_inheritance" ):
-                return visitor.visitValid_inheritance(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def valid_inheritance(self):
-
-        localctx = yaplParser.Valid_inheritanceContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 8, self.RULE_valid_inheritance)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 126
-            self.type_()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Class_bodyContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def LBRACKET(self):
-            return self.getToken(yaplParser.LBRACKET, 0)
-
-        def RBRACKET(self):
-            return self.getToken(yaplParser.RBRACKET, 0)
-
-        def EOS(self):
-            return self.getToken(yaplParser.EOS, 0)
-
-        def mem_dec(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(yaplParser.Mem_decContext)
-            else:
-                return self.getTypedRuleContext(yaplParser.Mem_decContext,i)
-
-
-        def func_dec(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(yaplParser.Func_decContext)
-            else:
-                return self.getTypedRuleContext(yaplParser.Func_decContext,i)
-
-
-        def empty_class_body(self):
-            return self.getTypedRuleContext(yaplParser.Empty_class_bodyContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_class_body
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitClass_body" ):
-                return visitor.visitClass_body(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def class_body(self):
-
-        localctx = yaplParser.Class_bodyContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 10, self.RULE_class_body)
-        self._la = 0 # Token type
-        try:
-            self.state = 144
+            self.state = 77
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 128
-                self.match(yaplParser.LBRACKET)
-                self.state = 132
-                self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
-                        self.state = 129
-                        self.mem_dec() 
-                    self.state = 134
-                    self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
-
-                self.state = 138
+            _la = self._input.LA(1)
+            while _la==32:
+                self.state = 72
+                self.feature()
+                self.state = 73
+                self.match(yaplParser.T__0)
+                self.state = 79
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==42:
-                    self.state = 135
-                    self.func_dec()
-                    self.state = 140
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
 
-                self.state = 141
-                self.match(yaplParser.RBRACKET)
-                self.state = 142
-                self.match(yaplParser.EOS)
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 143
-                self.empty_class_body()
-                pass
-
-
+            self.state = 80
+            self.match(yaplParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -653,119 +368,51 @@ class yaplParser ( Parser ):
         return localctx
 
 
-    class Empty_class_bodyContext(ParserRuleContext):
+    class FeatureContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def LBRACKET(self):
-            return self.getToken(yaplParser.LBRACKET, 0)
+        def func_dec(self):
+            return self.getTypedRuleContext(yaplParser.Func_decContext,0)
 
-        def RBRACKET(self):
-            return self.getToken(yaplParser.RBRACKET, 0)
 
-        def EOS(self):
-            return self.getToken(yaplParser.EOS, 0)
+        def mem_dec(self):
+            return self.getTypedRuleContext(yaplParser.Mem_decContext,0)
+
 
         def getRuleIndex(self):
-            return yaplParser.RULE_empty_class_body
+            return yaplParser.RULE_feature
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitEmpty_class_body" ):
-                return visitor.visitEmpty_class_body(self)
+            if hasattr( visitor, "visitFeature" ):
+                return visitor.visitFeature(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def empty_class_body(self):
+    def feature(self):
 
-        localctx = yaplParser.Empty_class_bodyContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_empty_class_body)
+        localctx = yaplParser.FeatureContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 4, self.RULE_feature)
         try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 146
-            self.match(yaplParser.LBRACKET)
-            self.state = 147
-            self.match(yaplParser.RBRACKET)
-            self.state = 148
-            self.match(yaplParser.EOS)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Mem_decContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def mem_name(self):
-            return self.getTypedRuleContext(yaplParser.Mem_nameContext,0)
-
-
-        def type_(self):
-            return self.getTypedRuleContext(yaplParser.TypeContext,0)
-
-
-        def EOS(self):
-            return self.getToken(yaplParser.EOS, 0)
-
-        def mem_asig(self):
-            return self.getTypedRuleContext(yaplParser.Mem_asigContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_mem_dec
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMem_dec" ):
-                return visitor.visitMem_dec(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def mem_dec(self):
-
-        localctx = yaplParser.Mem_decContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_mem_dec)
-        try:
-            self.state = 160
+            self.state = 84
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 150
-                self.mem_name()
-                self.state = 151
-                self.match(yaplParser.T__2)
-                self.state = 152
-                self.type_()
-                self.state = 153
-                self.match(yaplParser.EOS)
+                self.state = 82
+                self.func_dec()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 155
-                self.mem_name()
-                self.state = 156
-                self.match(yaplParser.T__2)
-                self.state = 157
-                self.mem_asig()
-                self.state = 158
-                self.match(yaplParser.EOS)
+                self.state = 83
+                self.mem_dec()
                 pass
 
 
@@ -778,387 +425,7 @@ class yaplParser ( Parser ):
         return localctx
 
 
-    class Mem_asigContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def type_(self):
-            return self.getTypedRuleContext(yaplParser.TypeContext,0)
-
-
-        def ASSIG_OP(self):
-            return self.getToken(yaplParser.ASSIG_OP, 0)
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_mem_asig
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMem_asig" ):
-                return visitor.visitMem_asig(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def mem_asig(self):
-
-        localctx = yaplParser.Mem_asigContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_mem_asig)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 162
-            self.type_()
-            self.state = 163
-            self.match(yaplParser.ASSIG_OP)
-            self.state = 164
-            self.expr()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Mem_nameContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ID(self):
-            return self.getToken(yaplParser.ID, 0)
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_mem_name
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMem_name" ):
-                return visitor.visitMem_name(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def mem_name(self):
-
-        localctx = yaplParser.Mem_nameContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_mem_name)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 166
-            self.match(yaplParser.ID)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Canon_typeContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def THIS_PTR(self):
-            return self.getToken(yaplParser.THIS_PTR, 0)
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_canon_type
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCanon_type" ):
-                return visitor.visitCanon_type(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def canon_type(self):
-
-        localctx = yaplParser.Canon_typeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_canon_type)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 168
-            _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 274877907184) != 0)):
-                self._errHandler.recoverInline(self)
-            else:
-                self._errHandler.reportMatch(self)
-                self.consume()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Ret_typeContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def type_(self):
-            return self.getTypedRuleContext(yaplParser.TypeContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_ret_type
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitRet_type" ):
-                return visitor.visitRet_type(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def ret_type(self):
-
-        localctx = yaplParser.Ret_typeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_ret_type)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 170
-            self.type_()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class User_defined_tContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def UDT(self):
-            return self.getToken(yaplParser.UDT, 0)
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_user_defined_t
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitUser_defined_t" ):
-                return visitor.visitUser_defined_t(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def user_defined_t(self):
-
-        localctx = yaplParser.User_defined_tContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_user_defined_t)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 172
-            self.match(yaplParser.UDT)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class TypeContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def canon_type(self):
-            return self.getTypedRuleContext(yaplParser.Canon_typeContext,0)
-
-
-        def user_defined_t(self):
-            return self.getTypedRuleContext(yaplParser.User_defined_tContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_type
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitType" ):
-                return visitor.visitType(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def type_(self):
-
-        localctx = yaplParser.TypeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_type)
-        try:
-            self.state = 176
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [4, 5, 6, 7, 38]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 174
-                self.canon_type()
-                pass
-            elif token in [41]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 175
-                self.user_defined_t()
-                pass
-            else:
-                raise NoViableAltException(self)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Sign_decContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ID(self):
-            return self.getToken(yaplParser.ID, 0)
-
-        def LPAREN(self):
-            return self.getToken(yaplParser.LPAREN, 0)
-
-        def func_params(self):
-            return self.getTypedRuleContext(yaplParser.Func_paramsContext,0)
-
-
-        def RPAREN(self):
-            return self.getToken(yaplParser.RPAREN, 0)
-
-        def ret_type(self):
-            return self.getTypedRuleContext(yaplParser.Ret_typeContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_sign_dec
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSign_dec" ):
-                return visitor.visitSign_dec(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def sign_dec(self):
-
-        localctx = yaplParser.Sign_decContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_sign_dec)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 178
-            self.match(yaplParser.ID)
-            self.state = 179
-            self.match(yaplParser.LPAREN)
-            self.state = 180
-            self.func_params()
-            self.state = 181
-            self.match(yaplParser.RPAREN)
-            self.state = 182
-            self.match(yaplParser.T__2)
-            self.state = 183
-            self.ret_type()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Func_decContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def sign_dec(self):
-            return self.getTypedRuleContext(yaplParser.Sign_decContext,0)
-
-
-        def func_body(self):
-            return self.getTypedRuleContext(yaplParser.Func_bodyContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_func_dec
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunc_dec" ):
-                return visitor.visitFunc_dec(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def func_dec(self):
-
-        localctx = yaplParser.Func_decContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_func_dec)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 185
-            self.sign_dec()
-            self.state = 186
-            self.func_body()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Param_decContext(ParserRuleContext):
+    class FormalContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1173,351 +440,29 @@ class yaplParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return yaplParser.RULE_param_dec
+            return yaplParser.RULE_formal
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParam_dec" ):
-                return visitor.visitParam_dec(self)
+            if hasattr( visitor, "visitFormal" ):
+                return visitor.visitFormal(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def param_dec(self):
+    def formal(self):
 
-        localctx = yaplParser.Param_decContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_param_dec)
+        localctx = yaplParser.FormalContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 6, self.RULE_formal)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 188
+            self.state = 86
             self.match(yaplParser.ID)
-            self.state = 189
-            self.match(yaplParser.T__2)
-            self.state = 190
+            self.state = 87
+            self.match(yaplParser.T__3)
+            self.state = 88
             self.type_()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Func_paramsContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def param_dec(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(yaplParser.Param_decContext)
-            else:
-                return self.getTypedRuleContext(yaplParser.Param_decContext,i)
-
-
-        def COMA(self, i:int=None):
-            if i is None:
-                return self.getTokens(yaplParser.COMA)
-            else:
-                return self.getToken(yaplParser.COMA, i)
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_func_params
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunc_params" ):
-                return visitor.visitFunc_params(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def func_params(self):
-
-        localctx = yaplParser.Func_paramsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_func_params)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 201
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==42:
-                self.state = 197
-                self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
-                        self.state = 192
-                        self.param_dec()
-                        self.state = 193
-                        self.match(yaplParser.COMA) 
-                    self.state = 199
-                    self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
-
-                self.state = 200
-                self.param_dec()
-
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Func_bodyContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def LBRACKET(self):
-            return self.getToken(yaplParser.LBRACKET, 0)
-
-        def RBRACKET(self):
-            return self.getToken(yaplParser.RBRACKET, 0)
-
-        def EOS(self):
-            return self.getToken(yaplParser.EOS, 0)
-
-        def ret_expr(self):
-            return self.getTypedRuleContext(yaplParser.Ret_exprContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_func_body
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunc_body" ):
-                return visitor.visitFunc_body(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def func_body(self):
-
-        localctx = yaplParser.Func_bodyContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_func_body)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 203
-            self.match(yaplParser.LBRACKET)
-            self.state = 205
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 31907715649792) != 0):
-                self.state = 204
-                self.ret_expr()
-
-
-            self.state = 207
-            self.match(yaplParser.RBRACKET)
-            self.state = 208
-            self.match(yaplParser.EOS)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Ret_exprContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_ret_expr
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitRet_expr" ):
-                return visitor.visitRet_expr(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def ret_expr(self):
-
-        localctx = yaplParser.Ret_exprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_ret_expr)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 210
-            self.expr()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class If_stmtContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def bool_expr(self):
-            return self.getTypedRuleContext(yaplParser.Bool_exprContext,0)
-
-
-        def expr(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(yaplParser.ExprContext)
-            else:
-                return self.getTypedRuleContext(yaplParser.ExprContext,i)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_if_stmt
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIf_stmt" ):
-                return visitor.visitIf_stmt(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def if_stmt(self):
-
-        localctx = yaplParser.If_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_if_stmt)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 212
-            self.match(yaplParser.T__7)
-            self.state = 213
-            self.bool_expr()
-            self.state = 214
-            self.match(yaplParser.T__8)
-            self.state = 215
-            self.expr()
-            self.state = 216
-            self.match(yaplParser.T__9)
-            self.state = 217
-            self.expr()
-            self.state = 218
-            self.match(yaplParser.T__10)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class While_loopContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def bool_expr(self):
-            return self.getTypedRuleContext(yaplParser.Bool_exprContext,0)
-
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_while_loop
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitWhile_loop" ):
-                return visitor.visitWhile_loop(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def while_loop(self):
-
-        localctx = yaplParser.While_loopContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_while_loop)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 220
-            self.match(yaplParser.T__11)
-            self.state = 221
-            self.bool_expr()
-            self.state = 222
-            self.match(yaplParser.T__12)
-            self.state = 223
-            self.expr()
-            self.state = 224
-            self.match(yaplParser.T__13)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Bool_exprContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_bool_expr
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBool_expr" ):
-                return visitor.visitBool_expr(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def bool_expr(self):
-
-        localctx = yaplParser.Bool_exprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_bool_expr)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 226
-            self.expr()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1534,133 +479,704 @@ class yaplParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def func_call(self):
-            return self.getTypedRuleContext(yaplParser.Func_callContext,0)
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_expr
+
+     
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
 
 
-        def LPAREN(self):
-            return self.getToken(yaplParser.LPAREN, 0)
+    class IdentifierContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def ID(self):
+            return self.getToken(yaplParser.ID, 0)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIdentifier" ):
+                return visitor.visitIdentifier(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class NegationContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def expr(self):
             return self.getTypedRuleContext(yaplParser.ExprContext,0)
 
 
-        def RPAREN(self):
-            return self.getToken(yaplParser.RPAREN, 0)
-
-        def if_stmt(self):
-            return self.getTypedRuleContext(yaplParser.If_stmtContext,0)
-
-
-        def while_loop(self):
-            return self.getTypedRuleContext(yaplParser.While_loopContext,0)
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNegation" ):
+                return visitor.visitNegation(self)
+            else:
+                return visitor.visitChildren(self)
 
 
-        def sub_expr(self):
-            return self.getTypedRuleContext(yaplParser.Sub_exprContext,0)
+    class While_loopContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def WHILE(self):
+            return self.getToken(yaplParser.WHILE, 0)
+        def bool_expr(self):
+            return self.getTypedRuleContext(yaplParser.Bool_exprContext,0)
+
+        def LOOP(self):
+            return self.getToken(yaplParser.LOOP, 0)
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+        def POOL(self):
+            return self.getToken(yaplParser.POOL, 0)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhile_loop" ):
+                return visitor.visitWhile_loop(self)
+            else:
+                return visitor.visitChildren(self)
 
 
-        def new_call(self):
-            return self.getTypedRuleContext(yaplParser.New_callContext,0)
+    class IsvoidContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def ISVOID(self):
+            return self.getToken(yaplParser.ISVOID, 0)
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
 
 
-        def scope_def(self):
-            return self.getTypedRuleContext(yaplParser.Scope_defContext,0)
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIsvoid" ):
+                return visitor.visitIsvoid(self)
+            else:
+                return visitor.visitChildren(self)
 
 
-        def assignment(self):
-            return self.getTypedRuleContext(yaplParser.AssignmentContext,0)
+    class AssignmentContext(ExprContext):
 
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def ID(self):
+            return self.getToken(yaplParser.ID, 0)
+        def ASSIGN_OP(self):
+            return self.getToken(yaplParser.ASSIGN_OP, 0)
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignment" ):
+                return visitor.visitAssignment(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Bool_operationContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(yaplParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(yaplParser.ExprContext,i)
+
+        def LESS_THAN(self):
+            return self.getToken(yaplParser.LESS_THAN, 0)
+        def LESS_EQUAL(self):
+            return self.getToken(yaplParser.LESS_EQUAL, 0)
+        def EQUAL(self):
+            return self.getToken(yaplParser.EQUAL, 0)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBool_operation" ):
+                return visitor.visitBool_operation(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class If_stmtContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def IF(self):
+            return self.getToken(yaplParser.IF, 0)
+        def bool_expr(self):
+            return self.getTypedRuleContext(yaplParser.Bool_exprContext,0)
+
+        def THEN(self):
+            return self.getToken(yaplParser.THEN, 0)
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(yaplParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(yaplParser.ExprContext,i)
+
+        def ELSE(self):
+            return self.getToken(yaplParser.ELSE, 0)
+        def FI(self):
+            return self.getToken(yaplParser.FI, 0)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIf_stmt" ):
+                return visitor.visitIf_stmt(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Bool_literalContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def TRUE(self):
+            return self.getToken(yaplParser.TRUE, 0)
+        def FALSE(self):
+            return self.getToken(yaplParser.FALSE, 0)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBool_literal" ):
+                return visitor.visitBool_literal(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Func_callContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def func_name(self):
+            return self.getTypedRuleContext(yaplParser.Func_nameContext,0)
+
+        def call_params(self):
+            return self.getTypedRuleContext(yaplParser.Call_paramsContext,0)
+
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunc_call" ):
+                return visitor.visitFunc_call(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class New_callContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def NEW(self):
+            return self.getToken(yaplParser.NEW, 0)
+        def type_(self):
+            return self.getTypedRuleContext(yaplParser.TypeContext,0)
+
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNew_call" ):
+                return visitor.visitNew_call(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Str_literalContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def STRING(self):
+            return self.getToken(yaplParser.STRING, 0)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStr_literal" ):
+                return visitor.visitStr_literal(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Int_literalContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def INT(self):
+            return self.getToken(yaplParser.INT, 0)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitInt_literal" ):
+                return visitor.visitInt_literal(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class NotContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def NOT(self):
+            return self.getToken(yaplParser.NOT, 0)
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNot" ):
+                return visitor.visitNot(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class ParenContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParen" ):
+                return visitor.visitParen(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Scope_defContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(yaplParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(yaplParser.ExprContext,i)
+
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitScope_def" ):
+                return visitor.visitScope_def(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class LetContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def let_stmt(self):
             return self.getTypedRuleContext(yaplParser.Let_stmtContext,0)
 
 
-        def getRuleIndex(self):
-            return yaplParser.RULE_expr
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLet" ):
+                return visitor.visitLet(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Arith_operationContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(yaplParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(yaplParser.ExprContext,i)
+
+        def mul_op(self):
+            return self.getTypedRuleContext(yaplParser.Mul_opContext,0)
+
+        def division_op(self):
+            return self.getTypedRuleContext(yaplParser.Division_opContext,0)
+
+        def plus_op(self):
+            return self.getTypedRuleContext(yaplParser.Plus_opContext,0)
+
+        def minus_op(self):
+            return self.getTypedRuleContext(yaplParser.Minus_opContext,0)
+
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr" ):
-                return visitor.visitExpr(self)
+            if hasattr( visitor, "visitArith_operation" ):
+                return visitor.visitArith_operation(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class BigexprContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+        def subs_func(self):
+            return self.getTypedRuleContext(yaplParser.Subs_funcContext,0)
+
+        def called_type(self):
+            return self.getTypedRuleContext(yaplParser.Called_typeContext,0)
+
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBigexpr" ):
+                return visitor.visitBigexpr(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
-
-    def expr(self):
-
-        localctx = yaplParser.ExprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_expr)
+    def expr(self, _p:int=0):
+        _parentctx = self._ctx
+        _parentState = self.state
+        localctx = yaplParser.ExprContext(self, self._ctx, _parentState)
+        _prevctx = localctx
+        _startState = 8
+        self.enterRecursionRule(localctx, 8, self.RULE_expr, _p)
+        self._la = 0 # Token type
         try:
-            self.state = 240
+            self.enterOuterAlt(localctx, 1)
+            self.state = 141
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
             if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 228
-                self.func_call()
+                localctx = yaplParser.Func_callContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+
+                self.state = 91
+                self.func_name()
+                self.state = 92
+                self.match(yaplParser.T__5)
+                self.state = 93
+                self.call_params()
+                self.state = 94
+                self.match(yaplParser.T__6)
                 pass
 
             elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 229
-                self.match(yaplParser.LPAREN)
-                self.state = 230
-                self.expr()
-                self.state = 231
-                self.match(yaplParser.RPAREN)
+                localctx = yaplParser.If_stmtContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 96
+                self.match(yaplParser.IF)
+                self.state = 97
+                self.bool_expr()
+                self.state = 98
+                self.match(yaplParser.THEN)
+                self.state = 99
+                self.expr(0)
+                self.state = 100
+                self.match(yaplParser.ELSE)
+                self.state = 101
+                self.expr(0)
+                self.state = 102
+                self.match(yaplParser.FI)
                 pass
 
             elif la_ == 3:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 233
-                self.if_stmt()
+                localctx = yaplParser.While_loopContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 104
+                self.match(yaplParser.WHILE)
+                self.state = 105
+                self.bool_expr()
+                self.state = 106
+                self.match(yaplParser.LOOP)
+                self.state = 107
+                self.expr(0)
+                self.state = 108
+                self.match(yaplParser.POOL)
                 pass
 
             elif la_ == 4:
-                self.enterOuterAlt(localctx, 4)
-                self.state = 234
-                self.while_loop()
+                localctx = yaplParser.Scope_defContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 110
+                self.match(yaplParser.T__1)
+                self.state = 114 
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                while True:
+                    self.state = 111
+                    self.expr(0)
+                    self.state = 112
+                    self.match(yaplParser.T__0)
+                    self.state = 116 
+                    self._errHandler.sync(self)
+                    _la = self._input.LA(1)
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 23479845700) != 0)):
+                        break
+
+                self.state = 118
+                self.match(yaplParser.T__2)
                 pass
 
             elif la_ == 5:
-                self.enterOuterAlt(localctx, 5)
-                self.state = 235
-                self.sub_expr()
-                pass
-
-            elif la_ == 6:
-                self.enterOuterAlt(localctx, 6)
-                self.state = 236
-                self.new_call()
-                pass
-
-            elif la_ == 7:
-                self.enterOuterAlt(localctx, 7)
-                self.state = 237
-                self.scope_def()
-                pass
-
-            elif la_ == 8:
-                self.enterOuterAlt(localctx, 8)
-                self.state = 238
-                self.assignment()
-                pass
-
-            elif la_ == 9:
-                self.enterOuterAlt(localctx, 9)
-                self.state = 239
+                localctx = yaplParser.LetContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 120
                 self.let_stmt()
                 pass
 
+            elif la_ == 6:
+                localctx = yaplParser.New_callContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 121
+                self.match(yaplParser.NEW)
+                self.state = 122
+                self.type_()
+                pass
+
+            elif la_ == 7:
+                localctx = yaplParser.NegationContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 123
+                self.match(yaplParser.T__7)
+                self.state = 124
+                self.expr(15)
+                pass
+
+            elif la_ == 8:
+                localctx = yaplParser.IsvoidContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 125
+                self.match(yaplParser.ISVOID)
+                self.state = 126
+                self.expr(14)
+                pass
+
+            elif la_ == 9:
+                localctx = yaplParser.NotContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 127
+                self.match(yaplParser.NOT)
+                self.state = 128
+                self.expr(8)
+                pass
+
+            elif la_ == 10:
+                localctx = yaplParser.ParenContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 129
+                self.match(yaplParser.T__5)
+                self.state = 130
+                self.expr(0)
+                self.state = 131
+                self.match(yaplParser.T__6)
+                pass
+
+            elif la_ == 11:
+                localctx = yaplParser.IdentifierContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 133
+                self.match(yaplParser.ID)
+                pass
+
+            elif la_ == 12:
+                localctx = yaplParser.Int_literalContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 134
+                self.match(yaplParser.INT)
+                pass
+
+            elif la_ == 13:
+                localctx = yaplParser.Str_literalContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 135
+                self.match(yaplParser.STRING)
+                pass
+
+            elif la_ == 14:
+                localctx = yaplParser.Bool_literalContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 136
+                self.match(yaplParser.TRUE)
+                pass
+
+            elif la_ == 15:
+                localctx = yaplParser.Bool_literalContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 137
+                self.match(yaplParser.FALSE)
+                pass
+
+            elif la_ == 16:
+                localctx = yaplParser.AssignmentContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 138
+                self.match(yaplParser.ID)
+                self.state = 139
+                self.match(yaplParser.ASSIGN_OP)
+                self.state = 140
+                self.expr(1)
+                pass
+
+
+            self._ctx.stop = self._input.LT(-1)
+            self.state = 170
+            self._errHandler.sync(self)
+            _alt = self._interp.adaptivePredict(self._input,8,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
+                    if self._parseListeners is not None:
+                        self.triggerExitRuleEvent()
+                    _prevctx = localctx
+                    self.state = 168
+                    self._errHandler.sync(self)
+                    la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
+                    if la_ == 1:
+                        localctx = yaplParser.Arith_operationContext(self, yaplParser.ExprContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        self.state = 143
+                        if not self.precpred(self._ctx, 13):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 13)")
+                        self.state = 144
+                        self.mul_op()
+                        self.state = 145
+                        self.expr(14)
+                        pass
+
+                    elif la_ == 2:
+                        localctx = yaplParser.Arith_operationContext(self, yaplParser.ExprContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        self.state = 147
+                        if not self.precpred(self._ctx, 12):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
+                        self.state = 148
+                        self.division_op()
+                        self.state = 149
+                        self.expr(13)
+                        pass
+
+                    elif la_ == 3:
+                        localctx = yaplParser.Arith_operationContext(self, yaplParser.ExprContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        self.state = 151
+                        if not self.precpred(self._ctx, 11):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
+                        self.state = 152
+                        self.plus_op()
+                        self.state = 153
+                        self.expr(12)
+                        pass
+
+                    elif la_ == 4:
+                        localctx = yaplParser.Arith_operationContext(self, yaplParser.ExprContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        self.state = 155
+                        if not self.precpred(self._ctx, 10):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
+                        self.state = 156
+                        self.minus_op()
+                        self.state = 157
+                        self.expr(11)
+                        pass
+
+                    elif la_ == 5:
+                        localctx = yaplParser.Bool_operationContext(self, yaplParser.ExprContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        self.state = 159
+                        if not self.precpred(self._ctx, 9):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
+                        self.state = 160
+                        _la = self._input.LA(1)
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 123145302310912) != 0)):
+                            self._errHandler.recoverInline(self)
+                        else:
+                            self._errHandler.reportMatch(self)
+                            self.consume()
+                        self.state = 161
+                        self.expr(10)
+                        pass
+
+                    elif la_ == 6:
+                        localctx = yaplParser.BigexprContext(self, yaplParser.ExprContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        self.state = 162
+                        if not self.precpred(self._ctx, 22):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 22)")
+                        self.state = 165
+                        self._errHandler.sync(self)
+                        _la = self._input.LA(1)
+                        if _la==5:
+                            self.state = 163
+                            self.match(yaplParser.T__4)
+                            self.state = 164
+                            self.called_type()
+
+
+                        self.state = 167
+                        self.subs_func()
+                        pass
+
+             
+                self.state = 172
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,8,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
             self._errHandler.recover(self, re)
         finally:
-            self.exitRule()
+            self.unrollRecursionContexts(_parentctx)
         return localctx
 
 
@@ -1694,17 +1210,17 @@ class yaplParser ( Parser ):
     def let_stmt(self):
 
         localctx = yaplParser.Let_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_let_stmt)
+        self.enterRule(localctx, 10, self.RULE_let_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 242
-            self.match(yaplParser.T__14)
-            self.state = 243
+            self.state = 173
+            self.match(yaplParser.T__8)
+            self.state = 174
             self.let_type_dec()
-            self.state = 244
-            self.match(yaplParser.T__15)
-            self.state = 245
-            self.expr()
+            self.state = 175
+            self.match(yaplParser.T__9)
+            self.state = 176
+            self.expr(0)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1747,32 +1263,985 @@ class yaplParser ( Parser ):
     def let_type_dec(self):
 
         localctx = yaplParser.Let_type_decContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_let_type_dec)
+        self.enterRule(localctx, 12, self.RULE_let_type_dec)
         try:
-            self.state = 253
+            self.state = 184
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 247
+                self.state = 178
                 self.match(yaplParser.ID)
-                self.state = 248
-                self.match(yaplParser.T__2)
-                self.state = 249
+                self.state = 179
+                self.match(yaplParser.T__3)
+                self.state = 180
                 self.type_()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 250
+                self.state = 181
                 self.match(yaplParser.ID)
-                self.state = 251
-                self.match(yaplParser.T__2)
-                self.state = 252
+                self.state = 182
+                self.match(yaplParser.T__3)
+                self.state = 183
                 self.mem_asig()
                 pass
 
 
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Mem_asigContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def type_(self):
+            return self.getTypedRuleContext(yaplParser.TypeContext,0)
+
+
+        def ASSIGN_OP(self):
+            return self.getToken(yaplParser.ASSIGN_OP, 0)
+
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_mem_asig
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMem_asig" ):
+                return visitor.visitMem_asig(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def mem_asig(self):
+
+        localctx = yaplParser.Mem_asigContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 14, self.RULE_mem_asig)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 186
+            self.type_()
+            self.state = 187
+            self.match(yaplParser.ASSIGN_OP)
+            self.state = 188
+            self.expr(0)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Subs_funcContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def func_name(self):
+            return self.getTypedRuleContext(yaplParser.Func_nameContext,0)
+
+
+        def call_params(self):
+            return self.getTypedRuleContext(yaplParser.Call_paramsContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_subs_func
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSubs_func" ):
+                return visitor.visitSubs_func(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def subs_func(self):
+
+        localctx = yaplParser.Subs_funcContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 16, self.RULE_subs_func)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 190
+            self.match(yaplParser.T__10)
+            self.state = 191
+            self.func_name()
+            self.state = 192
+            self.match(yaplParser.T__5)
+            self.state = 193
+            self.call_params()
+            self.state = 194
+            self.match(yaplParser.T__6)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Type_defContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def CLASS(self):
+            return self.getToken(yaplParser.CLASS, 0)
+
+        def user_defined_t(self):
+            return self.getTypedRuleContext(yaplParser.User_defined_tContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_type_def
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitType_def" ):
+                return visitor.visitType_def(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def type_def(self):
+
+        localctx = yaplParser.Type_defContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 18, self.RULE_type_def)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 196
+            self.match(yaplParser.CLASS)
+            self.state = 197
+            self.user_defined_t()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Inherited_type_defContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def type_def(self):
+            return self.getTypedRuleContext(yaplParser.Type_defContext,0)
+
+
+        def valid_inheritance(self):
+            return self.getTypedRuleContext(yaplParser.Valid_inheritanceContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_inherited_type_def
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitInherited_type_def" ):
+                return visitor.visitInherited_type_def(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def inherited_type_def(self):
+
+        localctx = yaplParser.Inherited_type_defContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 20, self.RULE_inherited_type_def)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 199
+            self.type_def()
+            self.state = 200
+            self.match(yaplParser.T__11)
+            self.state = 201
+            self.valid_inheritance()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Valid_inheritanceContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def type_(self):
+            return self.getTypedRuleContext(yaplParser.TypeContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_valid_inheritance
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitValid_inheritance" ):
+                return visitor.visitValid_inheritance(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def valid_inheritance(self):
+
+        localctx = yaplParser.Valid_inheritanceContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 22, self.RULE_valid_inheritance)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 203
+            self.type_()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class User_defined_tContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def type_(self):
+            return self.getTypedRuleContext(yaplParser.TypeContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_user_defined_t
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitUser_defined_t" ):
+                return visitor.visitUser_defined_t(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def user_defined_t(self):
+
+        localctx = yaplParser.User_defined_tContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_user_defined_t)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 205
+            self.type_()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Called_typeContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def type_(self):
+            return self.getTypedRuleContext(yaplParser.TypeContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_called_type
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCalled_type" ):
+                return visitor.visitCalled_type(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def called_type(self):
+
+        localctx = yaplParser.Called_typeContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 26, self.RULE_called_type)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 207
+            self.type_()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Mul_opContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def MULT(self):
+            return self.getToken(yaplParser.MULT, 0)
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_mul_op
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMul_op" ):
+                return visitor.visitMul_op(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def mul_op(self):
+
+        localctx = yaplParser.Mul_opContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 28, self.RULE_mul_op)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 209
+            self.match(yaplParser.MULT)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Division_opContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def DIV(self):
+            return self.getToken(yaplParser.DIV, 0)
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_division_op
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDivision_op" ):
+                return visitor.visitDivision_op(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def division_op(self):
+
+        localctx = yaplParser.Division_opContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 30, self.RULE_division_op)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 211
+            self.match(yaplParser.DIV)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Plus_opContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def PLUS(self):
+            return self.getToken(yaplParser.PLUS, 0)
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_plus_op
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPlus_op" ):
+                return visitor.visitPlus_op(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def plus_op(self):
+
+        localctx = yaplParser.Plus_opContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 32, self.RULE_plus_op)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 213
+            self.match(yaplParser.PLUS)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Minus_opContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def MINUS(self):
+            return self.getToken(yaplParser.MINUS, 0)
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_minus_op
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMinus_op" ):
+                return visitor.visitMinus_op(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def minus_op(self):
+
+        localctx = yaplParser.Minus_opContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 34, self.RULE_minus_op)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 215
+            self.match(yaplParser.MINUS)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Bool_exprContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_bool_expr
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBool_expr" ):
+                return visitor.visitBool_expr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def bool_expr(self):
+
+        localctx = yaplParser.Bool_exprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 36, self.RULE_bool_expr)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 217
+            self.expr(0)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Sign_decContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ID(self):
+            return self.getToken(yaplParser.ID, 0)
+
+        def func_params(self):
+            return self.getTypedRuleContext(yaplParser.Func_paramsContext,0)
+
+
+        def ret_type(self):
+            return self.getTypedRuleContext(yaplParser.Ret_typeContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_sign_dec
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSign_dec" ):
+                return visitor.visitSign_dec(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def sign_dec(self):
+
+        localctx = yaplParser.Sign_decContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 38, self.RULE_sign_dec)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 219
+            self.match(yaplParser.ID)
+            self.state = 220
+            self.match(yaplParser.T__5)
+            self.state = 221
+            self.func_params()
+            self.state = 222
+            self.match(yaplParser.T__6)
+            self.state = 223
+            self.match(yaplParser.T__3)
+            self.state = 224
+            self.ret_type()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Func_decContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def sign_dec(self):
+            return self.getTypedRuleContext(yaplParser.Sign_decContext,0)
+
+
+        def func_body(self):
+            return self.getTypedRuleContext(yaplParser.Func_bodyContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_func_dec
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunc_dec" ):
+                return visitor.visitFunc_dec(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def func_dec(self):
+
+        localctx = yaplParser.Func_decContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 40, self.RULE_func_dec)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 226
+            self.sign_dec()
+            self.state = 227
+            self.func_body()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Func_bodyContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ret_expr(self):
+            return self.getTypedRuleContext(yaplParser.Ret_exprContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_func_body
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunc_body" ):
+                return visitor.visitFunc_body(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def func_body(self):
+
+        localctx = yaplParser.Func_bodyContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 42, self.RULE_func_body)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 229
+            self.match(yaplParser.T__1)
+            self.state = 231
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 23479845700) != 0):
+                self.state = 230
+                self.ret_expr()
+
+
+            self.state = 233
+            self.match(yaplParser.T__2)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Mem_decContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def mem_name(self):
+            return self.getTypedRuleContext(yaplParser.Mem_nameContext,0)
+
+
+        def type_(self):
+            return self.getTypedRuleContext(yaplParser.TypeContext,0)
+
+
+        def ASSIGN_OP(self):
+            return self.getToken(yaplParser.ASSIGN_OP, 0)
+
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_mem_dec
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMem_dec" ):
+                return visitor.visitMem_dec(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def mem_dec(self):
+
+        localctx = yaplParser.Mem_decContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 44, self.RULE_mem_dec)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 235
+            self.mem_name()
+            self.state = 236
+            self.match(yaplParser.T__3)
+            self.state = 237
+            self.type_()
+            self.state = 240
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==31:
+                self.state = 238
+                self.match(yaplParser.ASSIGN_OP)
+                self.state = 239
+                self.expr(0)
+
+
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Mem_nameContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ID(self):
+            return self.getToken(yaplParser.ID, 0)
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_mem_name
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMem_name" ):
+                return visitor.visitMem_name(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def mem_name(self):
+
+        localctx = yaplParser.Mem_nameContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 46, self.RULE_mem_name)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 242
+            self.match(yaplParser.ID)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class TypeContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def TYPE(self):
+            return self.getToken(yaplParser.TYPE, 0)
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_type
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitType" ):
+                return visitor.visitType(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def type_(self):
+
+        localctx = yaplParser.TypeContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 48, self.RULE_type)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 244
+            self.match(yaplParser.TYPE)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Func_paramsContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def formal(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(yaplParser.FormalContext)
+            else:
+                return self.getTypedRuleContext(yaplParser.FormalContext,i)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_func_params
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunc_params" ):
+                return visitor.visitFunc_params(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def func_params(self):
+
+        localctx = yaplParser.Func_paramsContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 50, self.RULE_func_params)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 255
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==32:
+                self.state = 251
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                    if _alt==1:
+                        self.state = 246
+                        self.formal()
+                        self.state = 247
+                        self.match(yaplParser.T__12) 
+                    self.state = 253
+                    self._errHandler.sync(self)
+                    _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
+
+                self.state = 254
+                self.formal()
+
+
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Ret_typeContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def type_(self):
+            return self.getTypedRuleContext(yaplParser.TypeContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_ret_type
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRet_type" ):
+                return visitor.visitRet_type(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def ret_type(self):
+
+        localctx = yaplParser.Ret_typeContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 52, self.RULE_ret_type)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 257
+            self.type_()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Ret_exprContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def expr(self):
+            return self.getTypedRuleContext(yaplParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return yaplParser.RULE_ret_expr
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRet_expr" ):
+                return visitor.visitRet_expr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def ret_expr(self):
+
+        localctx = yaplParser.Ret_exprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 54, self.RULE_ret_expr)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 259
+            self.expr(0)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1807,1308 +2276,11 @@ class yaplParser ( Parser ):
     def func_name(self):
 
         localctx = yaplParser.Func_nameContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 52, self.RULE_func_name)
+        self.enterRule(localctx, 56, self.RULE_func_name)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 255
+            self.state = 261
             self.match(yaplParser.ID)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Func_callContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def func_name(self):
-            return self.getTypedRuleContext(yaplParser.Func_nameContext,0)
-
-
-        def LPAREN(self):
-            return self.getToken(yaplParser.LPAREN, 0)
-
-        def call_params(self):
-            return self.getTypedRuleContext(yaplParser.Call_paramsContext,0)
-
-
-        def RPAREN(self):
-            return self.getToken(yaplParser.RPAREN, 0)
-
-        def record_type_bruh(self):
-            return self.getTypedRuleContext(yaplParser.Record_type_bruhContext,0)
-
-
-        def subs_func(self):
-            return self.getTypedRuleContext(yaplParser.Subs_funcContext,0)
-
-
-        def record_type(self):
-            return self.getTypedRuleContext(yaplParser.Record_typeContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_func_call
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunc_call" ):
-                return visitor.visitFunc_call(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def func_call(self):
-
-        localctx = yaplParser.Func_callContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 54, self.RULE_func_call)
-        try:
-            self.state = 270
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 257
-                self.func_name()
-                self.state = 258
-                self.match(yaplParser.LPAREN)
-                self.state = 259
-                self.call_params()
-                self.state = 260
-                self.match(yaplParser.RPAREN)
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 262
-                self.record_type_bruh()
-                self.state = 263
-                self.subs_func()
-                pass
-
-            elif la_ == 3:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 265
-                self.match(yaplParser.LPAREN)
-                self.state = 266
-                self.record_type()
-                self.state = 267
-                self.match(yaplParser.RPAREN)
-                self.state = 268
-                self.subs_func()
-                pass
-
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Record_typeContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_record_type
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitRecord_type" ):
-                return visitor.visitRecord_type(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def record_type(self):
-
-        localctx = yaplParser.Record_typeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 56, self.RULE_record_type)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 272
-            self.expr()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Record_type_bruhContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def acs_object(self):
-            return self.getTypedRuleContext(yaplParser.Acs_objectContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_record_type_bruh
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitRecord_type_bruh" ):
-                return visitor.visitRecord_type_bruh(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def record_type_bruh(self):
-
-        localctx = yaplParser.Record_type_bruhContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 58, self.RULE_record_type_bruh)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 274
-            self.acs_object()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Sub_exprContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def acs_object(self):
-            return self.getTypedRuleContext(yaplParser.Acs_objectContext,0)
-
-
-        def literal(self):
-            return self.getTypedRuleContext(yaplParser.LiteralContext,0)
-
-
-        def arith_operation(self):
-            return self.getTypedRuleContext(yaplParser.Arith_operationContext,0)
-
-
-        def bool_operation(self):
-            return self.getTypedRuleContext(yaplParser.Bool_operationContext,0)
-
-
-        def left_hand_operation(self):
-            return self.getTypedRuleContext(yaplParser.Left_hand_operationContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_sub_expr
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSub_expr" ):
-                return visitor.visitSub_expr(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def sub_expr(self):
-
-        localctx = yaplParser.Sub_exprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 60, self.RULE_sub_expr)
-        try:
-            self.state = 281
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 276
-                self.acs_object()
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 277
-                self.literal()
-                pass
-
-            elif la_ == 3:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 278
-                self.arith_operation()
-                pass
-
-            elif la_ == 4:
-                self.enterOuterAlt(localctx, 4)
-                self.state = 279
-                self.bool_operation()
-                pass
-
-            elif la_ == 5:
-                self.enterOuterAlt(localctx, 5)
-                self.state = 280
-                self.left_hand_operation()
-                pass
-
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Left_hand_operationContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def left_hand_op(self):
-            return self.getTypedRuleContext(yaplParser.Left_hand_opContext,0)
-
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_left_hand_operation
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLeft_hand_operation" ):
-                return visitor.visitLeft_hand_operation(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def left_hand_operation(self):
-
-        localctx = yaplParser.Left_hand_operationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 62, self.RULE_left_hand_operation)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 283
-            self.left_hand_op()
-            self.state = 284
-            self.expr()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Bool_operationContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def literal(self):
-            return self.getTypedRuleContext(yaplParser.LiteralContext,0)
-
-
-        def bool_operator(self):
-            return self.getTypedRuleContext(yaplParser.Bool_operatorContext,0)
-
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def acs_object(self):
-            return self.getTypedRuleContext(yaplParser.Acs_objectContext,0)
-
-
-        def func_call(self):
-            return self.getTypedRuleContext(yaplParser.Func_callContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_bool_operation
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBool_operation" ):
-                return visitor.visitBool_operation(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def bool_operation(self):
-
-        localctx = yaplParser.Bool_operationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 64, self.RULE_bool_operation)
-        try:
-            self.state = 298
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 286
-                self.literal()
-                self.state = 287
-                self.bool_operator()
-                self.state = 288
-                self.expr()
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 290
-                self.acs_object()
-                self.state = 291
-                self.bool_operator()
-                self.state = 292
-                self.expr()
-                pass
-
-            elif la_ == 3:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 294
-                self.func_call()
-                self.state = 295
-                self.bool_operator()
-                self.state = 296
-                self.expr()
-                pass
-
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Arith_operationContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def literal(self):
-            return self.getTypedRuleContext(yaplParser.LiteralContext,0)
-
-
-        def arith_operator(self):
-            return self.getTypedRuleContext(yaplParser.Arith_operatorContext,0)
-
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def acs_object(self):
-            return self.getTypedRuleContext(yaplParser.Acs_objectContext,0)
-
-
-        def func_call(self):
-            return self.getTypedRuleContext(yaplParser.Func_callContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_arith_operation
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArith_operation" ):
-                return visitor.visitArith_operation(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def arith_operation(self):
-
-        localctx = yaplParser.Arith_operationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 66, self.RULE_arith_operation)
-        try:
-            self.state = 312
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 300
-                self.literal()
-                self.state = 301
-                self.arith_operator()
-                self.state = 302
-                self.expr()
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 304
-                self.acs_object()
-                self.state = 305
-                self.arith_operator()
-                self.state = 306
-                self.expr()
-                pass
-
-            elif la_ == 3:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 308
-                self.func_call()
-                self.state = 309
-                self.arith_operator()
-                self.state = 310
-                self.expr()
-                pass
-
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Left_hand_opContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_left_hand_op
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLeft_hand_op" ):
-                return visitor.visitLeft_hand_op(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def left_hand_op(self):
-
-        localctx = yaplParser.Left_hand_opContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 68, self.RULE_left_hand_op)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 314
-            _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 917504) != 0)):
-                self._errHandler.recoverInline(self)
-            else:
-                self._errHandler.reportMatch(self)
-                self.consume()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Arith_operatorContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def plus_op(self):
-            return self.getTypedRuleContext(yaplParser.Plus_opContext,0)
-
-
-        def minus_op(self):
-            return self.getTypedRuleContext(yaplParser.Minus_opContext,0)
-
-
-        def division_op(self):
-            return self.getTypedRuleContext(yaplParser.Division_opContext,0)
-
-
-        def mul_op(self):
-            return self.getTypedRuleContext(yaplParser.Mul_opContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_arith_operator
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArith_operator" ):
-                return visitor.visitArith_operator(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def arith_operator(self):
-
-        localctx = yaplParser.Arith_operatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 70, self.RULE_arith_operator)
-        try:
-            self.state = 320
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [20]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 316
-                self.plus_op()
-                pass
-            elif token in [21]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 317
-                self.minus_op()
-                pass
-            elif token in [22]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 318
-                self.division_op()
-                pass
-            elif token in [23]:
-                self.enterOuterAlt(localctx, 4)
-                self.state = 319
-                self.mul_op()
-                pass
-            else:
-                raise NoViableAltException(self)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Plus_opContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_plus_op
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPlus_op" ):
-                return visitor.visitPlus_op(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def plus_op(self):
-
-        localctx = yaplParser.Plus_opContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 72, self.RULE_plus_op)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 322
-            self.match(yaplParser.T__19)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Minus_opContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_minus_op
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMinus_op" ):
-                return visitor.visitMinus_op(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def minus_op(self):
-
-        localctx = yaplParser.Minus_opContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 74, self.RULE_minus_op)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 324
-            self.match(yaplParser.T__20)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Division_opContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_division_op
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDivision_op" ):
-                return visitor.visitDivision_op(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def division_op(self):
-
-        localctx = yaplParser.Division_opContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 76, self.RULE_division_op)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 326
-            self.match(yaplParser.T__21)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Mul_opContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_mul_op
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMul_op" ):
-                return visitor.visitMul_op(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def mul_op(self):
-
-        localctx = yaplParser.Mul_opContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 78, self.RULE_mul_op)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 328
-            self.match(yaplParser.T__22)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Bool_operatorContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_bool_operator
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBool_operator" ):
-                return visitor.visitBool_operator(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def bool_operator(self):
-
-        localctx = yaplParser.Bool_operatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 80, self.RULE_bool_operator)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 330
-            _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 117440512) != 0)):
-                self._errHandler.recoverInline(self)
-            else:
-                self._errHandler.reportMatch(self)
-                self.consume()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Assig_opContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ASSIG_OP(self):
-            return self.getToken(yaplParser.ASSIG_OP, 0)
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_assig_op
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAssig_op" ):
-                return visitor.visitAssig_op(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def assig_op(self):
-
-        localctx = yaplParser.Assig_opContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 82, self.RULE_assig_op)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 332
-            self.match(yaplParser.ASSIG_OP)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class IdentifierContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ID(self):
-            return self.getToken(yaplParser.ID, 0)
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_identifier
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIdentifier" ):
-                return visitor.visitIdentifier(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def identifier(self):
-
-        localctx = yaplParser.IdentifierContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 84, self.RULE_identifier)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 334
-            self.match(yaplParser.ID)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class AssignmentContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def identifier(self):
-            return self.getTypedRuleContext(yaplParser.IdentifierContext,0)
-
-
-        def assig_op(self):
-            return self.getTypedRuleContext(yaplParser.Assig_opContext,0)
-
-
-        def expr(self):
-            return self.getTypedRuleContext(yaplParser.ExprContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_assignment
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAssignment" ):
-                return visitor.visitAssignment(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def assignment(self):
-
-        localctx = yaplParser.AssignmentContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 86, self.RULE_assignment)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 336
-            self.identifier()
-            self.state = 337
-            self.assig_op()
-            self.state = 338
-            self.expr()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class LiteralContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def str_literal(self):
-            return self.getTypedRuleContext(yaplParser.Str_literalContext,0)
-
-
-        def int_literal(self):
-            return self.getTypedRuleContext(yaplParser.Int_literalContext,0)
-
-
-        def bool_literal(self):
-            return self.getTypedRuleContext(yaplParser.Bool_literalContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_literal
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLiteral" ):
-                return visitor.visitLiteral(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def literal(self):
-
-        localctx = yaplParser.LiteralContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 88, self.RULE_literal)
-        try:
-            self.state = 343
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [43]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 340
-                self.str_literal()
-                pass
-            elif token in [44]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 341
-                self.int_literal()
-                pass
-            elif token in [27, 28]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 342
-                self.bool_literal()
-                pass
-            else:
-                raise NoViableAltException(self)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Bool_literalContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_bool_literal
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBool_literal" ):
-                return visitor.visitBool_literal(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def bool_literal(self):
-
-        localctx = yaplParser.Bool_literalContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 90, self.RULE_bool_literal)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 345
-            _la = self._input.LA(1)
-            if not(_la==27 or _la==28):
-                self._errHandler.recoverInline(self)
-            else:
-                self._errHandler.reportMatch(self)
-                self.consume()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Str_literalContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def STR_LIT(self):
-            return self.getToken(yaplParser.STR_LIT, 0)
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_str_literal
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStr_literal" ):
-                return visitor.visitStr_literal(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def str_literal(self):
-
-        localctx = yaplParser.Str_literalContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 92, self.RULE_str_literal)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 347
-            self.match(yaplParser.STR_LIT)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Int_literalContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def DIGITS(self):
-            return self.getToken(yaplParser.DIGITS, 0)
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_int_literal
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInt_literal" ):
-                return visitor.visitInt_literal(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def int_literal(self):
-
-        localctx = yaplParser.Int_literalContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 94, self.RULE_int_literal)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 349
-            self.match(yaplParser.DIGITS)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Acs_objectContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ID(self):
-            return self.getToken(yaplParser.ID, 0)
-
-        def literal(self):
-            return self.getTypedRuleContext(yaplParser.LiteralContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_acs_object
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAcs_object" ):
-                return visitor.visitAcs_object(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def acs_object(self):
-
-        localctx = yaplParser.Acs_objectContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 96, self.RULE_acs_object)
-        try:
-            self.state = 353
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [42]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 351
-                self.match(yaplParser.ID)
-                pass
-            elif token in [27, 28, 43, 44]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 352
-                self.literal()
-                pass
-            else:
-                raise NoViableAltException(self)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class New_callContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def NEW(self):
-            return self.getToken(yaplParser.NEW, 0)
-
-        def type_(self):
-            return self.getTypedRuleContext(yaplParser.TypeContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_new_call
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNew_call" ):
-                return visitor.visitNew_call(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def new_call(self):
-
-        localctx = yaplParser.New_callContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 98, self.RULE_new_call)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 355
-            self.match(yaplParser.NEW)
-            self.state = 356
-            self.type_()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Subs_funcContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def SUBSCRIPT(self):
-            return self.getToken(yaplParser.SUBSCRIPT, 0)
-
-        def func_name(self):
-            return self.getTypedRuleContext(yaplParser.Func_nameContext,0)
-
-
-        def LPAREN(self):
-            return self.getToken(yaplParser.LPAREN, 0)
-
-        def call_params(self):
-            return self.getTypedRuleContext(yaplParser.Call_paramsContext,0)
-
-
-        def RPAREN(self):
-            return self.getToken(yaplParser.RPAREN, 0)
-
-        def subs_func(self):
-            return self.getTypedRuleContext(yaplParser.Subs_funcContext,0)
-
-
-        def getRuleIndex(self):
-            return yaplParser.RULE_subs_func
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSubs_func" ):
-                return visitor.visitSubs_func(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def subs_func(self):
-
-        localctx = yaplParser.Subs_funcContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 100, self.RULE_subs_func)
-        try:
-            self.state = 371
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 358
-                self.match(yaplParser.SUBSCRIPT)
-                self.state = 359
-                self.func_name()
-                self.state = 360
-                self.match(yaplParser.LPAREN)
-                self.state = 361
-                self.call_params()
-                self.state = 362
-                self.match(yaplParser.RPAREN)
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 364
-                self.match(yaplParser.SUBSCRIPT)
-                self.state = 365
-                self.func_name()
-                self.state = 366
-                self.match(yaplParser.LPAREN)
-                self.state = 367
-                self.call_params()
-                self.state = 368
-                self.match(yaplParser.RPAREN)
-                self.state = 369
-                self.subs_func()
-                pass
-
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3132,12 +2304,6 @@ class yaplParser ( Parser ):
                 return self.getTypedRuleContext(yaplParser.ExprContext,i)
 
 
-        def COMA(self, i:int=None):
-            if i is None:
-                return self.getTokens(yaplParser.COMA)
-            else:
-                return self.getToken(yaplParser.COMA, i)
-
         def getRuleIndex(self):
             return yaplParser.RULE_call_params
 
@@ -3153,30 +2319,30 @@ class yaplParser ( Parser ):
     def call_params(self):
 
         localctx = yaplParser.Call_paramsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 102, self.RULE_call_params)
+        self.enterRule(localctx, 58, self.RULE_call_params)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 384
+            self.state = 274
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 31907715649792) != 0):
-                self.state = 378
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 23479845700) != 0):
+                self.state = 268
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,20,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
-                        self.state = 373
-                        self.expr()
-                        self.state = 374
-                        self.match(yaplParser.COMA) 
-                    self.state = 380
+                        self.state = 263
+                        self.expr(0)
+                        self.state = 264
+                        self.match(yaplParser.T__12) 
+                    self.state = 270
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,20,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
 
-                self.state = 381
-                self.expr()
-                self.state = 386
+                self.state = 271
+                self.expr(0)
+                self.state = 276
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -3189,77 +2355,41 @@ class yaplParser ( Parser ):
         return localctx
 
 
-    class Scope_defContext(ParserRuleContext):
-        __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
+    def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
+        if self._predicates == None:
+            self._predicates = dict()
+        self._predicates[4] = self.expr_sempred
+        pred = self._predicates.get(ruleIndex, None)
+        if pred is None:
+            raise Exception("No predicate with index:" + str(ruleIndex))
+        else:
+            return pred(localctx, predIndex)
 
-        def LBRACKET(self):
-            return self.getToken(yaplParser.LBRACKET, 0)
+    def expr_sempred(self, localctx:ExprContext, predIndex:int):
+            if predIndex == 0:
+                return self.precpred(self._ctx, 13)
+         
 
-        def RBRACKET(self):
-            return self.getToken(yaplParser.RBRACKET, 0)
+            if predIndex == 1:
+                return self.precpred(self._ctx, 12)
+         
 
-        def expr(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(yaplParser.ExprContext)
-            else:
-                return self.getTypedRuleContext(yaplParser.ExprContext,i)
+            if predIndex == 2:
+                return self.precpred(self._ctx, 11)
+         
 
+            if predIndex == 3:
+                return self.precpred(self._ctx, 10)
+         
 
-        def EOS(self, i:int=None):
-            if i is None:
-                return self.getTokens(yaplParser.EOS)
-            else:
-                return self.getToken(yaplParser.EOS, i)
+            if predIndex == 4:
+                return self.precpred(self._ctx, 9)
+         
 
-        def getRuleIndex(self):
-            return yaplParser.RULE_scope_def
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitScope_def" ):
-                return visitor.visitScope_def(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def scope_def(self):
-
-        localctx = yaplParser.Scope_defContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 104, self.RULE_scope_def)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 387
-            self.match(yaplParser.LBRACKET)
-            self.state = 391 
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while True:
-                self.state = 388
-                self.expr()
-                self.state = 389
-                self.match(yaplParser.EOS)
-                self.state = 393 
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 31907715649792) != 0)):
-                    break
-
-            self.state = 395
-            self.match(yaplParser.RBRACKET)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
+            if predIndex == 5:
+                return self.precpred(self._ctx, 22)
+         
 
 
 
