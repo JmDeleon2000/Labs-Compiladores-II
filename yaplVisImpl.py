@@ -206,6 +206,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#mem_dec.
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
+        print(res)
 
         if res:
             if type(res) == list:
@@ -216,14 +217,28 @@ class yaplVisImpl(yaplVisitor):
                 if not res[0]:
                     return (False, res[1])  
 
+        var_name = res[0][1]
+
+        if len(res) > 2:
+            if res[1][1]['type'] != res[2][1]['type']:
+                        err_msg = f'{bcolors.FAIL}Cannot assign expresion of type: {res[2][1]["type"]} to variable "{var_name}"! Expecting type: {res[1][1]["type"]}{bcolors.ENDC}'
+                        print(err_msg)
+                        return (False, err_msg)
+            # type, scope, size, displacement, value
+            SYM_TABLE[self.name_to_temp(var_name)] = {'type':res[1][1]['type'], 
+                                                        'scope':{self.current_type, None}, 
+                                                        'size':res[1][1]['size'], 
+                                                        'displacement':self.getDisplacement(res[1][1]['size']),
+                                                        'val_expr': None} #TODO
 
         # type, scope, size, displacement
-        SYM_TABLE[self.name_to_temp(res[0][1])] = {'type':res[1][1], 
+        SYM_TABLE[self.name_to_temp(var_name)] = {'type':res[1][1]['type'], 
                                                         'scope':{self.current_type, None}, 
-                                                        'size':res[1][2], 
-                                                        'displacement':self.getDisplacement(res[1][2])}
+                                                        'size':res[1][1]['size'], 
+                                                        'displacement':self.getDisplacement(res[1][1]['size']),
+                                                        'val_expr': None}
 
-        return (True, res[1][1]) 
+        return (True, res[1]) 
     
 
 
@@ -265,11 +280,6 @@ class yaplVisImpl(yaplVisitor):
         err_str = f'{bcolors.FAIL}Cannot use undeclared type {name}{bcolors.ENDC}'
         print(err_str)
         return (False, err_str)
-
-    # Visit a parse tree produced by yaplParser#mem_dec.
-    def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
-        print('mem_dec')
-        return ctx.getText()
 
     def visitType_def(self, ctx:yaplParser.Type_defContext):
         type_name = ctx.getText()[5::]
