@@ -12,8 +12,8 @@ feature: func_dec
 formal: mem_name ':' type;
 expr
 : '(' expr ')' # paren
-| expr('@'called_type)? subs_func # bigexpr
-| func_name '(' ((expr  ',' )*expr )* ')' # func_call
+| expr('@'called_type)? '.'func_name '(' (expr (',' expr)*)? ')' # bigexpr
+| func_name '(' ((call_param  ',' )*call_param )* ')' # func_call
 | IF bool_expr THEN expr ELSE expr FI # if_stmt
 | WHILE bool_expr LOOP expr POOL # while_loop
 | '{' (expr ';')+ '}' # scope_def
@@ -42,7 +42,8 @@ let_type_dec
     |   ID ':' mem_asig
     ;
 mem_asig: type '<-' expr;
-subs_func: '.' func_name '(' ((expr  ',' )*expr )* ')';
+subs_func: '.' func_name '(' ((call_param  ',' )*call_param )* ')';
+call_param: expr;
 type_def: CLASS user_defined_t;
 inherited_type_def: type_def  'inherits' valid_inheritance;
 valid_inheritance: type;
