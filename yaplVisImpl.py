@@ -25,7 +25,7 @@ class bcolors:
 IO = 'IO'
 OBJ = 'Object'
 ERR = 'error'
-INT = 'int'
+INT = 'Int'
 PLUS = '+'
 MUL = '*'
 DIV = '/'
@@ -34,8 +34,8 @@ LT = '<'
 LTEQ = '<='
 EQUAL = '='
 ASIG = '<-'
-BOOL = 'bool'
-STR = 'string'
+BOOL = 'Bool'
+STR = 'String'
 SUPPORTED = {
     PLUS:[(INT, INT, INT),],
     DIV:[(INT, INT, INT),],
@@ -55,24 +55,31 @@ out_string_info = {'args_types':[STR], 'ret_t':IO}
 out_int_info = {'args_types':[INT], 'ret_t':IO}
 type_name_info = {'args_types':[], 'ret_t':STR}
 substr_info = {'args_types':[INT, INT], 'ret_t':STR}
-TYPE_TABLE = {IO:   {'size':8, 'parent':OBJ, 'functions':{'out_string':out_string_info,
-                                                          'out_int':out_int_info}}, 
-              BOOL: {'size':1, 'parent':OBJ, 'functions':dict()}, 
-              STR:  {'size':8, 'parent':OBJ, 'functions':{'substr':substr_info}}, 
-              INT:  {'size':4, 'parent':OBJ, 'functions':dict()}, 
-              OBJ:  {'size':8, 'parent':None, 'functions':{'type_name':type_name_info}}}
-
+TYPE_TABLE = {IO:   {'size':8, 'parent':OBJ, 'functions':['out_string',
+                                                          'out_int',
+                                                          'type_name']}, 
+              BOOL: {'size':1, 'parent':OBJ, 'functions':['type_name']}, 
+              STR:  {'size':8, 'parent':OBJ, 'functions':['substr', 'type_name']}, 
+              INT:  {'size':4, 'parent':OBJ, 'functions':['type_name']}, 
+              OBJ:  {'size':8, 'parent':None, 'functions':['type_name']}}
+SYM_TABLE = {}
+FUNC_TABLE = {'out_string':out_string_info,
+                'out_int':out_int_info,
+                'substr':substr_info,
+                'type_name':type_name_info}
+GLOBAL = 'global scope'
 
 class yaplVisImpl(yaplVisitor):    
 
     def __init__(self):
-        self.current_scope = {'id': 0, 'name': 'global', 'table':dict(), 'current_displacement':0}
-        self.scopes = [self.current_scope]
+        self.current_dis = 0
+        self.current_class_dis = 0
         self.id_counter = 0
         self.temp_count = 0
         self.temp_to_name_map = dict()
         self.call_type = None
         self.calling_func = []
+        self.current_func = None
     
     # Visit a parse tree produced by yaplParser#yapl_src.
     def visitYapl_src(self, ctx:yaplParser.Yapl_srcContext):
@@ -88,7 +95,6 @@ class yaplVisImpl(yaplVisitor):
 
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
         res = self.visitChildren(ctx)
-        
         if type(res) == list:
             for i in res:
                 if not i[0]:
@@ -128,28 +134,28 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#bool_literal.
     def visitBool_literal(self, ctx:yaplParser.Bool_literalContext):
-        self.current_scope['table'][self.name_to_temp(ctx.getText())] = {'type':BOOL, 
-                                                'scope':self.current_scope['id'], 
+        SYM_TABLE[self.name_to_temp(ctx.getText())] = {'type':BOOL, 
+                                                'scope':{self.current_type, GLOBAL}, 
                                                 'size':1, 
                                                 'displacement':self.getDisplacement(1)}
-        return (True, BOOL)
+        return (True, {'type':BOOL, 'size':1})
 
 
     # Visit a parse tree produced by yaplParser#str_literal.
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
-        self.current_scope['table'][self.name_to_temp(ctx.getText())] = {'type':STR, 
-                                                'scope':self.current_scope['id'], 
+        SYM_TABLE[self.name_to_temp(ctx.getText())] = {'type':STR, 
+                                                'scope':{self.current_type, GLOBAL}, 
                                                 'size':8, 
                                                 'displacement':self.getDisplacement(8)}
-        return (True, STR)
+        return (True,  {'type':STR, 'size':8})
 
     # Visit a parse tree produced by yaplParser#int_literal.
     def visitInt_literal(self, ctx:yaplParser.Int_literalContext):
-        self.current_scope['table'][self.name_to_temp(ctx.getText())] = {'type':INT, 
-                                        'scope':self.current_scope['id'], 
+        SYM_TABLE[self.name_to_temp(ctx.getText())] = {'type':INT, 
+                                        'scope':{self.current_type, GLOBAL}, 
                                         'size':4, 
                                         'displacement':self.getDisplacement(4)}
-        return (True, INT)
+        return (True,  {'type':INT, 'size':4})
     
     def visitPlus_op(self, ctx:yaplParser.Plus_opContext):
         return (True, PLUS)
@@ -172,11 +178,10 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#identifier.
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
         txt = ctx.getText()
-        new_id = self.name_to_temp(txt)
-        for i in self.scopes:#TODO  check it it is accesible
-            if new_id in i['table']:
-                return (True, i['table'][new_id]['type'])
-        err_msg = f'{bcolors.FAIL}Cannot assign to variable "{txt}" because it is not declared!{bcolors.ENDC}'
+        new_id = txt
+        if new_id in SYM_TABLE: # TODO check if accesible
+            print(SYM_TABLE[new_id])
+        err_msg = f'{bcolors.FAIL}Cannot use variable "{txt}" because it is not declared!{bcolors.ENDC}'
         print(err_msg)
         return (False, err_msg)
 
@@ -194,8 +199,8 @@ class yaplVisImpl(yaplVisitor):
         return (True, ctx.getText())
 
     def getDisplacement(self, size):
-        current = self.current_scope['current_displacement']
-        self.current_scope['current_displacement']+=size
+        current = self.current_dis
+        self.current_dis+=size
         return current
 
     # Visit a parse tree produced by yaplParser#mem_dec.
@@ -213,8 +218,8 @@ class yaplVisImpl(yaplVisitor):
 
 
         # type, scope, size, displacement
-        self.current_scope['table'][self.name_to_temp(res[0][1])] = {'type':res[1][1], 
-                                                        'scope':self.current_scope['id'], 
+        SYM_TABLE[self.name_to_temp(res[0][1])] = {'type':res[1][1], 
+                                                        'scope':{self.current_type, None}, 
                                                         'size':res[1][2], 
                                                         'displacement':self.getDisplacement(res[1][2])}
 
@@ -246,17 +251,37 @@ class yaplVisImpl(yaplVisitor):
     def visitInherited_type_def(self, ctx:yaplParser.Inherited_type_defContext):
         res = self.visitChildren(ctx)
         TYPE_TABLE[res[0][1]]['parent'] = res[1][1]
-        
+        for i in TYPE_TABLE[res[1][1]]['functions']:
+            TYPE_TABLE[res[0][1]]['functions'].append(i)
         return res[0]
+
+    # Visit a parse tree produced by yaplParser#type.
+    def visitType(self, ctx:yaplParser.TypeContext):
+        name = ctx.getText()
+        print(self.temp_to_name_map)
+        if name == 'SELF_TYPE':
+            return (True, {'type':name, 'size':8})
+        if name in TYPE_TABLE:
+            return (True, {'type':name, 'size':TYPE_TABLE[name]['size']})
+        err_str = f'{bcolors.FAIL}Cannot use undeclared type {name}{bcolors.ENDC}'
+        print(err_str)
+        return (False, err_str)
+
+    # Visit a parse tree produced by yaplParser#mem_dec.
+    def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
+        
+        return ctx.getText()
 
     def visitType_def(self, ctx:yaplParser.Type_defContext):
         type_name = ctx.getText()[5::]
+        self.current_type = type_name
         TYPE_TABLE[type_name] = {'parent':OBJ}
-        TYPE_TABLE[type_name]['functions'] = dict()
+        TYPE_TABLE[type_name]['functions'] = []
         TYPE_TABLE[type_name]['size'] = 8
         self.class_name = type_name
-        self.current_scope['table'][self.name_to_temp('self')] = {'type':type_name, 
-                                                        'scope':self.current_scope['id'], 
+        self.current_dis = 0
+        SYM_TABLE[self.name_to_temp('self')] = {'type':type_name, 
+                                                        'scope':{self.current_type, None}, 
                                                         'size':8, 
                                                         'displacement':self.getDisplacement(8)}
         SUPPORTED[ASIG].append([type_name, type_name, type_name])
@@ -279,16 +304,9 @@ class yaplVisImpl(yaplVisitor):
         func_name = ctx.getText().split('(')[0]
         func_scope = {'id': self.getScopeId(), 
                         'name': func_name, 
-                        'table':dict(),
+                        'table':[],
                         'current_displacement':0}#TODO cambiar al valor que sí es
-        self.scopes.append(func_scope)
-        self.current_scope = func_scope
         res = self.visitChildren(ctx)
-        self.scopes.pop()
-        self.current_scope = self.scopes[-1]
-
-        
-
         return res
     
     # Visit a parse tree produced by yaplParser#func_params.
@@ -298,20 +316,28 @@ class yaplVisImpl(yaplVisitor):
             if type(res) != list:
                 res = [res]
             for i in res:
-                self.current_scope['table'][i['Parname']] = {'type':i['type'],
-                                                    'scope':self.current_scope['id'],
+                SYM_TABLE[i['name']] = {'type':i['type'],
+                                                    'scope':{self.current_type, self.current_func['name']},
                                                     'size':i['size'],
                                                     'displacement':self.getDisplacement(i['size']),}
         par_spec = None
         if res:
             par_spec = [i['type'] for i in res]
         return (True, {'func params':par_spec})
-    
+
+    # Visit a parse tree produced by yaplParser#func_param.
+    def visitFunc_param(self, ctx:yaplParser.Func_paramContext):
+        res = self.visitChildren(ctx)
+        return {'name':res[0][1], 'type':res[1][1]['type'], 'size':res[1][1]['size']}
+
     # Visit a parse tree produced by yaplParser#formal.
     def visitFormal(self, ctx:yaplParser.FormalContext):
         res = self.visitChildren(ctx)
-        print(res)
-        return res    
+        SYM_TABLE[res[0][1]] = {'type':res[1][1]['type'],
+                                    'scope':{self.current_type, self.current_func['name']},
+                                    'size':res[1][1]['size'],
+                                    'displacement':self.getDisplacement(res[1][1]['size']),}
+        return res 
 
     def GetCommonAncestor(self, type_a, type_b):
 
@@ -356,28 +382,35 @@ class yaplVisImpl(yaplVisitor):
             else:
                 if not res[0]:
                     return (False, res[1])   
-        ret_t = self.current_scope['ret_type']
+        ret_t = self.current_func['ret_type']
         expr_t = res[1]
 
         ancestor = self.CanImplicitCast(ret_t, expr_t)
         if ancestor:
             return (True, ancestor)
 
-        err_msg = (f"{bcolors.FAIL}Function {self.current_scope['name']} cannot return " 
+        err_msg = (f"{bcolors.FAIL}Function {self.current_func['name']} cannot return " 
                 f"'{ctx.getText()}' since it yields {res[1]}. Expecting {ret_t} or inheritor {bcolors.ENDC}")
         print(err_msg)
         return (False, err_msg)
     
 
+    # Visit a parse tree produced by yaplParser#new_func_name.
+    def visitNew_func_name(self, ctx:yaplParser.New_func_nameContext):
+        self.current_func = {}
+        self.current_func['name'] = ctx.getText()
+
     # Visit a parse tree produced by yaplParser#sign_dec.
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
         res = self.visitChildren(ctx)
         func_name = ctx.getText().split('(')[0]
-        self.current_scope['ret_type'] = res[1][1]
-        self.current_scope['param_type'] = res[0][1]['func params']
+        self.current_func = {}
+        self.current_func['ret_type'] = res[1][1]
+        self.current_func['param_type'] = res[0][1]['func params']
         func_info = {'args_types':res[0][1]['func params'],
                     'ret_t':res[1][1]}
-        TYPE_TABLE[self.class_name]['functions'][func_name] = func_info
+        FUNC_TABLE[func_name] = func_info
+        TYPE_TABLE[self.class_name]['functions'].append(func_name)
         return res
     
 
@@ -411,6 +444,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#func_name.
     def visitFunc_name(self, ctx:yaplParser.Func_nameContext):
         func_name = ctx.getText()
+        
         call_namespace = self.class_name
         if self.call_type:
             call_namespace = self.call_type
@@ -418,15 +452,11 @@ class yaplVisImpl(yaplVisitor):
         #print(f'Searching for {func_name} in {call_namespace}')
         if not call_namespace in TYPE_TABLE:
             return (False, 'type_error')
-        
-        if func_name in TYPE_TABLE[call_namespace]['functions']:
-            self.calling_func.append(func_name)
-            return (True, TYPE_TABLE[call_namespace]['functions'][func_name]['ret_t'])
-        call_namespace = TYPE_TABLE[call_namespace]['parent']
-        if call_namespace:
-            if func_name in TYPE_TABLE[call_namespace]['functions']:
-                self.calling_func.append(func_name)
-                return (True, TYPE_TABLE[call_namespace]['functions'][func_name]['ret_t'])
+        if func_name in FUNC_TABLE and\
+            func_name in TYPE_TABLE[call_namespace]['functions']:
+
+            return (True, {'ret_type':FUNC_TABLE[func_name]['ret_t'],
+                           'params':FUNC_TABLE[func_name]['args_types']})
         err_msg = f"{bcolors.FAIL}Invalid call to undeclared function: {func_name} {bcolors.ENDC}"
         print(err_msg)
         return (False, err_msg)
@@ -453,19 +483,17 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#call_params.
     def visitCall_params(self, ctx:yaplParser.Call_paramsContext):
         res = self.visitChildren(ctx)
-        print(res)
+        print(f'params {res}')
         if res:
             if type(res) == list:
                 for i in res:
                     if not i[0]:
                         return (False, i[1])
-                arg_types = [i[1] for i in res]
+                arg_types = [i[1]['type'] for i in res]
             else:
-                arg_types = [res[1]]
+                arg_types = [res[1]['type']]
         else:
             arg_types = []
-            if not res[0]:
-                return (False, res[1]) 
 
         namespace = self.class_name
 
@@ -481,7 +509,7 @@ class yaplVisImpl(yaplVisitor):
             if namespace not in TYPE_TABLE:
                 break
             if calling_func in TYPE_TABLE[namespace]['functions']:
-                func_info = TYPE_TABLE[namespace]['functions'][calling_func]
+                func_info = FUNC_TABLE[calling_func]
                 break
             namespace = TYPE_TABLE[namespace]['parent']
         expected_args = None
@@ -489,22 +517,40 @@ class yaplVisImpl(yaplVisitor):
             expected_args = func_info['args_types']
             if expected_args == arg_types:
                 self.call_type = func_info['ret_t']
-                return (True, func_info['ret_t'])
+                return (True, {'type':func_info['ret_t'], 'param_type':func_info['args_type']})
         
-        err_msg = f"{bcolors.FAIL}Recieved {arg_types} instead of the expected: {expected_args} in a call to function '{calling_func}'{bcolors.ENDC}"
+        err_msg = f"{bcolors.FAIL}Recieved arguments: '{arg_types}' instead of the expected: '{expected_args}' in a call to function '{calling_func}'{bcolors.ENDC}"
         print(err_msg)
         return (False, err_msg)
-    
-    
+
+    # Visit a parse tree produced by yaplParser#bigexpr.
+    def visitBigexpr(self, ctx:yaplParser.BigexprContext):
+        res = self.visitChildren(ctx)
+        print(f'in big {res}')
+        if type(res) == list:
+            print(f'big: {res}')
+            return res[:-1]
+        return res
 
     # Visit a parse tree produced by yaplParser#subs_func.
     def visitSubs_func(self, ctx:yaplParser.Subs_funcContext):
         res = self.visitChildren(ctx)
-        if type(res) == list:
-            self.call_type = res[-1][1]
-        else:
-            self.call_type = res[1]
-        return (True, self.call_type)
+        if res:
+            if type(res) == list:
+                for i in res:
+                    if not i[0]:
+                        return (False, i[1])
+            else:
+                if not res[0]:
+                    return (False, res[1]) 
+
+        func_params = res[0][1]['params']
+        ret_t = res[0][1]['ret_type']
+        params = [i[1]['param_type'] for i in res if 'param_type' in i[1]]
+
+        if  func_params == params:
+            sz = TYPE_TABLE[ret_t]['size']
+            return (True, {'size':sz, 'type':self.call_type})
     
     # Visit a parse tree produced by yaplParser#new_call.
     def visitNew_call(self, ctx:yaplParser.New_callContext):
@@ -514,7 +560,6 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#mem_asig.
     def visitMem_asig(self, ctx:yaplParser.Mem_asigContext):
         res = self.visitChildren(ctx)
-        print(res)
         if res[0][1] == res[1][1]:
             return res[0]
         
@@ -543,8 +588,8 @@ class yaplVisImpl(yaplVisitor):
         if type(res) != list:
             res = [res]
         # type, scope, size, displacement
-        self.current_scope['table'][self.name_to_temp(ctx.getText().split(':')[0])] = {'type':res[0][1], 
-                                                        'scope':self.current_scope['id'], 
+        SYM_TABLE[self.name_to_temp(ctx.getText().split(':')[0])] = {'type':res[0][1], 
+                                                        'scope':{self.current_type, self.current_func['name']}, 
                                                         'size':res[0][2], 
                                                         'displacement':self.getDisplacement(res[0][2])}
         return res

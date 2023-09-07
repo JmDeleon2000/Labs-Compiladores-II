@@ -9,9 +9,11 @@ yapl_src: (class_grammar ';')+;
 class_grammar: (inherited_type_def | type_def) '{' (feature ';')* '}';
 feature: func_dec
 | mem_dec;
-formal: ID ':' type;
-expr: expr('@'called_type)? subs_func # bigexpr
-| func_name '(' call_params ')' # func_call
+formal: mem_name ':' type;
+expr
+: '(' expr ')' # paren
+| expr('@'called_type)? subs_func # bigexpr
+| func_name '(' ((expr  ',' )*expr )* ')' # func_call
 | IF bool_expr THEN expr ELSE expr FI # if_stmt
 | WHILE bool_expr LOOP expr POOL # while_loop
 | '{' (expr ';')+ '}' # scope_def
@@ -25,7 +27,6 @@ expr: expr('@'called_type)? subs_func # bigexpr
 | expr minus_op expr # arith_operation
 | expr (LESS_THAN | LESS_EQUAL | EQUAL) expr # bool_operation
 | NOT expr # not
-| '(' expr ')' # paren
 | ID # identifier
 | INT # int_literal
 | STRING # str_literal
@@ -41,7 +42,7 @@ let_type_dec
     |   ID ':' mem_asig
     ;
 mem_asig: type '<-' expr;
-subs_func: '.' func_name '(' call_params ')';
+subs_func: '.' func_name '(' ((expr  ',' )*expr )* ')';
 type_def: CLASS user_defined_t;
 inherited_type_def: type_def  'inherits' valid_inheritance;
 valid_inheritance: type;
@@ -56,7 +57,8 @@ minus_op:  MINUS;
 
 bool_expr:
     expr;
-sign_dec: ID '(' func_params ')' ':' ret_type;
+sign_dec: new_func_name '(' func_params ')' ':' ret_type;
+new_func_name: ID;
 func_dec:
     sign_dec func_body;
 func_body:   '{' ret_expr? '}' ;
@@ -64,11 +66,12 @@ mem_dec:  mem_name ':' type (ASSIGN_OP expr)?;
 
 mem_name: ID;
 type: TYPE;
-func_params:   (( formal  ',' )* formal )?;
+func_params:   (( func_param  ',' )* func_param )?;
+func_param: formal;
 ret_type:   type;
 ret_expr: expr;
 func_name:  ID;
-call_params:   ((expr  ',' )*expr )*;
+
 
 //reserved keywords case insensitive
 CLASS: [Cc][Ll][Aa][Ss][Ss];

@@ -1,4 +1,4 @@
-# Generated from yapl.g4 by ANTLR 4.13.0
+# Generated from yapl.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .yaplParser import yaplParser
@@ -194,6 +194,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#new_func_name.
+    def visitNew_func_name(self, ctx:yaplParser.New_func_nameContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#func_dec.
     def visitFunc_dec(self, ctx:yaplParser.Func_decContext):
         return self.visitChildren(ctx)
@@ -221,6 +226,11 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#func_params.
     def visitFunc_params(self, ctx:yaplParser.Func_paramsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#func_param.
+    def visitFunc_param(self, ctx:yaplParser.Func_paramContext):
         return self.visitChildren(ctx)
 
 
