@@ -119,6 +119,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#var_name.
+    def visitVar_name(self, ctx:yaplParser.Var_nameContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#let_stmt.
     def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
         return self.visitChildren(ctx)

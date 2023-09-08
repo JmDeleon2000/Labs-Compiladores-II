@@ -95,6 +95,7 @@ class yaplVisImpl(yaplVisitor):
 
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
         res = self.visitChildren(ctx)
+        print(res)
         if type(res) == list:
             for i in res:
                 if not i[0]:
@@ -102,12 +103,17 @@ class yaplVisImpl(yaplVisitor):
         else:
             if not res[0]:
                 return (False, res[1])
-        for i in SUPPORTED[res[1][1]]:
-            if (i[0] == res[0][1] and 
-                i[1] == res[2][1]):
-                return (True, i[2])
-        err_str = (f'Cannot assign objects of type {res[2][1]} '
-                f'to {res[0][1]} : {ctx.getText()}')
+        
+        var_name = res[0][1]
+        var_t = SYM_TABLE[var_name]['type']
+        expr_t = res[1][1]['type']
+        
+        for i in SUPPORTED[ASIG]:
+            if (i[0] == var_t and 
+                i[1] == expr_t):
+                return (True, res[0][1])
+        err_str = (f'Cannot assign expresion of type {expr_t} '
+                f'to {var_t}: {var_name}')
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
         return (False, ERR)
@@ -180,7 +186,7 @@ class yaplVisImpl(yaplVisitor):
         txt = ctx.getText()
         new_id = txt
         if new_id in SYM_TABLE: # TODO check if accesible
-            return (True, SYM_TABLE[new_id]['type'])
+            return (True, SYM_TABLE[new_id])
         err_msg = f'{bcolors.FAIL}Cannot use variable "{txt}" because it is not declared!{bcolors.ENDC}'
         print(err_msg)
         return (False, err_msg)
@@ -203,10 +209,13 @@ class yaplVisImpl(yaplVisitor):
         self.current_dis+=size
         return current
 
+    # Visit a parse tree produced by yaplParser#var_name.
+    def visitVar_name(self, ctx:yaplParser.Var_nameContext):
+        return (True, ctx.getText())
+
     # Visit a parse tree produced by yaplParser#mem_dec.
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
-        print(res)
 
         if res:
             if type(res) == list:
@@ -225,20 +234,20 @@ class yaplVisImpl(yaplVisitor):
                         print(err_msg)
                         return (False, err_msg)
             # type, scope, size, displacement, value
-            SYM_TABLE[self.name_to_temp(var_name)] = {'type':res[1][1]['type'], 
+            SYM_TABLE[var_name] = {'type':res[1][1]['type'], 
                                                         'scope':{self.current_type, None}, 
                                                         'size':res[1][1]['size'], 
                                                         'displacement':self.getDisplacement(res[1][1]['size']),
                                                         'val_expr': None} #TODO
 
         # type, scope, size, displacement
-        SYM_TABLE[self.name_to_temp(var_name)] = {'type':res[1][1]['type'], 
+        SYM_TABLE[var_name] = {'type':res[1][1]['type'], 
                                                         'scope':{self.current_type, None}, 
                                                         'size':res[1][1]['size'], 
                                                         'displacement':self.getDisplacement(res[1][1]['size']),
                                                         'val_expr': None}
 
-        return (True, res[1]) 
+        return (True, {'type':res[1]}) 
     
 
 

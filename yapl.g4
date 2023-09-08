@@ -32,8 +32,9 @@ expr
 | STRING # str_literal
 | TRUE # bool_literal
 | FALSE # bool_literal
-| ID ASSIGN_OP expr # assignment; 
+| var_name ASSIGN_OP expr # assignment; 
 
+var_name: ID;
 
 let_stmt
     :   'let' let_type_dec 'in' expr;
