@@ -119,6 +119,21 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#lt.
+    def visitLt(self, ctx:yaplParser.LtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#leq.
+    def visitLeq(self, ctx:yaplParser.LeqContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#eq.
+    def visitEq(self, ctx:yaplParser.EqContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#var_name.
     def visitVar_name(self, ctx:yaplParser.Var_nameContext):
         return self.visitChildren(ctx)
@@ -131,11 +146,6 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#let_type_dec.
     def visitLet_type_dec(self, ctx:yaplParser.Let_type_decContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by yaplParser#mem_asig.
-    def visitMem_asig(self, ctx:yaplParser.Mem_asigContext):
         return self.visitChildren(ctx)
 
 
@@ -196,7 +206,10 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#bool_expr.
     def visitBool_expr(self, ctx:yaplParser.Bool_exprContext):
-        return self.visitChildren(ctx)
+        res = self.visitChildren(ctx)
+        print('asdfdsf')
+        print(f' bool: {res}')
+        return res
 
 
     # Visit a parse tree produced by yaplParser#sign_dec.

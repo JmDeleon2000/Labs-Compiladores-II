@@ -25,7 +25,7 @@ expr
 | expr division_op expr # arith_operation
 | expr plus_op expr # arith_operation
 | expr minus_op expr # arith_operation
-| expr (LESS_THAN | LESS_EQUAL | EQUAL) expr # bool_operation
+| expr (lt | leq | eq) expr # bool_operation
 | NOT expr # not
 | ID # identifier
 | INT # int_literal
@@ -34,15 +34,16 @@ expr
 | FALSE # bool_literal
 | var_name ASSIGN_OP expr # assignment; 
 
+lt: LESS_THAN;
+leq: LESS_EQUAL;
+eq: EQUAL;
+
 var_name: ID;
 
 let_stmt
     :   'let' let_type_dec 'in' expr;
-let_type_dec
-    :   ID ':' type
-    |   ID ':' mem_asig
-    ;
-mem_asig: type '<-' expr;
+let_type_dec:   mem_name ':' type ('<-' expr)?    ;
+
 subs_func: '.' func_name '(' ((call_param  ',' )*call_param )* ')';
 call_param: expr;
 type_def: CLASS user_defined_t;

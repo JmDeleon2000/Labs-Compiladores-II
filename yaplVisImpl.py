@@ -51,10 +51,10 @@ SUPPORTED = {
 CAN_BE_BOOL = [BOOL, INT, ]
 
 
-out_string_info = {'args_types':[STR], 'ret_t':IO}
-out_int_info = {'args_types':[INT], 'ret_t':IO}
-type_name_info = {'args_types':[], 'ret_t':STR}
-substr_info = {'args_types':[INT, INT], 'ret_t':STR}
+out_string_info = {'args_types':[STR], 'ret_type':IO}
+out_int_info = {'args_types':[INT], 'ret_type':IO}
+type_name_info = {'args_types':[], 'ret_type':STR}
+substr_info = {'args_types':[INT, INT], 'ret_type':STR}
 TYPE_TABLE = {IO:   {'size':8, 'parent':OBJ, 'functions':['out_string',
                                                           'out_int',
                                                           'type_name']}, 
@@ -95,7 +95,6 @@ class yaplVisImpl(yaplVisitor):
 
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
         res = self.visitChildren(ctx)
-        print(res)
         if type(res) == list:
             for i in res:
                 if not i[0]:
@@ -105,18 +104,29 @@ class yaplVisImpl(yaplVisitor):
                 return (False, res[1])
         
         var_name = res[0][1]
+        if var_name not in SYM_TABLE:
+            err_msg = f'{bcolors.FAIL}Cannot use variable "{var_name}" because it is not declared!{bcolors.ENDC}'
+            print(err_msg)
+            return (False, err_msg)
         var_t = SYM_TABLE[var_name]['type']
         expr_t = res[1][1]['type']
         
         for i in SUPPORTED[ASIG]:
             if (i[0] == var_t and 
                 i[1] == expr_t):
-                return (True, res[0][1])
-        err_str = (f'Cannot assign expresion of type {expr_t} '
+                return (True, {'type':i[2]})
+        err_str = (f'Cannot assign expresion of type {expr_t["type"]} '
                 f'to {var_t}: {var_name}')
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
         return (False, ERR)
+
+    def visitEq(self, ctx:yaplParser.EqContext):
+        return (True, EQUAL)
+    def visitLeq(self, ctx:yaplParser.LeqContext):
+        return (True, LTEQ)
+    def visitLt(self, ctx:yaplParser.LtContext):
+        return (True, LT)
 
     # Visit a parse tree produced by yaplParser#bool_operation.
     def visitBool_operation(self, ctx:yaplParser.Bool_operationContext):
@@ -128,12 +138,36 @@ class yaplVisImpl(yaplVisitor):
         else:
             if not res[0]:
                 return (False, res[1])
+        left_t = res[0][1]['type']
+        right_t = res[2][1]['type']
         for i in SUPPORTED[res[1][1]]:
-            if (i[0] == res[0][1] and 
-                i[1] == res[2][1]):
-                return (True, i[2])
-        err_str = (f'Unsupported operation between {res[0][1]} '
-                f'and {res[2][1]} for operator {res[1][1]}: {ctx.getText()}')
+            if (i[0] == left_t and 
+                i[1] == right_t):
+                return (True, {'type': i[2]})
+        err_str = (f'Unsupported operation between {left_t["type"]} '
+                f'and {right_t["type"]} for operator {res[1][1]}: {ctx.getText()}')
+        err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
+        print(err_str)
+        return (False, ERR)
+
+    # Visit a parse tree produced by yaplParser#arith_operation.
+    def visitArith_operation(self, ctx:yaplParser.Arith_operationContext):
+        res = self.visitChildren(ctx)
+        if type(res) == list:
+            for i in res:
+                if not i[0]:
+                    return (False, i[1])
+        else:
+            if not res[0]:
+                return (False, res[1])
+        left_t = res[0][1]['type']
+        right_t = res[2][1]['type']
+        for i in SUPPORTED[res[1][1]]:
+            if (i[0] == left_t and 
+                i[1] == right_t):
+                return (True, {'type': i[2]})
+        err_str = (f'Unsupported operation between {left_t} '
+                f'and {right_t} for operator {res[1][1]}: {ctx.getText()}')
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
         return (False, ERR)
@@ -264,8 +298,8 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#bool_expr.
     def visitBool_expr(self, ctx:yaplParser.Bool_exprContext):
         res = self.visitChildren(ctx)
-        if res[1] in CAN_BE_BOOL:
-            return (True, BOOL)
+        if res[1]['type'] in CAN_BE_BOOL:
+            return (True, {'type':BOOL})
         else:
             err_str = f'{bcolors.FAIL}Expected {ctx.getText()} to be a valid boolean expression {bcolors.ENDC}'
             print(err_str)
@@ -297,6 +331,7 @@ class yaplVisImpl(yaplVisitor):
         TYPE_TABLE[type_name]['functions'] = []
         TYPE_TABLE[type_name]['size'] = 8
         self.class_name = type_name
+        self.call_type = self.class_name
         self.current_dis = 0
         SYM_TABLE['self'] = {'type':type_name, 
                             'scope':{self.current_type, None}, 
@@ -395,18 +430,18 @@ class yaplVisImpl(yaplVisitor):
             else:
                 if not res[0]:
                     return (False, res[1])   
-        ret_t = self.current_func['ret_type']['type']
-        if ret_t == 'SELF_TYPE':
-            ret_t = self.current_type
+        ret_type = self.current_func['ret_type']
+        if ret_type == 'SELF_TYPE':
+            ret_type = self.current_type
         expr_t = res[1]['type']
 
 
-        ancestor = self.CanImplicitCast(ret_t, expr_t)
+        ancestor = self.CanImplicitCast(ret_type, expr_t)
         if ancestor:
             return (True, ancestor)
 
         err_msg = (f"{bcolors.FAIL}Function {self.current_func['name']} cannot return " 
-                f"'{ctx.getText()}' since it yields {expr_t}. Expecting {ret_t} or inheritor {bcolors.ENDC}")
+                f"'{ctx.getText()}' since it yields {expr_t}. Expecting {ret_type} or inheritor {bcolors.ENDC}")
         print(err_msg)
         return (False, err_msg)
     
@@ -420,10 +455,10 @@ class yaplVisImpl(yaplVisitor):
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
         res = self.visitChildren(ctx)
         func_name = ctx.getText().split('(')[0]
-        self.current_func['ret_type'] = res[1][1]
+        self.current_func['ret_type'] = res[1][1]['type']
         self.current_func['param_type'] = res[0][1]['func params']
         func_info = {'args_types':res[0][1]['func params'],
-                    'ret_t':res[1][1]}
+                    'ret_type':res[1][1]['type']}
         FUNC_TABLE[func_name] = func_info
         TYPE_TABLE[self.class_name]['functions'].append(func_name)
         return res
@@ -453,8 +488,8 @@ class yaplVisImpl(yaplVisitor):
             else:
                 if not res[0]:
                     return (False, res[1])     
-        ancestor = self.GetCommonAncestor(res[1][1], res[2][1])
-        return (True, ancestor)
+        ancestor = self.GetCommonAncestor(res[1][1]['type'], res[2][1]['type'])
+        return (True, {'type':ancestor})
     
     # Visit a parse tree produced by yaplParser#func_name.
     def visitFunc_name(self, ctx:yaplParser.Func_nameContext):
@@ -469,7 +504,7 @@ class yaplVisImpl(yaplVisitor):
         if func_name in FUNC_TABLE and\
             func_name in TYPE_TABLE[call_namespace]['functions']:
 
-            return (True, {'ret_type':FUNC_TABLE[func_name]['ret_t'],
+            return (True, {'ret_type':FUNC_TABLE[func_name]['ret_type'],
                            'params':FUNC_TABLE[func_name]['args_types'],
                            'func_name':func_name})
         err_msg = f"{bcolors.FAIL}Invalid call to undeclared function: {func_name} {bcolors.ENDC}"
@@ -517,14 +552,14 @@ class yaplVisImpl(yaplVisitor):
                     return (False, res[1]) 
 
         func_params = res[1][1]['params']
-        ret_t = res[1][1]['ret_type']
+        ret_type = res[1][1]['ret_type']
         func_name = res[1][1]['func_name']
         params = [i[1]['type'] for i in res[2::] if 'type' in i[1]]
 
         if  func_params == params:
-            sz = TYPE_TABLE[ret_t]['size']
-            self.call_type = ret_t
-            return (True, {'size':sz, 'type':ret_t})
+            sz = TYPE_TABLE[ret_type]['size']
+            self.call_type = ret_type
+            return (True, {'size':sz, 'type':ret_type})
         
         err_msg = f"{bcolors.FAIL}Function {func_name} doesn't take parameters: {params}. Expecting: {func_params}{bcolors.ENDC}"
         print(err_msg)
@@ -536,25 +571,16 @@ class yaplVisImpl(yaplVisitor):
         res = self.visitChildren(ctx)
         return res
 
-    # Visit a parse tree produced by yaplParser#mem_asig.
-    def visitMem_asig(self, ctx:yaplParser.Mem_asigContext):
-        res = self.visitChildren(ctx)
-        if res[0][1] == res[1][1]:
-            return res[0]
-        
-        err_msg = f"{bcolors.FAIL}Cannot initialize member of type {res[0][1]} with expression that yields type {res[1][1]}{bcolors.ENDC}"
-        print(err_msg)
-        return (False, err_msg)
-
     # Visit a parse tree produced by yaplParser#let_stmt.
     def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
         res = self.visitChildren(ctx)
+        if type(res) == list:
+            res[-1]
         return res
 
     # Visit a parse tree produced by yaplParser#let_type_dec.
     def visitLet_type_dec(self, ctx:yaplParser.Let_type_decContext):
         res = self.visitChildren(ctx)
-        
         if res:
             if type(res) == list:
                 for i in res:
@@ -566,12 +592,18 @@ class yaplVisImpl(yaplVisitor):
 
         if type(res) != list:
             res = [res]
+
+        var_name = res[0][1]
+        var_t = res[1][1]['type']
+        var_sz = res[1][1]['size']
         # type, scope, size, displacement
-        SYM_TABLE[self.name_to_temp(ctx.getText().split(':')[0])] = {'type':res[0][1], 
-                                                        'scope':{self.current_type, self.current_func['name']}, 
-                                                        'size':res[0][2], 
-                                                        'displacement':self.getDisplacement(res[0][2])}
-        return res
+        SYM_TABLE[var_name] = {'type':var_t, 
+                                'scope':{self.current_type, self.current_func['name']}, 
+                                'size':var_sz, 
+                                'displacement':self.getDisplacement(var_sz)}
+        if len(res) > 2:
+            SYM_TABLE[var_name]['val_expr'] = None #TODO
+        return SYM_TABLE[var_name]
 
     # Visit a parse tree produced by yaplParser#user_defined_t.
     def visitUser_defined_t(self, ctx:yaplParser.User_defined_tContext):
