@@ -222,7 +222,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#called_type.
     def visitCalled_type(self, ctx:yaplParser.Called_typeContext):
         res = self.visitChildren(ctx)
-        print(res)
+        self.last_returned = res[1]['type']
         return res
 
     # Visit a parse tree produced by yaplParser#mark_last_t.
