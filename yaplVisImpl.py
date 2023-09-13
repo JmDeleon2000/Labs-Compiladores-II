@@ -121,6 +121,11 @@ class yaplVisImpl(yaplVisitor):
         print(err_str)
         return (False, ERR)
 
+    # Visit a parse tree produced by yaplParser#eos.
+    def visitEos(self, ctx:yaplParser.EosContext):
+        self.call_type = self.current_type
+        return self.visitChildren(ctx)
+
     def visitEq(self, ctx:yaplParser.EqContext):
         return (True, EQUAL)
     def visitLeq(self, ctx:yaplParser.LeqContext):
@@ -214,12 +219,24 @@ class yaplVisImpl(yaplVisitor):
     def visitMul_op(self, ctx:yaplParser.Mul_opContext):
         return (True, MUL)
     
-    
+    # Visit a parse tree produced by yaplParser#called_type.
+    def visitCalled_type(self, ctx:yaplParser.Called_typeContext):
+        res = self.visitChildren(ctx)
+        print(res)
+        return res
+
+    # Visit a parse tree produced by yaplParser#mark_last_t.
+    def visitMark_last_t(self, ctx:yaplParser.Mark_last_tContext):
+        res = self.visitChildren(ctx)
+        self.call_type = self.last_returned
+        return res
+
     # Visit a parse tree produced by yaplParser#identifier.
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
         txt = ctx.getText()
         new_id = txt
         if new_id in SYM_TABLE: # TODO check if accesible
+            self.last_returned = SYM_TABLE[new_id]['type']
             return (True, SYM_TABLE[new_id])
         err_msg = f'{bcolors.FAIL}Cannot use variable "{txt}" because it is not declared!{bcolors.ENDC}'
         print(err_msg)
@@ -498,7 +515,7 @@ class yaplVisImpl(yaplVisitor):
         if self.call_type:
             call_namespace = self.call_type
 
-        #print(f'Searching for {func_name} in {call_namespace}')
+        print(f'Searching for {func_name} in {call_namespace}')
         if not call_namespace in TYPE_TABLE:
             return (False, 'type_error')
         if func_name in FUNC_TABLE and\
@@ -529,11 +546,12 @@ class yaplVisImpl(yaplVisitor):
                     break
         else:
             ret_type = res[1]['ret_type']
-        self.call_type = self.current_type
+        self.last_returned = ret_type
         return (True, {'type':ret_type})
 
     # Visit a parse tree produced by yaplParser#bigexpr.
     def visitBigexpr(self, ctx:yaplParser.BigexprContext):
+        print('in big')
         res = self.visitChildren(ctx)
         if type(res) == list:
             return res[:-1]
@@ -558,7 +576,7 @@ class yaplVisImpl(yaplVisitor):
 
         if  func_params == params:
             sz = TYPE_TABLE[ret_type]['size']
-            self.call_type = ret_type
+            self.last_returned = ret_type
             return (True, {'size':sz, 'type':ret_type})
         
         err_msg = f"{bcolors.FAIL}Function {func_name} doesn't take parameters: {params}. Expecting: {func_params}{bcolors.ENDC}"
@@ -569,6 +587,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#new_call.
     def visitNew_call(self, ctx:yaplParser.New_callContext):
         res = self.visitChildren(ctx)
+        self.last_returned = res[1]['type']
         return res
 
     # Visit a parse tree produced by yaplParser#let_stmt.

@@ -119,6 +119,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#eos.
+    def visitEos(self, ctx:yaplParser.EosContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#lt.
     def visitLt(self, ctx:yaplParser.LtContext):
         return self.visitChildren(ctx)
@@ -131,6 +136,11 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#eq.
     def visitEq(self, ctx:yaplParser.EqContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#mark_last_t.
+    def visitMark_last_t(self, ctx:yaplParser.Mark_last_tContext):
         return self.visitChildren(ctx)
 
 
@@ -206,10 +216,7 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#bool_expr.
     def visitBool_expr(self, ctx:yaplParser.Bool_exprContext):
-        res = self.visitChildren(ctx)
-        print('asdfdsf')
-        print(f' bool: {res}')
-        return res
+        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by yaplParser#sign_dec.

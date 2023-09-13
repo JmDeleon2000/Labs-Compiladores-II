@@ -12,11 +12,11 @@ feature: func_dec
 formal: mem_name ':' type;
 expr
 : '(' expr ')' # paren
-| expr('@'called_type)? '.'func_name '(' (expr (',' expr)*)? ')' # bigexpr
-| func_name '(' ((call_param  ',' )*call_param )* ')' # func_call
+| expr('@'called_type)? mark_last_t func_name '(' (expr (',' expr)*)? ')' # bigexpr
+| func_name '(' ((expr  ',' )*expr )* ')' # func_call
 | IF bool_expr THEN expr ELSE expr FI # if_stmt
 | WHILE bool_expr LOOP expr POOL # while_loop
-| '{' (expr ';')+ '}' # scope_def
+| '{' (expr eos)+ '}' # scope_def
 | let_stmt # let
 | NEW type # new_call
 | '~' expr # negation
@@ -33,11 +33,11 @@ expr
 | TRUE # bool_literal
 | FALSE # bool_literal
 | var_name ASSIGN_OP expr # assignment; 
-
+eos: ';';
 lt: LESS_THAN;
 leq: LESS_EQUAL;
 eq: EQUAL;
-
+mark_last_t: '.';
 var_name: ID;
 
 let_stmt
