@@ -51,11 +51,11 @@ SUPPORTED = {
 CAN_BE_BOOL = [BOOL, INT, ]
 
 
-out_string_info = {'args_types':[STR], 'ret_type':IO}
-out_int_info = {'args_types':[INT], 'ret_type':IO}
-type_name_info = {'args_types':[], 'ret_type':STR}
-substr_info = {'args_types':[INT, INT], 'ret_type':STR}
-abort_info = {'args_types':[], 'ret_type':OBJ}
+out_string_info = {'param_types':[STR], 'ret_type':IO}
+out_int_info = {'param_types':[INT], 'ret_type':IO}
+type_name_info = {'param_types':[], 'ret_type':STR}
+substr_info = {'param_types':[INT, INT], 'ret_type':STR}
+abort_info = {'param_types':[], 'ret_type':OBJ}
 TYPE_TABLE = {IO:   {'size':8, 'parent':OBJ, 'functions':[IO+'.'+'out_string',
                                                           IO+'.'+'out_int',
                                                           IO+'.'+'type_name']}, 
@@ -424,6 +424,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#func_params.
     def visitFunc_params(self, ctx:yaplParser.Func_paramsContext):
         res = self.visitChildren(ctx)
+        print(res)
         if res:
             if type(res) != list:
                 res = [res]
@@ -435,7 +436,7 @@ class yaplVisImpl(yaplVisitor):
         par_spec = None
         if res:
             par_spec = [i['type'] for i in res]
-        return (True, {'func params':par_spec})
+        return (True, {'param_types':par_spec})
 
     # Visit a parse tree produced by yaplParser#func_param.
     def visitFunc_param(self, ctx:yaplParser.Func_paramContext):
@@ -517,12 +518,13 @@ class yaplVisImpl(yaplVisitor):
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
         res = self.visitChildren(ctx)
         func_name = ctx.getText().split('(')[0]
-        self.current_func['ret_type'] = res[1][1]['type']
-        self.current_func['param_type'] = res[0][1]['func params']
-        func_info = {'args_types':res[0][1]['func params'],
-                    'ret_type':res[1][1]['type']}
-        
         table_name = self.current_type+'.'+func_name
+        self.current_func['ret_type'] = res[1][1]['type']
+        self.current_func['param_type'] = res[0][1]['param_types']
+        func_info = {'param_types':res[0][1]['param_types'],
+                    'ret_type':res[1][1]['type'],
+                    'local':[table_name+'.ret_val']}
+        
         if table_name in self.check_for_func_declaration:
             print(f'{bcolors.OKGREEN}Found the declaration for {table_name}!{bcolors.ENDC}')
             self.check_for_func_declaration.remove(table_name)
@@ -576,7 +578,7 @@ class yaplVisImpl(yaplVisitor):
             if table_name in FUNC_TABLE and \
             table_name in TYPE_TABLE[call_namespace]['functions']:
                 return (True, {'ret_type':FUNC_TABLE[table_name]['ret_type'],
-                               'params':FUNC_TABLE[table_name]['args_types'],
+                               'params':FUNC_TABLE[table_name]['param_types'],
                                'func_name':func_name})
             call_namespace = TYPE_TABLE[call_namespace]['parent']
         #reset call_namespace to original type
@@ -587,10 +589,10 @@ class yaplVisImpl(yaplVisitor):
         warn_msg = f"{bcolors.WARNING}Called function {table_name} before it was declared! Proceeding expecting a declaration. {bcolors.ENDC}"
         print(warn_msg)
         TYPE_TABLE[f'{table_name}.ret_type'] = {'size':8, 'parent':OBJ}
-        FUNC_TABLE[table_name] = {'args_types':'TBD', 'ret_type':f'{table_name}.ret_type'}
+        FUNC_TABLE[table_name] = {'param_types':'TBD', 'ret_type':f'{table_name}.ret_type'}
         self.check_for_func_declaration.append(table_name)
         return (True, {'ret_type':FUNC_TABLE[table_name]['ret_type'],
-                        'params':FUNC_TABLE[table_name]['args_types'],
+                        'params':FUNC_TABLE[table_name]['param_types'],
                         'func_name':table_name})
 
     # Visit a parse tree produced by yaplParser#func_call.
@@ -637,7 +639,7 @@ class yaplVisImpl(yaplVisitor):
         recieved_params = [i[1]['type'] for i in res[2::] if 'type' in i[1]]
         if expected_params == 'TBD':
             expected_params = recieved_params
-            FUNC_TABLE[func_name]['args_types'] = recieved_params
+            FUNC_TABLE[func_name]['param_types'] = recieved_params
         if expected_params == None:
             expected_params = []
         if  expected_params == recieved_params:
