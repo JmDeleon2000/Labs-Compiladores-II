@@ -149,6 +149,21 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#free_func_name.
+    def visitFree_func_name(self, ctx:yaplParser.Free_func_nameContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#then.
+    def visitThen(self, ctx:yaplParser.ThenContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by yaplParser#else.
+    def visitElse(self, ctx:yaplParser.ElseContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#let_stmt.
     def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
         return self.visitChildren(ctx)

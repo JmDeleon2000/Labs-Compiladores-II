@@ -55,18 +55,22 @@ out_string_info = {'args_types':[STR], 'ret_type':IO}
 out_int_info = {'args_types':[INT], 'ret_type':IO}
 type_name_info = {'args_types':[], 'ret_type':STR}
 substr_info = {'args_types':[INT, INT], 'ret_type':STR}
-TYPE_TABLE = {IO:   {'size':8, 'parent':OBJ, 'functions':['out_string',
-                                                          'out_int',
-                                                          'type_name']}, 
-              BOOL: {'size':1, 'parent':OBJ, 'functions':['type_name']}, 
-              STR:  {'size':8, 'parent':OBJ, 'functions':['substr', 'type_name']}, 
-              INT:  {'size':4, 'parent':OBJ, 'functions':['type_name']}, 
-              OBJ:  {'size':8, 'parent':None, 'functions':['type_name']}}
+abort_info = {'args_types':[], 'ret_type':OBJ}
+TYPE_TABLE = {IO:   {'size':8, 'parent':OBJ, 'functions':[IO+'.'+'out_string',
+                                                          IO+'.'+'out_int',
+                                                          IO+'.'+'type_name']}, 
+              BOOL: {'size':1, 'parent':OBJ, 'functions':[BOOL+'.'+'type_name']}, 
+              STR:  {'size':8, 'parent':OBJ, 'functions':[STR+'.'+'substr', 
+                                                          STR+'.'+'type_name']}, 
+              INT:  {'size':4, 'parent':OBJ, 'functions':[INT+'.'+'type_name']}, 
+              OBJ:  {'size':8, 'parent':None, 'functions':[OBJ+'.'+'type_name', 
+                                                           OBJ+'.'+'abort']}}
 SYM_TABLE = {}
-FUNC_TABLE = {'out_string':out_string_info,
-                'out_int':out_int_info,
-                'substr':substr_info,
-                'type_name':type_name_info}
+FUNC_TABLE = {'IO.out_string':out_string_info,
+                'IO.out_int':out_int_info,
+                'String.substr':substr_info,
+                'Object.type_name':type_name_info,
+                'Object.abort':abort_info}
 GLOBAL = 'global scope'
 
 class yaplVisImpl(yaplVisitor):    
@@ -80,10 +84,25 @@ class yaplVisImpl(yaplVisitor):
         self.call_type = None
         self.calling_func = []
         self.current_func = None
+        self.check_for_type_declaration = ['Main']
+        self.check_for_func_declaration = ['Main.main']
     
     # Visit a parse tree produced by yaplParser#yapl_src.
     def visitYapl_src(self, ctx:yaplParser.Yapl_srcContext):
+        print(f'{bcolors.WARNING}Reminder: All YAPL programs must include a declaration for the class Main. And that class must have a function called main{bcolors.ENDC}')
+        print(f'{bcolors.OKGREEN}Compiling...{bcolors.ENDC}\n\n')
         res = self.visitChildren(ctx)
+        if self.check_for_func_declaration:
+            for i in self.check_for_func_declaration:
+                print(f'{bcolors.FAIL}You called {i}, but i cannot find the declaration for that function{bcolors.ENDC}')
+            return (False, f'{bcolors.FAIL}Build failed. Found errors.{bcolors.ENDC}')
+        if self.check_for_type_declaration:
+            for i in self.check_for_type_declaration:
+                if i == 'Main':
+                    print(f'{bcolors.FAIL}All programs must include a class named {i}, but i cannot find the declaration for that class{bcolors.ENDC}')
+                else:
+                    print(f'{bcolors.FAIL}You created objects of class {i}, but i cannot find the declaration for that class{bcolors.ENDC}')
+            return (False, f'{bcolors.FAIL}Build failed. Found errors.{bcolors.ENDC}')
         if type(res) == list:
             for i in res:
                 if not i[0]:
@@ -123,6 +142,7 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#eos.
     def visitEos(self, ctx:yaplParser.EosContext):
+        self.last_returned = self.current_type
         self.call_type = self.current_type
         return self.visitChildren(ctx)
 
@@ -185,6 +205,19 @@ class yaplVisImpl(yaplVisitor):
                                                 'displacement':self.getDisplacement(1)}
         return (True, {'type':BOOL, 'size':1})
 
+    # Visit a parse tree produced by yaplParser#paren.
+    def visitParen(self, ctx:yaplParser.ParenContext):
+        res = self.visitChildren(ctx)
+        if type(res) == list:
+            for i in res:
+                if not i[0]:
+                    return res
+            self.last_returned = res[-1][1]['type']
+            return (True, {'type':res[-1][1]['type']})
+        if not res[0]:
+            return res
+        #self.last_returned = res[1]['type']
+        return (True, {'type':res[1]['type']})
 
     # Visit a parse tree produced by yaplParser#str_literal.
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
@@ -315,6 +348,14 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#bool_expr.
     def visitBool_expr(self, ctx:yaplParser.Bool_exprContext):
         res = self.visitChildren(ctx)
+        #Check if there was an error and spread it up the tree
+        if type(res) == list:
+            for i in res:
+                if not i[0]:
+                    return res
+        if not res[0]:
+            return res
+        self.last_returned = self.current_type
         if res[1]['type'] in CAN_BE_BOOL:
             return (True, {'type':BOOL})
         else:
@@ -337,9 +378,10 @@ class yaplVisImpl(yaplVisitor):
             return (True, {'type':name, 'size':8})
         if name in TYPE_TABLE:
             return (True, {'type':name, 'size':TYPE_TABLE[name]['size']})
-        err_str = f'{bcolors.FAIL}Cannot use undeclared type {name}{bcolors.ENDC}'
-        print(err_str)
-        return (False, err_str)
+        self.current_type = name
+        self.check_for_type_declaration.append(name)
+        TYPE_TABLE[name] = {'size':8, 'parent':OBJ, 'functions':[]}
+        return (True, {'type':name, 'size':8})
 
     def visitType_def(self, ctx:yaplParser.Type_defContext):
         type_name = ctx.getText()[5::]
@@ -355,6 +397,9 @@ class yaplVisImpl(yaplVisitor):
                             'size':8, 
                             'displacement':self.getDisplacement(8)}
         SUPPORTED[ASIG].append([type_name, type_name, type_name])
+        if type_name in self.check_for_type_declaration:
+            print(f'{bcolors.OKGREEN}Found the declaration for {type_name}!{bcolors.ENDC}')
+            self.check_for_type_declaration.remove(type_name)
         return (True, type_name)
     
     def visitValid_inheritance(self, ctx:yaplParser.Valid_inheritanceContext):
@@ -476,8 +521,13 @@ class yaplVisImpl(yaplVisitor):
         self.current_func['param_type'] = res[0][1]['func params']
         func_info = {'args_types':res[0][1]['func params'],
                     'ret_type':res[1][1]['type']}
-        FUNC_TABLE[func_name] = func_info
-        TYPE_TABLE[self.class_name]['functions'].append(func_name)
+        
+        table_name = self.current_type+'.'+func_name
+        if table_name in self.check_for_func_declaration:
+            print(f'{bcolors.OKGREEN}Found the declaration for {table_name}!{bcolors.ENDC}')
+            self.check_for_func_declaration.remove(table_name)
+        FUNC_TABLE[table_name] = func_info
+        TYPE_TABLE[self.class_name]['functions'].append(table_name)
         return res
     
 
@@ -492,7 +542,7 @@ class yaplVisImpl(yaplVisitor):
             else:
                 if not res[0]:
                     return (False, res[1])     
-        return (True, OBJ)
+        return (True, {'type':OBJ})
 
     # Visit a parse tree produced by yaplParser#if_stmt.
     def visitIf_stmt(self, ctx:yaplParser.If_stmtContext):
@@ -515,18 +565,33 @@ class yaplVisImpl(yaplVisitor):
         if self.call_type:
             call_namespace = self.call_type
 
-        print(f'Searching for {func_name} in {call_namespace}')
         if not call_namespace in TYPE_TABLE:
-            return (False, 'type_error')
-        if func_name in FUNC_TABLE and\
-            func_name in TYPE_TABLE[call_namespace]['functions']:
-
-            return (True, {'ret_type':FUNC_TABLE[func_name]['ret_type'],
-                           'params':FUNC_TABLE[func_name]['args_types'],
-                           'func_name':func_name})
-        err_msg = f"{bcolors.FAIL}Invalid call to undeclared function: {func_name} {bcolors.ENDC}"
-        print(err_msg)
-        return (False, err_msg)
+            err_msg = f"{bcolors.FAIL}Invalid function call to undeclared type: {call_namespace} {bcolors.ENDC}"
+            print(err_msg)
+            return (False, err_msg)
+        #print(list(FUNC_TABLE.keys()))
+        while call_namespace:
+            #print(f'Searching for {func_name} in {call_namespace}')
+            table_name = call_namespace+'.'+func_name
+            if table_name in FUNC_TABLE and \
+            table_name in TYPE_TABLE[call_namespace]['functions']:
+                return (True, {'ret_type':FUNC_TABLE[table_name]['ret_type'],
+                               'params':FUNC_TABLE[table_name]['args_types'],
+                               'func_name':func_name})
+            call_namespace = TYPE_TABLE[call_namespace]['parent']
+        #reset call_namespace to original type
+        call_namespace = self.class_name
+        if self.call_type:
+            call_namespace = self.call_type
+        table_name = call_namespace+'.'+func_name
+        warn_msg = f"{bcolors.WARNING}Called function {table_name} before it was declared! Proceeding expecting a declaration. {bcolors.ENDC}"
+        print(warn_msg)
+        TYPE_TABLE[f'{table_name}.ret_type'] = {'size':8, 'parent':OBJ}
+        FUNC_TABLE[table_name] = {'args_types':'TBD', 'ret_type':f'{table_name}.ret_type'}
+        self.check_for_func_declaration.append(table_name)
+        return (True, {'ret_type':FUNC_TABLE[table_name]['ret_type'],
+                        'params':FUNC_TABLE[table_name]['args_types'],
+                        'func_name':table_name})
 
     # Visit a parse tree produced by yaplParser#func_call.
     def visitFunc_call(self, ctx:yaplParser.Func_callContext):
@@ -549,13 +614,10 @@ class yaplVisImpl(yaplVisitor):
         self.last_returned = ret_type
         return (True, {'type':ret_type})
 
-    # Visit a parse tree produced by yaplParser#bigexpr.
-    def visitBigexpr(self, ctx:yaplParser.BigexprContext):
-        print('in big')
-        res = self.visitChildren(ctx)
-        if type(res) == list:
-            return res[:-1]
-        return res
+    # Visit a parse tree produced by yaplParser#free_func_name.
+    def visitFree_func_name(self, ctx:yaplParser.Free_func_nameContext):
+        self.call_type = self.current_type
+        return self.visitChildren(ctx)
     
     # Visit a parse tree produced by yaplParser#bigexpr.
     def visitBigexpr(self, ctx:yaplParser.BigexprContext):
@@ -569,17 +631,21 @@ class yaplVisImpl(yaplVisitor):
                 if not res[0]:
                     return (False, res[1]) 
 
-        func_params = res[1][1]['params']
+        expected_params = res[1][1]['params']
         ret_type = res[1][1]['ret_type']
         func_name = res[1][1]['func_name']
-        params = [i[1]['type'] for i in res[2::] if 'type' in i[1]]
-
-        if  func_params == params:
+        recieved_params = [i[1]['type'] for i in res[2::] if 'type' in i[1]]
+        if expected_params == 'TBD':
+            expected_params = recieved_params
+            FUNC_TABLE[func_name]['args_types'] = recieved_params
+        if expected_params == None:
+            expected_params = []
+        if  expected_params == recieved_params:
             sz = TYPE_TABLE[ret_type]['size']
             self.last_returned = ret_type
             return (True, {'size':sz, 'type':ret_type})
         
-        err_msg = f"{bcolors.FAIL}Function {func_name} doesn't take parameters: {params}. Expecting: {func_params}{bcolors.ENDC}"
+        err_msg = f"{bcolors.FAIL}Function {func_name} doesn't take parameters: {recieved_params}. Expecting: {expected_params}{bcolors.ENDC}"
         print(err_msg)
         return (False, err_msg)
 
@@ -587,6 +653,12 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#new_call.
     def visitNew_call(self, ctx:yaplParser.New_callContext):
         res = self.visitChildren(ctx)
+        if type(res) == list:
+            for i in res:
+                if not i[0]:
+                    return res
+        if not res[0]:
+            return res
         self.last_returned = res[1]['type']
         return res
 
@@ -626,11 +698,25 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#user_defined_t.
     def visitUser_defined_t(self, ctx:yaplParser.User_defined_tContext):
+        print('in user defined t')
         type_name = ctx.getText()
         if type_name in TYPE_TABLE:
             return (True, type_name, TYPE_TABLE[type_name]['size'])
-        err_msg = f"{bcolors.FAIL}Invalid use of undeclared type: {type_name}{bcolors.ENDC}"
-        print(err_msg)
-        return (False, err_msg)
+        warn_msg = f"{bcolors.WARNING}Used type {type_name} before it was declared. Proceeding expecting to find a declaration.{bcolors.ENDC}"
+        print(warn_msg)
+        TYPE_TABLE[type_name] = {'size':8, 'parent':OBJ, 'functions':[]}
+        return (True, type_name, TYPE_TABLE[type_name]['size'])
+
+    # Visit a parse tree produced by yaplParser#then.
+    def visitThen(self, ctx:yaplParser.ThenContext):
+        self.last_returned = self.current_type
+        self.call_type = self.last_returned
+        return self.visitChildren(ctx)
+
+    # Visit a parse tree produced by yaplParser#else.
+    def visitElse(self, ctx:yaplParser.ElseContext):
+        self.last_returned = self.current_type
+        self.call_type = self.last_returned
+        return self.visitChildren(ctx)
 
 del yaplVisitor

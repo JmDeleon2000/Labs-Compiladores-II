@@ -13,8 +13,8 @@ formal: mem_name ':' type;
 expr
 : '(' expr ')' # paren
 | expr('@'called_type)? mark_last_t func_name '(' (expr (',' expr)*)? ')' # bigexpr
-| func_name '(' ((expr  ',' )*expr )* ')' # func_call
-| IF bool_expr THEN expr ELSE expr FI # if_stmt
+| free_func_name '(' ((expr  ',' )*expr )* ')' # func_call
+| IF bool_expr then expr else expr FI # if_stmt
 | WHILE bool_expr LOOP expr POOL # while_loop
 | '{' (expr eos)+ '}' # scope_def
 | let_stmt # let
@@ -39,6 +39,9 @@ leq: LESS_EQUAL;
 eq: EQUAL;
 mark_last_t: '.';
 var_name: ID;
+free_func_name: func_name;
+then: THEN;
+else: ELSE;
 
 let_stmt
     :   'let' let_type_dec 'in' expr;
