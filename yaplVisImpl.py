@@ -78,28 +78,41 @@ class yaplVisImpl(yaplVisitor):
     def __init__(self):
         self.current_dis = 0
         self.current_class_dis = 0
-        self.id_counter = 0
-        self.temp_count = 0
         self.temp_to_name_map = dict()
         self.call_type = None
         self.calling_func = []
         self.current_func = None
         self.check_for_type_declaration = ['Main']
         self.check_for_func_declaration = ['Main.main']
+        self.temp_count = 0
+        self.temp_list = {}
+    
+    def getTemp(self):
+        for k, free in self.temp_list.items():
+            if free:
+                self.temp_list[k] = False
+                return k
+        nt = f't{self.temp_count}'
+        self.temp_count+=1
+        self.temp_list[nt] = False
+        return nt
     
     # Visit a parse tree produced by yaplParser#yapl_src.
     def visitYapl_src(self, ctx:yaplParser.Yapl_srcContext):
-        print(f'{bcolors.WARNING}Reminder: All YAPL programs must include a declaration for the class Main. And that class must have a function called main{bcolors.ENDC}')
+        print(f'{bcolors.WARNING}Reminder: All YAPL programs MUST include a declaration for the class Main. And that class MUST have a function called main{bcolors.ENDC}')
         print(f'{bcolors.OKGREEN}Compiling...{bcolors.ENDC}\n\n')
         res = self.visitChildren(ctx)
         if self.check_for_func_declaration:
             for i in self.check_for_func_declaration:
-                print(f'{bcolors.FAIL}You called {i}, but i cannot find the declaration for that function{bcolors.ENDC}')
+                if i == 'Main.main':
+                    print(f'{bcolors.FAIL}All YAPL programs MUST include a declaration for the class Main. And that class MUST have a function called main{bcolors.ENDC}')
+                else:
+                    print(f'{bcolors.FAIL}You called {i}, but i cannot find the declaration for that function{bcolors.ENDC}')
             return (False, f'{bcolors.FAIL}Build failed. Found errors.{bcolors.ENDC}')
         if self.check_for_type_declaration:
             for i in self.check_for_type_declaration:
                 if i == 'Main':
-                    print(f'{bcolors.FAIL}All programs must include a class named {i}, but i cannot find the declaration for that class{bcolors.ENDC}')
+                    print(f'{bcolors.FAIL}All programs MUST include a class named {i}, but i cannot find the declaration for that class{bcolors.ENDC}')
                 else:
                     print(f'{bcolors.FAIL}You created objects of class {i}, but i cannot find the declaration for that class{bcolors.ENDC}')
             return (False, f'{bcolors.FAIL}Build failed. Found errors.{bcolors.ENDC}')
@@ -199,11 +212,14 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#bool_literal.
     def visitBool_literal(self, ctx:yaplParser.Bool_literalContext):
-        SYM_TABLE[self.name_to_temp(ctx.getText())] = {'type':BOOL, 
-                                                'scope':{self.current_type, GLOBAL}, 
-                                                'size':1, 
-                                                'displacement':self.getDisplacement(1)}
-        return (True, {'type':BOOL, 'size':1})
+        name = f'bool_lit_{ctx.getText()}'
+        SYM_TABLE[name] = {'type':BOOL, 
+                            'scope':{self.current_type, GLOBAL}, 
+                            'size':1}
+        temp = self.getTemp()
+        return (True, {'type':BOOL, 'size':1,
+                        'code':f'ld {temp} {name}',
+                        'res_temp':temp})
 
     # Visit a parse tree produced by yaplParser#paren.
     def visitParen(self, ctx:yaplParser.ParenContext):
@@ -221,19 +237,25 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#str_literal.
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
-        SYM_TABLE[self.name_to_temp(ctx.getText())] = {'type':STR, 
-                                                'scope':{self.current_type, GLOBAL}, 
-                                                'size':8, 
-                                                'displacement':self.getDisplacement(8)}
-        return (True,  {'type':STR, 'size':8})
+        name = f'str_lit_{ctx.getText()}'
+        SYM_TABLE[name] = {'type':STR, 
+                            'scope':{self.current_type, GLOBAL}, 
+                            'size':8}
+        temp = self.getTemp()
+        return (True,  {'type':STR, 'size':8,
+                        'code':f'ld {temp} {name}',
+                        'res_temp':temp})
 
     # Visit a parse tree produced by yaplParser#int_literal.
     def visitInt_literal(self, ctx:yaplParser.Int_literalContext):
-        SYM_TABLE[self.name_to_temp(ctx.getText())] = {'type':INT, 
+        name = f'int_lit_{ctx.getText()}'
+        SYM_TABLE[name] = {'type':INT, 
                                         'scope':{self.current_type, GLOBAL}, 
-                                        'size':4, 
-                                        'displacement':self.getDisplacement(4)}
-        return (True,  {'type':INT, 'size':4})
+                                        'size':4}
+        temp = self.getTemp()
+        return (True,  {'type':INT, 'size':4,
+                        'code':f'ld {temp} {name}',
+                        'res_temp':temp})
     
     def visitPlus_op(self, ctx:yaplParser.Plus_opContext):
         return (True, PLUS)
@@ -274,15 +296,6 @@ class yaplVisImpl(yaplVisitor):
         err_msg = f'{bcolors.FAIL}Cannot use variable "{txt}" because it is not declared!{bcolors.ENDC}'
         print(err_msg)
         return (False, err_msg)
-
-    def name_to_temp(self, name):
-        for t, n in self.temp_to_name_map.items():
-            if n == name:
-                return t
-        new_temp = f't{self.temp_count}'
-        self.temp_count +=1
-        self.temp_to_name_map[new_temp] = name
-        return new_temp
 
     # Visit a parse tree produced by yaplParser#mem_name.
     def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
@@ -409,22 +422,18 @@ class yaplVisImpl(yaplVisitor):
         err_msg = f'{bcolors.FAIL}Cannot inheret from {class_name} because it was not previosly defined{bcolors.ENDC}'
         print(err_msg)
         return (False, err_msg)
-    
-    def getScopeId(self):
-        self.id_counter+=1
-        return self.id_counter
+
 
     # Visit a parse tree produced by yaplParser#func_dec.
     def visitFunc_dec(self, ctx:yaplParser.Func_decContext):
         func_name = ctx.getText().split('(')[0]
         self.current_func = {}
-        self.current_func['name'] = func_name
+        self.current_func['name'] = self.current_type+'.'+func_name
         return self.visitChildren(ctx)
     
     # Visit a parse tree produced by yaplParser#func_params.
     def visitFunc_params(self, ctx:yaplParser.Func_paramsContext):
         res = self.visitChildren(ctx)
-        print(res)
         if res:
             if type(res) != list:
                 res = [res]
@@ -433,10 +442,12 @@ class yaplVisImpl(yaplVisitor):
                                                     'scope':{self.current_type, self.current_func['name']},
                                                     'size':i['size'],
                                                     'displacement':self.getDisplacement(i['size']),}
-        par_spec = None
+        par_spec = []
+        par_names = []
         if res:
             par_spec = [i['type'] for i in res]
-        return (True, {'param_types':par_spec})
+            par_names = [i['name'] for i in res]
+        return (True, {'param_types':par_spec, 'param_names':par_names})
 
     # Visit a parse tree produced by yaplParser#func_param.
     def visitFunc_param(self, ctx:yaplParser.Func_paramContext):
@@ -509,10 +520,6 @@ class yaplVisImpl(yaplVisitor):
         return (False, err_msg)
     
 
-    # Visit a parse tree produced by yaplParser#new_func_name.
-    def visitNew_func_name(self, ctx:yaplParser.New_func_nameContext):
-        self.current_func = {}
-        self.current_func['name'] = ctx.getText()
 
     # Visit a parse tree produced by yaplParser#sign_dec.
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
@@ -523,7 +530,9 @@ class yaplVisImpl(yaplVisitor):
         self.current_func['param_type'] = res[0][1]['param_types']
         func_info = {'param_types':res[0][1]['param_types'],
                     'ret_type':res[1][1]['type'],
-                    'local':[table_name+'.ret_val']}
+                    'local':[table_name+'.ret_val'] + res[0][1]['param_names'],#TODO meter estos acá en let
+                    'lets':0,#para diferenciar entre variables de diferentes lets
+                    'new_calls':0}#para guardar espacio en el stack
         
         if table_name in self.check_for_func_declaration:
             print(f'{bcolors.OKGREEN}Found the declaration for {table_name}!{bcolors.ENDC}')
@@ -651,7 +660,6 @@ class yaplVisImpl(yaplVisitor):
         print(err_msg)
         return (False, err_msg)
 
-    
     # Visit a parse tree produced by yaplParser#new_call.
     def visitNew_call(self, ctx:yaplParser.New_callContext):
         res = self.visitChildren(ctx)
@@ -662,10 +670,16 @@ class yaplVisImpl(yaplVisitor):
         if not res[0]:
             return res
         self.last_returned = res[1]['type']
-        return res
+        FUNC_TABLE[self.current_func['name']]['new_calls'] +=1
+        code_n_info = res[1]
+        temp = self.getTemp()
+        code_n_info['code'] = f'new {temp} {res[1]["type"]}'
+        code_n_info['res_temp'] = f'{temp}'
+        return (True, code_n_info)
 
     # Visit a parse tree produced by yaplParser#let_stmt.
     def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
+        FUNC_TABLE[self.current_type]['lets'] +=1
         res = self.visitChildren(ctx)
         if type(res) == list:
             res[-1]
@@ -686,12 +700,13 @@ class yaplVisImpl(yaplVisitor):
         if type(res) != list:
             res = [res]
 
-        var_name = res[0][1]
+        let_count = FUNC_TABLE[self.current_func['name']]['lets']
+        var_name = self.current_func['name']+f'.{let_count}.'+res[0][1]
         var_t = res[1][1]['type']
         var_sz = res[1][1]['size']
         # type, scope, size, displacement
         SYM_TABLE[var_name] = {'type':var_t, 
-                                'scope':{self.current_type, self.current_func['name']}, 
+                                'scope':{self.current_func['name']}, 
                                 'size':var_sz, 
                                 'displacement':self.getDisplacement(var_sz)}
         if len(res) > 2:
