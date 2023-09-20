@@ -217,9 +217,7 @@ class yaplVisImpl(yaplVisitor):
                             'scope':{self.current_type, GLOBAL}, 
                             'size':1}
         temp = self.getTemp()
-        return (True, {'type':BOOL, 'size':1,
-                        'code':f'ld {temp} {name}',
-                        'res_temp':temp})
+        return (True, {'type':BOOL, 'size':1,})
 
     # Visit a parse tree produced by yaplParser#paren.
     def visitParen(self, ctx:yaplParser.ParenContext):
@@ -242,9 +240,7 @@ class yaplVisImpl(yaplVisitor):
                             'scope':{self.current_type, GLOBAL}, 
                             'size':8}
         temp = self.getTemp()
-        return (True,  {'type':STR, 'size':8,
-                        'code':f'ld {temp} {name}',
-                        'res_temp':temp})
+        return (True,  {'type':STR, 'size':8,})
 
     # Visit a parse tree produced by yaplParser#int_literal.
     def visitInt_literal(self, ctx:yaplParser.Int_literalContext):
@@ -252,10 +248,7 @@ class yaplVisImpl(yaplVisitor):
         SYM_TABLE[name] = {'type':INT, 
                                         'scope':{self.current_type, GLOBAL}, 
                                         'size':4}
-        temp = self.getTemp()
-        return (True,  {'type':INT, 'size':4,
-                        'code':f'ld {temp} {name}',
-                        'res_temp':temp})
+        return (True,  {'type':INT, 'size':4,})
     
     def visitPlus_op(self, ctx:yaplParser.Plus_opContext):
         return (True, PLUS)
@@ -292,7 +285,7 @@ class yaplVisImpl(yaplVisitor):
         new_id = txt
         if new_id in SYM_TABLE: # TODO check if accesible
             self.last_returned = SYM_TABLE[new_id]['type']
-            return (True, SYM_TABLE[new_id])
+            return (True, {'type':SYM_TABLE[new_id]['type']})
         err_msg = f'{bcolors.FAIL}Cannot use variable "{txt}" because it is not declared!{bcolors.ENDC}'
         print(err_msg)
         return (False, err_msg)
@@ -671,11 +664,7 @@ class yaplVisImpl(yaplVisitor):
             return res
         self.last_returned = res[1]['type']
         FUNC_TABLE[self.current_func['name']]['new_calls'] +=1
-        code_n_info = res[1]
-        temp = self.getTemp()
-        code_n_info['code'] = f'new {temp} {res[1]["type"]}'
-        code_n_info['res_temp'] = f'{temp}'
-        return (True, code_n_info)
+        return (True, res[1])
 
     # Visit a parse tree produced by yaplParser#let_stmt.
     def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
