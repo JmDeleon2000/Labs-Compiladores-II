@@ -342,8 +342,7 @@ class yaplVisImpl(yaplVisitor):
 
 
     # Visit a parse tree produced by yaplParser#scope_def.
-    def visitScope_def(self, ctx:yaplParser.Scope_defContext):
-        #current_scope += 1
+    def visitComp_expr(self, ctx:yaplParser.Comp_exprContext):
         res = self.visitChildren(ctx)
         #self.cur_dis = 0
         #current_scope -= 1
@@ -724,5 +723,3 @@ class yaplVisImpl(yaplVisitor):
         self.last_returned = self.current_type
         self.call_type = self.last_returned
         return self.visitChildren(ctx)
-
-del yaplVisitor

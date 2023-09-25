@@ -1,10 +1,12 @@
 class Main inherits IO {
    x : Int <- 5;
    y : Int <- 7;
-   z : Int;
+   z : Int <- 1;
    main(): SELF_TYPE {
    {
-      z <- x + y;
+      while (z < y) loop
+	       z <- x+y
+      pool;
 	   out_string("Hello, World.\n");
    }
    };

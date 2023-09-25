@@ -704,6 +704,32 @@ class yaplParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
+    class Comp_exprContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(yaplParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(yaplParser.ExprContext,i)
+
+        def eos(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(yaplParser.EosContext)
+            else:
+                return self.getTypedRuleContext(yaplParser.EosContext,i)
+
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitComp_expr" ):
+                return visitor.visitComp_expr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
     class Func_callContext(ExprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
@@ -810,32 +836,6 @@ class yaplParser ( Parser ):
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitNot" ):
                 return visitor.visitNot(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class Scope_defContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a yaplParser.ExprContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def expr(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(yaplParser.ExprContext)
-            else:
-                return self.getTypedRuleContext(yaplParser.ExprContext,i)
-
-        def eos(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(yaplParser.EosContext)
-            else:
-                return self.getTypedRuleContext(yaplParser.EosContext,i)
-
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitScope_def" ):
-                return visitor.visitScope_def(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -1017,7 +1017,7 @@ class yaplParser ( Parser ):
                 pass
 
             elif la_ == 5:
-                localctx = yaplParser.Scope_defContext(self, localctx)
+                localctx = yaplParser.Comp_exprContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 147

@@ -69,6 +69,11 @@ class yaplVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by yaplParser#comp_expr.
+    def visitComp_expr(self, ctx:yaplParser.Comp_exprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by yaplParser#func_call.
     def visitFunc_call(self, ctx:yaplParser.Func_callContext):
         return self.visitChildren(ctx)
@@ -96,11 +101,6 @@ class yaplVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by yaplParser#not.
     def visitNot(self, ctx:yaplParser.NotContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by yaplParser#scope_def.
-    def visitScope_def(self, ctx:yaplParser.Scope_defContext):
         return self.visitChildren(ctx)
 
 

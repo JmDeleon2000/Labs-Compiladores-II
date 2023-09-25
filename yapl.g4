@@ -16,7 +16,7 @@ expr
 | free_func_name '(' ((expr  ',' )*expr )* ')' # func_call
 | IF bool_expr then expr else expr FI # if_stmt
 | WHILE bool_expr LOOP expr POOL # while_loop
-| '{' (expr eos)+ '}' # scope_def
+| '{' (expr eos)+ '}' # comp_expr
 | let_stmt # let
 | NEW type # new_call
 | '~' expr # negation
