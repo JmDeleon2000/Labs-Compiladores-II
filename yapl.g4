@@ -21,8 +21,8 @@ expr
 | NEW type # new_call
 | '~' expr # negation
 | ISVOID expr # isvoid
-| expr mul_op expr # arith_operation
 | expr division_op expr # arith_operation
+| expr mul_op expr # arith_operation
 | expr plus_op expr # arith_operation
 | expr minus_op expr # arith_operation
 | expr (lt | leq | eq) expr # bool_operation

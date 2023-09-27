@@ -146,6 +146,10 @@ class yaplVisImpl(yaplVisitor):
         for i in SUPPORTED[ASIG]:
             if (i[0] == var_t and 
                 i[1] == expr_t):
+                if 'assigned_on' not in SYM_TABLE[var_name]:
+                    SYM_TABLE[var_name]['assigned_on'] = []
+                if self.current_func["name"] not in SYM_TABLE[var_name]['assigned_on']:
+                    SYM_TABLE[var_name]['assigned_on'].append(f'{self.current_func["name"]}')
                 return (True, {'type':i[2]})
         err_str = (f'Cannot assign expresion of type {expr_t["type"]} '
                 f'to {var_t}: {var_name}')
@@ -235,19 +239,10 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#str_literal.
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
-        name = f'str_lit_{ctx.getText()}'
-        SYM_TABLE[name] = {'type':STR, 
-                            'scope':{self.current_type, GLOBAL}, 
-                            'size':8}
-        temp = self.getTemp()
         return (True,  {'type':STR, 'size':8,})
 
     # Visit a parse tree produced by yaplParser#int_literal.
     def visitInt_literal(self, ctx:yaplParser.Int_literalContext):
-        name = f'int_lit_{ctx.getText()}'
-        SYM_TABLE[name] = {'type':INT, 
-                                        'scope':{self.current_type, GLOBAL}, 
-                                        'size':4}
         return (True,  {'type':INT, 'size':4,})
     
     def visitPlus_op(self, ctx:yaplParser.Plus_opContext):
@@ -294,10 +289,6 @@ class yaplVisImpl(yaplVisitor):
     def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
         return (True, ctx.getText())
 
-    def getDisplacement(self, size):
-        current = self.current_dis
-        self.current_dis+=size
-        return current
 
     # Visit a parse tree produced by yaplParser#var_name.
     def visitVar_name(self, ctx:yaplParser.Var_nameContext):
@@ -323,19 +314,15 @@ class yaplVisImpl(yaplVisitor):
                         err_msg = f'{bcolors.FAIL}Cannot assign expresion of type: {res[2][1]["type"]} to variable "{var_name}"! Expecting type: {res[1][1]["type"]}{bcolors.ENDC}'
                         print(err_msg)
                         return (False, err_msg)
-            # type, scope, size, displacement, value
+            # type, scope, size,
             SYM_TABLE[var_name] = {'type':res[1][1]['type'], 
-                                                        'scope':{self.current_type, None}, 
-                                                        'size':res[1][1]['size'], 
-                                                        'displacement':self.getDisplacement(res[1][1]['size']),
-                                                        'val_expr': None} #TODO
+                                                        'scope':{self.current_type}, 
+                                                        'size':res[1][1]['size'], } #TODO
 
-        # type, scope, size, displacement
+        # type, scope, size, 
         SYM_TABLE[var_name] = {'type':res[1][1]['type'], 
-                                                        'scope':{self.current_type, None}, 
-                                                        'size':res[1][1]['size'], 
-                                                        'displacement':self.getDisplacement(res[1][1]['size']),
-                                                        'val_expr': None}
+                                                        'scope':{self.current_type}, 
+                                                        'size':res[1][1]['size'], }
 
         return (True, {'type':res[1]}) 
     
@@ -398,9 +385,8 @@ class yaplVisImpl(yaplVisitor):
         self.call_type = self.class_name
         self.current_dis = 0
         SYM_TABLE['self'] = {'type':type_name, 
-                            'scope':{self.current_type, None}, 
-                            'size':8, 
-                            'displacement':self.getDisplacement(8)}
+                            'scope':{self.current_type}, 
+                            'size':8, }
         SUPPORTED[ASIG].append([type_name, type_name, type_name])
         if type_name in self.check_for_type_declaration:
             print(f'{bcolors.OKGREEN}Found the declaration for {type_name}!{bcolors.ENDC}')
@@ -432,8 +418,7 @@ class yaplVisImpl(yaplVisitor):
             for i in res:
                 SYM_TABLE[i['name']] = {'type':i['type'],
                                                     'scope':{self.current_type, self.current_func['name']},
-                                                    'size':i['size'],
-                                                    'displacement':self.getDisplacement(i['size']),}
+                                                    'size':i['size'],}
         par_spec = []
         par_names = []
         if res:
@@ -450,9 +435,8 @@ class yaplVisImpl(yaplVisitor):
     def visitFormal(self, ctx:yaplParser.FormalContext):
         res = self.visitChildren(ctx)
         SYM_TABLE[res[0][1]] = {'type':res[1][1]['type'],
-                                    'scope':{self.current_type, self.current_func['name']},
-                                    'size':res[1][1]['size'],
-                                    'displacement':self.getDisplacement(res[1][1]['size']),}
+                                    'scope':{f"{self.current_type}_{self.current_func['name']}"},
+                                    'size':res[1][1]['size'],}
         return res 
 
     def GetCommonAncestor(self, type_a, type_b):
@@ -692,13 +676,10 @@ class yaplVisImpl(yaplVisitor):
         var_name = self.current_func['name']+f'.{let_count}.'+res[0][1]
         var_t = res[1][1]['type']
         var_sz = res[1][1]['size']
-        # type, scope, size, displacement
+        # type, scope, size,
         SYM_TABLE[var_name] = {'type':var_t, 
                                 'scope':{self.current_func['name']}, 
-                                'size':var_sz, 
-                                'displacement':self.getDisplacement(var_sz)}
-        if len(res) > 2:
-            SYM_TABLE[var_name]['val_expr'] = None #TODO
+                                'size':var_sz, }
         return SYM_TABLE[var_name]
 
     # Visit a parse tree produced by yaplParser#user_defined_t.
