@@ -120,7 +120,7 @@ class yaplVisCode(yaplVisitor):
                 const_val = res[0]['const_val'] <= res[2]['const_val']
             if res[1] == '=':
                 const_val = res[0]['const_val'] == res[2]['const_val']
-            return {'comp':code, 'const_val':const_val}
+            return {'comp':code, 'const_val':const_val, 'branch_op':branch_op}
         return {'comp':code, 'branch_op':branch_op}
 
     def visitWhile_loop(self, ctx:yaplParser.While_loopContext):
@@ -133,7 +133,10 @@ class yaplVisCode(yaplVisitor):
         for i in res:
             if type(i) == dict and 'comp' in i:
                 code+= i['comp'] + '\n'
-        code+= f'\tbne {tag}'
+        for i in res:
+            if type(i) == dict and 'branch_op' in i:
+                branch_op = i['branch_op']
+        code+= f'\t{branch_op} {tag}'
         return {'code':code}
 
     def visitComp_expr(self, ctx:yaplParser.Comp_exprContext):
@@ -267,8 +270,8 @@ class yaplVisCode(yaplVisitor):
             if op == '/':
                 const_val = res[0]['const_val'] // res[2]['const_val']
                 code += f"\tMOV {temp}, #{const_val}"
-            add = f"\tMOV {temp} {const_val}"
-            print(f'{ctx.getText()} to {add}')
+            add = f"MOV {temp} {const_val}"
+            print(f'{ctx.getText()} translated to {add}')
             return {'code':code, 'res_temp':temp, 'const_val':const_val}
         for i in res:
             if type(i) == dict and 'code' in i:

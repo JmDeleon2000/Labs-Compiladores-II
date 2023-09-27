@@ -4,10 +4,9 @@ class Main inherits IO {
    z : Int <- 1;
    main(): SELF_TYPE {
    {
-      y <- (-9);
-      if (y < z) then
+      while (z < y) loop
 	       z <- (x+y + 6) / (z - x) * (9 + 7)
-      else z <- 12 fi;
+      pool;
 	   out_string("Hello, World.\n");
    }
    };
