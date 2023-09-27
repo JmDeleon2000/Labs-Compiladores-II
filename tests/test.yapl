@@ -4,10 +4,21 @@ class Main inherits IO {
    z : Int <- 1;
    main(): SELF_TYPE {
    {
+      y <- 7;
+      x <- 0;
+      z <- (-10);
       while (z < y) loop
 	       z <- (x+y + 6) / (z - x) * (9 + 7)
       pool;
 	   out_string("Hello, World.\n");
    }
+   };
+
+   foo(a:Int): Int {
+      {
+   y <- a;
+   z <- a;
+   x <- a;
+      }
    };
 };

@@ -39,6 +39,7 @@ ASIG = '<-'
 BOOL = 'Bool'
 STR = 'String'
 
+CONSTRUCTORS = {}
 
 class yaplVisCode(yaplVisitor):    
 
@@ -89,7 +90,8 @@ class yaplVisCode(yaplVisitor):
             assigned_on = SYM_TABLE[name]['assigned_on'].copy()
             if self.current_func['name'] in assigned_on:
                 assigned_on.remove(self.current_func['name'])
-        if 'const_val' in SYM_TABLE[name] and len(assigned_on) == 0:
+        if 'const_val' in SYM_TABLE[name] \
+            and (len(assigned_on) == 0 or 'known_val' in SYM_TABLE[name]):
             return {'code':code, 'res_temp':name, 'const_val':SYM_TABLE[name]['const_val']}
         return {'code':code, 'res_temp':name}
     
@@ -257,9 +259,9 @@ class yaplVisCode(yaplVisitor):
         self.freeTemp(res[0]['res_temp'])
         self.freeTemp(res[2]['res_temp'])
 
+        op = res[1]
         temp = self.getTemp()
         if 'const_val' in res[0] and 'const_val' in res[2]:
-            op = res[1]
             if op == '+':
                 const_val = res[0]['const_val'] + res[2]['const_val']
                 code += f"\tMOV {temp}, #{const_val}"
@@ -275,10 +277,37 @@ class yaplVisCode(yaplVisitor):
             add = f"MOV {temp} {const_val}"
             print(f'{ctx.getText()} translated to {add}')
             return {'code':code, 'res_temp':temp, 'const_val':const_val}
+        
         for i in res:
             if type(i) == dict and 'code' in i:
                 code+= i['code'] + '\n'
-        op = res[1]
+        
+        if 'const_val' in res[0]:
+            const_val = res[0]['const_val'] 
+            if op == '+':
+                code += f"\tADD {temp}, {res[2]['res_temp']}, #{const_val}"
+            if op == '-':
+                code += f"\tSUB {temp}, {res[2]['res_temp']}, #{const_val}"
+            if op == '*':
+                code += f"\tMUL {temp}, {res[2]['res_temp']}, #{const_val}"
+            if op == '/':
+                code += f"\tDIV {temp}, {res[2]['res_temp']}, #{const_val}"
+            return {'code':code, 'res_temp':temp}
+        
+        if 'const_val' in res[2]:
+            const_val = res[2]['const_val'] 
+            if op == '+':
+                code += f"\tADD {temp}, {res[0]['res_temp']}, #{const_val}"
+            if op == '-':
+                code += f"\tSUB {temp}, {res[0]['res_temp']}, #{const_val}"
+            if op == '*': 
+                code += f"\tMUL {temp}, {res[0]['res_temp']}, #{const_val}"
+            if op == '/': 
+                code += f"\tDIV {temp}, {res[0]['res_temp']}, #{const_val}"
+            return {'code':code, 'res_temp':temp}
+
+
+
         if op == '+':
             code += f"\tADD {temp}, {res[0]['res_temp']}, {res[2]['res_temp']}"
         if op == '-':
@@ -302,8 +331,10 @@ class yaplVisCode(yaplVisitor):
 
         if 'const_val' in res[1]:
             SYM_TABLE[assign_to]['const_val'] = res[1]['const_val']
+            SYM_TABLE[assign_to]['known_val'] = True
             code+=f"\tMOV {assign_to}, #{res[1]['const_val']}\n"
             code+=f'\tstr {assign_to}'
+
             return {'code':code, 'res_temp':res_temp}
 
         code+=f'\t{assign_to} = {res_temp}\n'
@@ -321,6 +352,13 @@ class yaplVisCode(yaplVisitor):
 
     def visitMul_op(self, ctx:yaplParser.Mul_opContext):
         return MUL
+
+    def visitFunc_body(self, ctx:yaplParser.Func_bodyContext):
+        res = self.visitChildren(ctx)
+        for k, e in SYM_TABLE.items():
+            if 'known_val' in e:
+                del SYM_TABLE[k]['known_val']
+        return res
 
     def visitFunc_dec(self, ctx:yaplParser.Func_decContext):
         func_name = ctx.getText().split('(')[0]
