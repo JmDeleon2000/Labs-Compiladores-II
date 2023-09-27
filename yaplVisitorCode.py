@@ -133,9 +133,11 @@ class yaplVisCode(yaplVisitor):
         for i in res:
             if type(i) == dict and 'comp' in i:
                 code+= i['comp'] + '\n'
+                break
         for i in res:
             if type(i) == dict and 'branch_op' in i:
                 branch_op = i['branch_op']
+                break
         code+= f'\t{branch_op} {tag}'
         return {'code':code}
 
