@@ -5,8 +5,7 @@ class Main inherits IO {
    main(): SELF_TYPE {
    {
       y <- 7;
-      x <- 0;
-      z <- (-10);
+      z <- -10;
       while (z < y) loop
 	       z <- (x+y + 6) / (z - x) * (9 + 7)
       pool;
@@ -14,10 +13,10 @@ class Main inherits IO {
    }
    };
 
-   foo(a:Int): Int {
+   foo(a:Int, b:Int): Int {
       {
    y <- a;
-   z <- a;
+   z <- b;
    x <- a;
       }
    };

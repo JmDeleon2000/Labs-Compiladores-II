@@ -77,8 +77,8 @@ def serializedATN():
         1,0,0,0,175,157,1,0,0,0,175,158,1,0,0,0,175,160,1,0,0,0,175,162,
         1,0,0,0,175,164,1,0,0,0,175,166,1,0,0,0,175,167,1,0,0,0,175,168,
         1,0,0,0,175,169,1,0,0,0,175,170,1,0,0,0,175,171,1,0,0,0,176,223,
-        1,0,0,0,177,178,10,12,0,0,178,179,3,46,23,0,179,180,3,8,4,13,180,
-        222,1,0,0,0,181,182,10,11,0,0,182,183,3,48,24,0,183,184,3,8,4,12,
+        1,0,0,0,177,178,10,12,0,0,178,179,3,48,24,0,179,180,3,8,4,13,180,
+        222,1,0,0,0,181,182,10,11,0,0,182,183,3,46,23,0,183,184,3,8,4,12,
         184,222,1,0,0,0,185,186,10,10,0,0,186,187,3,50,25,0,187,188,3,8,
         4,11,188,222,1,0,0,0,189,190,10,9,0,0,190,191,3,52,26,0,191,192,
         3,8,4,10,192,222,1,0,0,0,193,197,10,8,0,0,194,198,3,12,6,0,195,198,
@@ -869,11 +869,11 @@ class yaplParser ( Parser ):
             else:
                 return self.getTypedRuleContext(yaplParser.ExprContext,i)
 
-        def mul_op(self):
-            return self.getTypedRuleContext(yaplParser.Mul_opContext,0)
-
         def division_op(self):
             return self.getTypedRuleContext(yaplParser.Division_opContext,0)
+
+        def mul_op(self):
+            return self.getTypedRuleContext(yaplParser.Mul_opContext,0)
 
         def plus_op(self):
             return self.getTypedRuleContext(yaplParser.Plus_opContext,0)
@@ -1161,7 +1161,7 @@ class yaplParser ( Parser ):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
                         self.state = 178
-                        self.mul_op()
+                        self.division_op()
                         self.state = 179
                         self.expr(13)
                         pass
@@ -1174,7 +1174,7 @@ class yaplParser ( Parser ):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
                         self.state = 182
-                        self.division_op()
+                        self.mul_op()
                         self.state = 183
                         self.expr(12)
                         pass

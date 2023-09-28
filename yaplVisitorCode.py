@@ -49,11 +49,13 @@ class yaplVisCode(yaplVisitor):
         self.temps = {}
         self.temp_count = 0
         self.current_func = None
+        #for k, e in SYM_TABLE.items():
+        #    print(f'{k}\t{e}')
 
     def makeConst(self, val, type):
         const_name = f'const_{self.const_count}'
         self.const_count +=1
-        SYM_TABLE[const_name] = {'type':type, 'const_val':val, 'scope':{'global'}, 'size':TYPE_TABLE[type]['size']}
+        SYM_TABLE[const_name] = {'type':type, 'const_val':val, 'scope':{'global'}, 'size':TYPE_TABLE[type]['size'],}
         return const_name
 
     def visitEq(self, ctx:yaplParser.EqContext):
@@ -70,8 +72,8 @@ class yaplVisCode(yaplVisitor):
 
     def visitYapl_src(self, ctx:yaplParser.Yapl_srcContext):
         res = self.visitChildren(ctx)
-        #for k, e in SYM_TABLE.items():
-        #    print(f'{k}\t{e}')
+        for k, e in SYM_TABLE.items():
+            print(f'{k}\t{e}')
         code = ''
         if type(res) == list:
             for i in res:
@@ -82,8 +84,12 @@ class yaplVisCode(yaplVisitor):
         return code
 
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
-        name = ctx.getText()
-        code = f'\tld {name}'
+        name = f'{self.current_func["name"]}.{ctx.getText()}'
+        if name not in SYM_TABLE:
+            name = f'{self.current_type}.{ctx.getText()}'
+
+        code = f'\tld {SYM_TABLE[name]["ptr"]}'
+
         assigned_on = []
         SYM_TABLE[name]['used'] = True
         if 'assigned_on' in SYM_TABLE[name]:
@@ -92,12 +98,15 @@ class yaplVisCode(yaplVisitor):
                 assigned_on.remove(self.current_func['name'])
         if 'const_val' in SYM_TABLE[name] \
             and (len(assigned_on) == 0 or 'known_val' in SYM_TABLE[name]):
-            return {'code':code, 'res_temp':name, 'const_val':SYM_TABLE[name]['const_val']}
-        return {'code':code, 'res_temp':name}
+            return {'code':code, 'res_temp':SYM_TABLE[name]['ptr'], 'const_val':SYM_TABLE[name]['const_val']}
+        return {'code':code, 'res_temp':SYM_TABLE[name]['ptr']}
     
     def visitVar_name(self, ctx:yaplParser.Var_nameContext):
         name = ctx.getText()
-        code = f'\tld {name}'
+        name = f'{self.current_func["name"]}.{ctx.getText()}'
+        if name not in SYM_TABLE:
+            name = f'{self.current_type}.{ctx.getText()}'
+        code = f'\tld {SYM_TABLE[name]["ptr"]}'
         return {'code':code, 'res_temp':name}
 
     def visitBool_operation(self, ctx:yaplParser.Bool_operationContext):
@@ -179,10 +188,7 @@ class yaplVisCode(yaplVisitor):
         if self.call_type:
             call_namespace = self.call_type
 
-        if not call_namespace in TYPE_TABLE:
-            err_msg = f"{bcolors.FAIL}Invalid function call to undeclared type: {call_namespace} {bcolors.ENDC}"
-            print(err_msg)
-            return (False, err_msg)
+
         #print(list(FUNC_TABLE.keys()))
         while call_namespace:
             #print(f'Searching for {func_name} in {call_namespace}')
@@ -216,7 +222,7 @@ class yaplVisCode(yaplVisitor):
         return {'code':code}
 
     def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
-        return ctx.getText()
+        return f'{self.current_type}.{ctx.getText()}'
 
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
@@ -323,6 +329,7 @@ class yaplVisCode(yaplVisitor):
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
         res = self.visitChildren(ctx)
         assign_to = res[0]['res_temp']
+
         res_temp = res[1]['res_temp']
         code = ''
         for i in res:
@@ -332,11 +339,12 @@ class yaplVisCode(yaplVisitor):
         if 'const_val' in res[1]:
             SYM_TABLE[assign_to]['const_val'] = res[1]['const_val']
             SYM_TABLE[assign_to]['known_val'] = True
+            assign_to = SYM_TABLE[assign_to]['ptr']
             code+=f"\tMOV {assign_to}, #{res[1]['const_val']}\n"
             code+=f'\tstr {assign_to}'
 
             return {'code':code, 'res_temp':res_temp}
-
+        assign_to = SYM_TABLE[assign_to]['ptr']
         code+=f'\t{assign_to} = {res_temp}\n'
         code+=f'\tstr {assign_to}'
         return {'code':code, 'res_temp':res_temp}

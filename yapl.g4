@@ -104,7 +104,7 @@ STRING: '"'  .*?  '"' ;
 ASSIGN_OP: '<-';
 ID: [a-z][_a-zA-Z0-9]*; //start with minuscule letter
 TYPE: [A-Z][_a-zA-Z0-9]*; //start with mayus letter
-INT: [0-9]+;
+INT: [-]?[0-9]+;
 START_COMMENT: '(*';
 END_COMMENT: '*)';
 

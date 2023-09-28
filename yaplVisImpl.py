@@ -72,6 +72,7 @@ FUNC_TABLE = {'IO.out_string':out_string_info,
                 'Object.type_name':type_name_info,
                 'Object.abort':abort_info}
 GLOBAL = 'global scope'
+DISPLACEMNTS = {}
 
 class yaplVisImpl(yaplVisitor):    
 
@@ -86,6 +87,7 @@ class yaplVisImpl(yaplVisitor):
         self.check_for_func_declaration = ['Main.main']
         self.temp_count = 0
         self.temp_list = {}
+        DISPLACEMNTS['global'] = 0
     
     def getTemp(self):
         for k, free in self.temp_list.items():
@@ -134,12 +136,14 @@ class yaplVisImpl(yaplVisitor):
         else:
             if not res[0]:
                 return (False, res[1])
-        
-        var_name = res[0][1]
+        var_name = f'{self.current_func["name"]}.{res[0][1]}'
+
         if var_name not in SYM_TABLE:
-            err_msg = f'{bcolors.FAIL}Cannot use variable "{var_name}" because it is not declared!{bcolors.ENDC}'
-            print(err_msg)
-            return (False, err_msg)
+            var_name = f'{self.current_type}.{res[0][1]}'
+            if var_name not in SYM_TABLE:
+                err_msg = f'{bcolors.FAIL}Cannot use variable "{var_name}" because it is not declared!{bcolors.ENDC}'
+                print(err_msg)
+                return (False, err_msg)
         var_t = SYM_TABLE[var_name]['type']
         expr_t = res[1][1]['type']
         
@@ -217,10 +221,6 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#bool_literal.
     def visitBool_literal(self, ctx:yaplParser.Bool_literalContext):
         name = f'bool_lit_{ctx.getText()}'
-        SYM_TABLE[name] = {'type':BOOL, 
-                            'scope':{self.current_type, GLOBAL}, 
-                            'size':1}
-        temp = self.getTemp()
         return (True, {'type':BOOL, 'size':1,})
 
     # Visit a parse tree produced by yaplParser#paren.
@@ -277,8 +277,13 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#identifier.
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
         txt = ctx.getText()
-        new_id = txt
-        if new_id in SYM_TABLE: # TODO check if accesible
+        new_id = f'{self.current_func["name"]}.{txt}'
+        if new_id in SYM_TABLE:
+            self.last_returned = SYM_TABLE[new_id]['type']
+            return (True, {'type':SYM_TABLE[new_id]['type']})
+        new_id = f'{self.current_type}.{txt}'
+
+        if new_id in SYM_TABLE:
             self.last_returned = SYM_TABLE[new_id]['type']
             return (True, {'type':SYM_TABLE[new_id]['type']})
         err_msg = f'{bcolors.FAIL}Cannot use variable "{txt}" because it is not declared!{bcolors.ENDC}'
@@ -307,7 +312,7 @@ class yaplVisImpl(yaplVisitor):
                 if not res[0]:
                     return (False, res[1])  
 
-        var_name = res[0][1]
+        var_name = f'{self.current_type}.{res[0][1]}'
 
         if len(res) > 2:
             if res[1][1]['type'] != res[2][1]['type']:
@@ -317,12 +322,14 @@ class yaplVisImpl(yaplVisitor):
             # type, scope, size,
             SYM_TABLE[var_name] = {'type':res[1][1]['type'], 
                                                         'scope':{self.current_type}, 
-                                                        'size':res[1][1]['size'], } #TODO
-
+                                                        'size':res[1][1]['size'], 
+                                                        'ptr':f'ptr_{self.current_type}[{DISPLACEMNTS[self.current_type]}]'} 
         # type, scope, size, 
         SYM_TABLE[var_name] = {'type':res[1][1]['type'], 
                                                         'scope':{self.current_type}, 
-                                                        'size':res[1][1]['size'], }
+                                                        'size':res[1][1]['size'], 
+                                                        'ptr':f'ptr_{self.current_type}[{DISPLACEMNTS[self.current_type]}]'}
+        DISPLACEMNTS[self.current_type] += res[1][1]['size']
 
         return (True, {'type':res[1]}) 
     
@@ -383,10 +390,15 @@ class yaplVisImpl(yaplVisitor):
         TYPE_TABLE[type_name]['size'] = 8
         self.class_name = type_name
         self.call_type = self.class_name
+        self.current_func = {}
+        self.current_func['name'] = None
         self.current_dis = 0
+        DISPLACEMNTS[self.current_type] = 0
         SYM_TABLE['self'] = {'type':type_name, 
                             'scope':{self.current_type}, 
-                            'size':8, }
+                            'size':8,
+                            'ptr':f'ptr_{self.current_type}[{DISPLACEMNTS[self.current_type]}]'}
+        DISPLACEMNTS[self.current_type] += 8
         SUPPORTED[ASIG].append([type_name, type_name, type_name])
         if type_name in self.check_for_type_declaration:
             print(f'{bcolors.OKGREEN}Found the declaration for {type_name}!{bcolors.ENDC}')
@@ -407,6 +419,7 @@ class yaplVisImpl(yaplVisitor):
         func_name = ctx.getText().split('(')[0]
         self.current_func = {}
         self.current_func['name'] = self.current_type+'.'+func_name
+        DISPLACEMNTS[self.current_func['name']] = 0
         return self.visitChildren(ctx)
     
     # Visit a parse tree produced by yaplParser#func_params.
@@ -415,10 +428,6 @@ class yaplVisImpl(yaplVisitor):
         if res:
             if type(res) != list:
                 res = [res]
-            for i in res:
-                SYM_TABLE[i['name']] = {'type':i['type'],
-                                                    'scope':{self.current_type, self.current_func['name']},
-                                                    'size':i['size'],}
         par_spec = []
         par_names = []
         if res:
@@ -434,9 +443,17 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#formal.
     def visitFormal(self, ctx:yaplParser.FormalContext):
         res = self.visitChildren(ctx)
-        SYM_TABLE[res[0][1]] = {'type':res[1][1]['type'],
-                                    'scope':{f"{self.current_type}_{self.current_func['name']}"},
-                                    'size':res[1][1]['size'],}
+        if self.current_func["name"] != None:
+            SYM_TABLE[f'{self.current_func["name"]}.{res[0][1]}'] = {'type':res[1][1]['type'],
+                                        'scope':{f"{self.current_type}_{self.current_func['name']}"},
+                                        'size':res[1][1]['size'],
+                                        'ptr':f'ptr_{self.current_func["name"]}[{DISPLACEMNTS[self.current_func["name"]]}]'}
+        else:
+            SYM_TABLE[f'{self.current_type}.{res[0][1]}'] = {'type':res[1][1]['type'],
+                                        'scope':{f"{self.current_type}_{self.current_func['name']}"},
+                                        'size':res[1][1]['size'],
+                                        'ptr':f'ptr_{self.current_func["name"]}[{self.current_func["name"]}]'}
+        DISPLACEMNTS[self.current_func['name']]+= res[1][1]['size']
         return res 
 
     def GetCommonAncestor(self, type_a, type_b):
