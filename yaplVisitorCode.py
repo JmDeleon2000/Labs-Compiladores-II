@@ -41,6 +41,9 @@ STR = 'String'
 
 CONSTRUCTORS = {}
 
+#TODO sacar los argumentos del stack al comenzar una función
+#TODO constructores
+
 class yaplVisCode(yaplVisitor):    
 
     def __init__(self):
@@ -51,6 +54,7 @@ class yaplVisCode(yaplVisitor):
         self.current_func = None
         #for k, e in SYM_TABLE.items():
         #    print(f'{k}\t{e}')
+        self.constructors = {}
 
     def makeConst(self, val, type):
         const_name = f'const_{self.const_count}'
@@ -75,6 +79,8 @@ class yaplVisCode(yaplVisitor):
         for k, e in SYM_TABLE.items():
             print(f'{k}\t{e}')
         code = ''
+        for i in self.constructors.values():
+            code+= i
         if type(res) == list:
             for i in res:
                 if type(i) == dict and 'code' in i:
@@ -181,6 +187,7 @@ class yaplVisCode(yaplVisitor):
         type_name = ctx.getText()[5::]
         self.current_type = type_name
         self.class_name = type_name
+        self.constructors[type_name] = f'{type_name}_consuctor:\n'
 
     def visitFunc_name(self, ctx:yaplParser.Func_nameContext):
         func_name = ctx.getText()
@@ -206,28 +213,52 @@ class yaplVisCode(yaplVisitor):
         
         func_name = ''
         
+        code = ''
+        for i in res:
+            if type(i) == dict and 'code' in i:
+                code += i['code']
+                break
+        
         for i in res:
             if type(i) == dict and 'func_name' in i:
                 func_name = i['func_name']
+                break
         args = []
         for i in res:
             if type(i) == dict and 'res_temp' in i:
                 args.append(i['res_temp'])
-        ret_t = FUNC_TABLE[func_name]['ret_type']
-        code = f'\ts_reserve {TYPE_TABLE[ret_t]["size"]}\n'
-        for i in args:
-            code+= f'\tstack {i}\n'
-        code+=f'\tcall {func_name}'
         
-        return {'code':code}
+        ret_t = FUNC_TABLE[func_name]['ret_type']
+        # alocar 8 bytes por argumento, como se indica en:
+        # https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/using-the-stack-in-aarch64-implementing-push-and-pop
+
+        code += f'\tSUB sp, sp, #(8 * {len(args)+3})\n'
+        for i, arg in enumerate(args):
+            code += f"\tSTR {arg}, [sp, #(8 * {i+2})]\n"
+
+        code+=f'\tcall {func_name}\n'
+        ret_val = self.getTemp(TYPE_TABLE[ret_t]['size'])
+        code+= f'\tldr {ret_val}, [sp, #(8 * {len(args)+2})]\n'
+        
+        code += f'\tADD sp, sp, #(8 * {len(args)+3})'
+        return {'code':code, 'res_temp':ret_val}
 
     def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
-        return f'{self.current_type}.{ctx.getText()}'
+        name = f'{self.current_type}.{ctx.getText()}'
+        code = f'\tldr {SYM_TABLE[name]["ptr"]}\n'
+        return {'varname': name, 'code':code}
 
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
-        if 'const_val' in res[1]:
-            SYM_TABLE[res[0]]['const_val'] = res[1]['const_val']
+        if type(res) == list:
+            code = res[0]['code']
+            if 'const_val' in res[1]:
+                SYM_TABLE[res[0]['varname']]['const_val'] = res[1]['const_val']
+                code += f"\tmov {res[0]['varname']}, #{res[1]['const_val']}\n"
+            else:
+                code += res[1]['code']
+            code += f"\tstr {res[0]['varname']}\n"
+            self.constructors[self.current_type] += code
 
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
         val = ctx.getText()
@@ -243,12 +274,12 @@ class yaplVisCode(yaplVisitor):
         if t in self.temps:
             self.temps[t] = True
 
-    def getTemp(self):
+    def getTemp(self, size):
         for k, e in self.temps.items():
             if e:
                 self.temps[k] = False
                 return k
-        new_t = f't{self.temp_count}'
+        new_t = f'{self.current_func["name"]}_t{self.temp_count}'
         self.temp_count+=1
         self.temps[new_t] = False
         return new_t
@@ -266,7 +297,7 @@ class yaplVisCode(yaplVisitor):
         self.freeTemp(res[2]['res_temp'])
 
         op = res[1]
-        temp = self.getTemp()
+        temp = self.getTemp(4)
         if 'const_val' in res[0] and 'const_val' in res[2]:
             if op == '+':
                 const_val = res[0]['const_val'] + res[2]['const_val']
@@ -341,13 +372,13 @@ class yaplVisCode(yaplVisitor):
             SYM_TABLE[assign_to]['known_val'] = True
             assign_to = SYM_TABLE[assign_to]['ptr']
             code+=f"\tMOV {assign_to}, #{res[1]['const_val']}\n"
-            code+=f'\tstr {assign_to}'
+            code+=f'\tSTR {assign_to}'
 
             return {'code':code, 'res_temp':res_temp}
         assign_to = SYM_TABLE[assign_to]['ptr']
         code+=f'\t{assign_to} = {res_temp}\n'
-        code+=f'\tstr {assign_to}'
-        return {'code':code, 'res_temp':res_temp}
+        code+=f'\tSTR {assign_to}'
+        return {'code':code, 'res_temp':assign_to}
 
     def visitPlus_op(self, ctx:yaplParser.Plus_opContext):
         return PLUS
@@ -393,4 +424,26 @@ class yaplVisCode(yaplVisitor):
         code+=f'{out_tag}:'
 
         return {'code':code}
+    
+    #def visitRet_expr(self, ctx:yaplParser.Ret_exprContext):
+    #    res = self.visitChildren(ctx)
+    #    print(type(res))
+    #    return res
+    
+    def visitComp_expr(self, ctx:yaplParser.Comp_exprContext):
+        res = self.visitChildren(ctx)
+        code = ''
+        ret_val = None
+        #print(res)
+        if type(res) == list:
+            ret_val = res[-1]['res_temp']
+            for i in res:
+                if 'code' in i:
+                    code += i['code'] + '\n'
+        else:
+            code = res['code']
+            ret_val = res['res_temp']
+
+        code+= f'\treturn {ret_val}'
+        return {'code':code, 'res_temp':ret_val}
 del yaplVisitor

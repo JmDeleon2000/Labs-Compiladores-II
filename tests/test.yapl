@@ -9,6 +9,7 @@ class Main inherits IO {
       while (z < y) loop
 	       z <- (x+y + 6) / (z - x) * (9 + 7)
       pool;
+      
 	   out_string("Hello, World.\n");
    }
    };
