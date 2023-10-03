@@ -72,7 +72,7 @@ FUNC_TABLE = {'IO.out_string':out_string_info,
                 'Object.type_name':type_name_info,
                 'Object.abort':abort_info}
 GLOBAL = 'global scope'
-DISPLACEMNTS = {}
+DISPLACEMENTS = {}
 
 class yaplVisImpl(yaplVisitor):    
 
@@ -87,7 +87,7 @@ class yaplVisImpl(yaplVisitor):
         self.check_for_func_declaration = ['Main.main']
         self.temp_count = 0
         self.temp_list = {}
-        DISPLACEMNTS['global'] = 0
+        DISPLACEMENTS['global'] = 0
     
     def getTemp(self):
         for k, free in self.temp_list.items():
@@ -109,7 +109,7 @@ class yaplVisImpl(yaplVisitor):
                 if i == 'Main.main':
                     print(f'{bcolors.FAIL}All YAPL programs MUST include a declaration for the class Main. And that class MUST have a function called main{bcolors.ENDC}')
                 else:
-                    print(f'{bcolors.FAIL}You called {i}, but i cannot find the declaration for that function{bcolors.ENDC}')
+                    print(f'{bcolors.FAIL}You called {i}, but I cannot find the declaration for that function{bcolors.ENDC}')
             return (False, f'{bcolors.FAIL}Build failed. Found errors.{bcolors.ENDC}')
         if self.check_for_type_declaration:
             for i in self.check_for_type_declaration:
@@ -323,13 +323,13 @@ class yaplVisImpl(yaplVisitor):
             SYM_TABLE[var_name] = {'type':res[1][1]['type'], 
                                                         'scope':{self.current_type}, 
                                                         'size':res[1][1]['size'], 
-                                                        'ptr':f'ptr_{self.current_type}[{DISPLACEMNTS[self.current_type]}]'} 
+                                                        'ptr':f'ptr_{self.current_type}[{DISPLACEMENTS[self.current_type]}]'} 
         # type, scope, size, 
         SYM_TABLE[var_name] = {'type':res[1][1]['type'], 
                                                         'scope':{self.current_type}, 
                                                         'size':res[1][1]['size'], 
-                                                        'ptr':f'ptr_{self.current_type}[{DISPLACEMNTS[self.current_type]}]'}
-        DISPLACEMNTS[self.current_type] += res[1][1]['size']
+                                                        'ptr':f'ptr_{self.current_type}[{DISPLACEMENTS[self.current_type]}]'}
+        DISPLACEMENTS[self.current_type] += res[1][1]['size']
 
         return (True, {'type':res[1]}) 
     
@@ -377,7 +377,7 @@ class yaplVisImpl(yaplVisitor):
             return (True, {'type':name, 'size':8})
         if name in TYPE_TABLE:
             return (True, {'type':name, 'size':TYPE_TABLE[name]['size']})
-        self.current_type = name
+        
         self.check_for_type_declaration.append(name)
         TYPE_TABLE[name] = {'size':8, 'parent':OBJ, 'functions':[]}
         return (True, {'type':name, 'size':8})
@@ -393,12 +393,14 @@ class yaplVisImpl(yaplVisitor):
         self.current_func = {}
         self.current_func['name'] = None
         self.current_dis = 0
-        DISPLACEMNTS[self.current_type] = 0
-        SYM_TABLE['self'] = {'type':type_name, 
+        DISPLACEMENTS[self.current_type] = 0
+        print(DISPLACEMENTS)
+        SYM_TABLE[f'{self.current_type}_self'] = {'type':type_name, 
                             'scope':{self.current_type}, 
                             'size':8,
-                            'ptr':f'ptr_{self.current_type}[{DISPLACEMNTS[self.current_type]}]'}
-        DISPLACEMNTS[self.current_type] += 8
+                            'ptr':f'ptr_{self.current_type}[{DISPLACEMENTS[self.current_type]}]',
+                            'vars':[]}
+        DISPLACEMENTS[self.current_type] += 8
         SUPPORTED[ASIG].append([type_name, type_name, type_name])
         if type_name in self.check_for_type_declaration:
             print(f'{bcolors.OKGREEN}Found the declaration for {type_name}!{bcolors.ENDC}')
@@ -419,7 +421,7 @@ class yaplVisImpl(yaplVisitor):
         func_name = ctx.getText().split('(')[0]
         self.current_func = {}
         self.current_func['name'] = self.current_type+'.'+func_name
-        DISPLACEMNTS[self.current_func['name']] = 0
+        DISPLACEMENTS[self.current_func['name']] = 0
         return self.visitChildren(ctx)
     
     # Visit a parse tree produced by yaplParser#func_params.
@@ -447,13 +449,13 @@ class yaplVisImpl(yaplVisitor):
             SYM_TABLE[f'{self.current_func["name"]}.{res[0][1]}'] = {'type':res[1][1]['type'],
                                         'scope':{f"{self.current_type}_{self.current_func['name']}"},
                                         'size':res[1][1]['size'],
-                                        'ptr':f'ptr_{self.current_func["name"]}[{DISPLACEMNTS[self.current_func["name"]]}]'}
+                                        'ptr':f'ptr_{self.current_func["name"]}[{DISPLACEMENTS[self.current_func["name"]]}]'}
         else:
             SYM_TABLE[f'{self.current_type}.{res[0][1]}'] = {'type':res[1][1]['type'],
                                         'scope':{f"{self.current_type}_{self.current_func['name']}"},
                                         'size':res[1][1]['size'],
                                         'ptr':f'ptr_{self.current_func["name"]}[{self.current_func["name"]}]'}
-        DISPLACEMNTS[self.current_func['name']]+= res[1][1]['size']
+        DISPLACEMENTS[self.current_func['name']]+= res[1][1]['size']
         return res 
 
     def GetCommonAncestor(self, type_a, type_b):
@@ -663,7 +665,8 @@ class yaplVisImpl(yaplVisitor):
         if not res[0]:
             return res
         self.last_returned = res[1]['type']
-        FUNC_TABLE[self.current_func['name']]['new_calls'] +=1
+        if self.current_func['name']:
+            FUNC_TABLE[self.current_func['name']]['new_calls'] +=1
         return (True, res[1])
 
     # Visit a parse tree produced by yaplParser#let_stmt.

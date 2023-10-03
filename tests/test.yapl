@@ -2,6 +2,7 @@ class Main inherits IO {
    x : Int <- 5;
    y : Int <- 7;
    z : Int <- 1;
+   r : B <- new B;
    main(): SELF_TYPE {
    {
       y <- 7;
@@ -21,4 +22,10 @@ class Main inherits IO {
    x <- a;
       }
    };
+};
+
+class B{
+   x : Int <- 5;
+   y : Int <- 7;
+   z : Int <- 1;
 };
