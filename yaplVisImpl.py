@@ -129,6 +129,7 @@ class yaplVisImpl(yaplVisitor):
 
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
         res = self.visitChildren(ctx)
+        
         if type(res) == list:
             for i in res:
                 if not i[0]:
@@ -141,9 +142,16 @@ class yaplVisImpl(yaplVisitor):
         if var_name not in SYM_TABLE:
             var_name = f'{self.current_type}.{res[0][1]}'
             if var_name not in SYM_TABLE:
-                err_msg = f'{bcolors.FAIL}Cannot use variable "{var_name}" because it is not declared!{bcolors.ENDC}'
-                print(err_msg)
-                return (False, err_msg)
+                found = False
+                for i in reversed(range(1, FUNC_TABLE[self.current_func['name']]['lets']+1)):
+                    var_name = f'{self.current_func["name"]}.{i}.{res[0][1]}'
+                    if var_name in SYM_TABLE:
+                        found = True
+                        break
+                if not found:
+                    err_msg = f'{bcolors.FAIL}Cannot use variable "{var_name}" because it is not declared!{bcolors.ENDC}'
+                    print(err_msg)
+                    return (False, err_msg)
         var_t = SYM_TABLE[var_name]['type']
         expr_t = res[1][1]['type']
         
@@ -228,7 +236,7 @@ class yaplVisImpl(yaplVisitor):
         res = self.visitChildren(ctx)
         if type(res) == list:
             for i in res:
-                if not i[0]:
+                if type(i) == tuple and not i[0]:
                     return res
             self.last_returned = res[-1][1]['type']
             return (True, {'type':res[-1][1]['type']})
@@ -277,6 +285,7 @@ class yaplVisImpl(yaplVisitor):
     # Visit a parse tree produced by yaplParser#identifier.
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
         txt = ctx.getText()
+        
         new_id = f'{self.current_func["name"]}.{txt}'
         if new_id in SYM_TABLE:
             self.last_returned = SYM_TABLE[new_id]['type']
@@ -394,8 +403,7 @@ class yaplVisImpl(yaplVisitor):
         self.current_func['name'] = None
         self.current_dis = 0
         DISPLACEMENTS[self.current_type] = 0
-        print(DISPLACEMENTS)
-        SYM_TABLE[f'{self.current_type}_self'] = {'type':type_name, 
+        SYM_TABLE[f'{self.current_type}.self'] = {'type':type_name, 
                             'scope':{self.current_type}, 
                             'size':8,
                             'ptr':f'ptr_{self.current_type}[{DISPLACEMENTS[self.current_type]}]',
@@ -433,14 +441,14 @@ class yaplVisImpl(yaplVisitor):
         par_spec = []
         par_names = []
         if res:
-            par_spec = [i['type'] for i in res]
-            par_names = [i['name'] for i in res]
+            par_spec = [i[1]['type'] for i in res]
+            par_names = [i[1]['name'] for i in res]
         return (True, {'param_types':par_spec, 'param_names':par_names})
 
     # Visit a parse tree produced by yaplParser#func_param.
     def visitFunc_param(self, ctx:yaplParser.Func_paramContext):
         res = self.visitChildren(ctx)
-        return {'name':res[0][1], 'type':res[1][1]['type'], 'size':res[1][1]['size']}
+        return (True, {'name':res[0][1], 'type':res[1][1]['type'], 'size':res[1][1]['size']})
 
     # Visit a parse tree produced by yaplParser#formal.
     def visitFormal(self, ctx:yaplParser.FormalContext):
@@ -671,7 +679,7 @@ class yaplVisImpl(yaplVisitor):
 
     # Visit a parse tree produced by yaplParser#let_stmt.
     def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
-        FUNC_TABLE[self.current_type]['lets'] +=1
+        FUNC_TABLE[self.current_func['name']]['lets'] +=1
         res = self.visitChildren(ctx)
         if type(res) == list:
             res[-1]
@@ -699,7 +707,9 @@ class yaplVisImpl(yaplVisitor):
         # type, scope, size,
         SYM_TABLE[var_name] = {'type':var_t, 
                                 'scope':{self.current_func['name']}, 
-                                'size':var_sz, }
+                                'size':var_sz, 
+                                'ptr':f"ptr_{self.current_func['name']}[{DISPLACEMENTS[self.current_func['name']]}]"}
+        DISPLACEMENTS[self.current_func['name']] += var_sz
         return SYM_TABLE[var_name]
 
     # Visit a parse tree produced by yaplParser#user_defined_t.

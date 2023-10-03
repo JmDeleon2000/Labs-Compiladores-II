@@ -55,6 +55,7 @@ class yaplVisCode(yaplVisitor):
         #for k, e in SYM_TABLE.items():
         #    print(f'{k}\t{e}')
         self.constructors = {}
+        self.in_let = False
 
     def makeConst(self, val, var_type):
         const_name = f'const_{self.const_count}'
@@ -101,6 +102,11 @@ class yaplVisCode(yaplVisitor):
         name = f'{self.current_func["name"]}.{ctx.getText()}'
         if name not in SYM_TABLE:
             name = f'{self.current_type}.{ctx.getText()}'
+            if name not in SYM_TABLE:
+                for i in reversed(range(1, FUNC_TABLE[self.current_func['name']]['lets']+1)):
+                    name = f'{self.current_func["name"]}.{i}.{name}'
+                    if name in SYM_TABLE:
+                        break
 
         code = f'\tld {SYM_TABLE[name]["ptr"]}'
 
@@ -120,23 +126,31 @@ class yaplVisCode(yaplVisitor):
         name = f'{self.current_func["name"]}.{ctx.getText()}'
         if name not in SYM_TABLE:
             name = f'{self.current_type}.{ctx.getText()}'
+        if name not in SYM_TABLE:
+            name = f'{self.current_type}.{ctx.getText()}'
+        if name not in SYM_TABLE:
+            for i in reversed(range(1, FUNC_TABLE[self.current_func['name']]['lets']+1)):
+                name = f'{self.current_func["name"]}.{i}.{ctx.getText()}'
+                if name in SYM_TABLE:
+                    break
         code = f'\tld {SYM_TABLE[name]["ptr"]}'
         return {'code':code, 'res_temp':name}
 
     def visitBool_operation(self, ctx:yaplParser.Bool_operationContext):
         res = self.visitChildren(ctx)
+        print(res)
         code = ''
         left = res[0]['res_temp']
         right = res[2]['res_temp']
         for i in res:
-            if type(i) == dict:
+            if type(i) == dict and 'code' in i:
                 code+= i['code'] + '\n'
         code += f"\tCMP {left}, {right}"
         if res[1] == 'lt':
             branch_op = f'BNE'
-        if res[1] == '<=':
+        if res[1] == 'ltq':
             branch_op = f'BNZ'
-        if res[1] == '=':
+        if res[1] == 'eq':
             branch_op = f'BZ'
         if 'const_val' in res[0] and 'const_val' in res[2]:
             if res[1] == 'lt':
@@ -150,32 +164,29 @@ class yaplVisCode(yaplVisitor):
 
     def visitWhile_loop(self, ctx:yaplParser.While_loopContext):
         res = self.visitChildren(ctx)
-        tag = self.makeTag()
-        code = f'{tag}:\n'
+        condition = self.makeTag()
+        loop = self.makeTag()
+        code = f'\tb {condition}\n'
+        code += f'{loop}:\n'
+        res_t = ''
+        for i in res:
+            if type(i) == dict and 'res_temp' in i:
+                res_t = i['res_temp']
         for i in res:
             if type(i) == dict and 'code' in i:
                 code+= i['code'] + '\n'
-        for i in res:
-            if type(i) == dict and 'comp' in i:
-                code+= i['comp'] + '\n'
-                break
+        code += f'{condition}:\n'
         for i in res:
             if type(i) == dict and 'branch_op' in i:
                 branch_op = i['branch_op']
                 break
-        code+= f'\t{branch_op} {tag}'
-        return {'code':code}
+        for i in res:
+            if type(i) == dict and 'comp' in i:
+                code+= i['comp'] + '\n'
+                break
+        code+= f'\t{branch_op} {loop}'
 
-    def visitComp_expr(self, ctx:yaplParser.Comp_exprContext):
-        res = self.visitChildren(ctx)
-        code = ''
-        if type(res) == list:
-            for i in res:
-                if type(i) == dict and 'code' in i:
-                    code+= i['code'] + '\n'
-        else:
-            return res
-        return {'code':code}
+        return {'code':code, 'res_temp':res_t}
     
     def visitEos(self, ctx:yaplParser.EosContext):
         self.last_returned = self.current_type
@@ -231,7 +242,7 @@ class yaplVisCode(yaplVisitor):
         code = ''
         for i in res:
             if type(i) == dict and 'code' in i:
-                code += i['code']
+                code += i['code'] + '\n'
                 break
         
         for i in res:
@@ -258,20 +269,42 @@ class yaplVisCode(yaplVisitor):
         code += f'\tADD sp, sp, #(8 * {func_name}_displacement)'
         return {'code':code, 'res_temp':ret_val}
 
+    def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
+        self.in_let = True
+        res = self.visitChildren(ctx)
+        code = ''
+        for i in res:
+            if type(i) == dict and 'code' in i:
+                code += f'{i["code"]}\n'
+        res_temp = ''
+        for i in res:
+            if type(i) == dict and 'res_temp' in i:
+                res_temp = f'{i["res_temp"]}\n'
+        self.in_let = False
+        return {'code':code, 'res_temp':res_temp}
+
     def visitMem_name(self, ctx:yaplParser.Mem_nameContext):
         name = f'{self.current_type}.{ctx.getText()}'
+        if self.in_let:
+            for i in reversed(range(1, FUNC_TABLE[self.current_func['name']]['lets']+1)):
+                name = f"{self.current_func['name']}.{i}.{ctx.getText()}"
+                if name in SYM_TABLE:
+                    break
+        
         code = f'\tLDR {SYM_TABLE[name]["ptr"]}\n'
         return {'varname': name, 'code':code}
 
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
+        print(res)
         if type(res) == list:
             code = res[0]['code']
-            if 'const_val' in res[2]:
-                SYM_TABLE[res[0]['varname']]['const_val'] = res[2]['const_val']
-                code += f"\tmov {SYM_TABLE[res[0]['varname']]['ptr']}, #{res[2]['const_val']}\n"
-            else:
-                code += res[2]['code']
+            if len(res) > 2:
+                if 'const_val' in res[2]:
+                    SYM_TABLE[res[0]['varname']]['const_val'] = res[2]['const_val']
+                    code += f"\tmov {SYM_TABLE[res[0]['varname']]['ptr']}, #{res[2]['const_val']}\n"
+                else:
+                    code += res[2]['code']
             code += f"\tstr {SYM_TABLE[res[0]['varname']]['ptr']}\n"
             self.constructors[self.current_type] += code
 
@@ -434,16 +467,23 @@ class yaplVisCode(yaplVisitor):
         
         out_tag = self.makeTag()
         else_tag = self.makeTag()
+
+        self.freeTemp(res[1]['res_temp'])
+        self.freeTemp(res[2]['res_temp'])
+
+        res_t = self.getTemp(8, self.current_scope)
         
         code = res[0]['comp'] + '\n'
         code+=f'\t{res[0]["branch_op"]} {else_tag}\n'
         code+=res[1]['code'] + '\n'
+        code+=f"\tMOV {res_t}, {res[1]['res_temp']}\n"
         code+=f'\tb {out_tag}\n'
         code+=f'{else_tag}:\n'
         code+=res[2]['code'] + '\n'
+        code+=f"\tMOV {res_t}, {res[2]['res_temp']}\n"
         code+=f'{out_tag}:'
 
-        return {'code':code}
+        return {'code':code, 'res_temp':res_t}
     
     #def visitRet_expr(self, ctx:yaplParser.Ret_exprContext):
     #    res = self.visitChildren(ctx)
@@ -452,6 +492,7 @@ class yaplVisCode(yaplVisitor):
     
     def visitComp_expr(self, ctx:yaplParser.Comp_exprContext):
         res = self.visitChildren(ctx)
+        print(res)
         code = ''
         ret_val = None
         #print(res)
@@ -495,4 +536,5 @@ class yaplVisCode(yaplVisitor):
         
         code += f'\tADD sp, sp, #(8 * {func_name}_displacement)'
         return {'code':code, 'res_temp':ret_val}
+    
 del yaplVisitor
