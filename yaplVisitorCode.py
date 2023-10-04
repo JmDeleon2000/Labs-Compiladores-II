@@ -99,7 +99,7 @@ class yaplVisCode(yaplVisitor):
         return code
 
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
-        name = f'{self.current_func["name"]}.{ctx.getText()}'
+        name = f'{self.current_scope}.{ctx.getText()}'
         if name not in SYM_TABLE:
             name = f'{self.current_type}.{ctx.getText()}'
             if name not in SYM_TABLE:
@@ -107,19 +107,24 @@ class yaplVisCode(yaplVisitor):
                     name = f'{self.current_func["name"]}.{i}.{name}'
                     if name in SYM_TABLE:
                         break
-
+        self.last_returned = SYM_TABLE[name]['type']
         code = f'\tld {SYM_TABLE[name]["ptr"]}'
 
         assigned_on = []
         SYM_TABLE[name]['used'] = True
         if 'assigned_on' in SYM_TABLE[name]:
             assigned_on = SYM_TABLE[name]['assigned_on'].copy()
-            if self.current_func['name'] in assigned_on:
+            if self.current_func and self.current_func['name'] in assigned_on:
                 assigned_on.remove(self.current_func['name'])
         if 'const_val' in SYM_TABLE[name] \
             and (len(assigned_on) == 0 or 'known_val' in SYM_TABLE[name]):
-            return {'code':code, 'res_temp':SYM_TABLE[name]['ptr'], 'const_val':SYM_TABLE[name]['const_val']}
-        return {'code':code, 'res_temp':SYM_TABLE[name]['ptr']}
+            return {'code':code, 'res_temp':SYM_TABLE[name]['ptr'], 
+                    'const_val':SYM_TABLE[name]['const_val'],
+                    'comp':f"\tCMP {SYM_TABLE[name]['ptr']}, #1",
+                    'branch_op':'BGE'}
+        return {'code':code, 'res_temp':SYM_TABLE[name]['ptr'],
+                    'comp':f"\tCMP {SYM_TABLE[name]['ptr']}, #1",
+                    'branch_op':'BGE'}
     
     def visitVar_name(self, ctx:yaplParser.Var_nameContext):
         name = ctx.getText()
@@ -138,7 +143,7 @@ class yaplVisCode(yaplVisitor):
 
     def visitBool_operation(self, ctx:yaplParser.Bool_operationContext):
         res = self.visitChildren(ctx)
-        print(res)
+        self.last_returned = self.current_type
         code = ''
         left = res[0]['res_temp']
         right = res[2]['res_temp']
@@ -147,11 +152,11 @@ class yaplVisCode(yaplVisitor):
                 code+= i['code'] + '\n'
         code += f"\tCMP {left}, {right}"
         if res[1] == 'lt':
-            branch_op = f'BNE'
+            branch_op = f'BLT'
         if res[1] == 'ltq':
-            branch_op = f'BNZ'
+            branch_op = f'BLE'
         if res[1] == 'eq':
-            branch_op = f'BZ'
+            branch_op = f'BEQ'
         if 'const_val' in res[0] and 'const_val' in res[2]:
             if res[1] == 'lt':
                 const_val = res[0]['const_val'] < res[2]['const_val']
@@ -191,7 +196,6 @@ class yaplVisCode(yaplVisitor):
     def visitEos(self, ctx:yaplParser.EosContext):
         self.last_returned = self.current_type
         self.call_type = self.current_type
-        return self.visitChildren(ctx)
     
     def visitFree_func_name(self, ctx:yaplParser.Free_func_nameContext):
         self.call_type = self.current_type
@@ -236,7 +240,7 @@ class yaplVisCode(yaplVisitor):
 
     def visitFunc_call(self, ctx:yaplParser.Func_callContext):
         res = self.visitChildren(ctx)
-        
+
         func_name = ''
         
         code = ''
@@ -255,6 +259,7 @@ class yaplVisCode(yaplVisitor):
                 args.append(i['res_temp'])
         
         ret_t = FUNC_TABLE[func_name]['ret_type']
+        self.last_returned = ret_t
         # alocar 8 bytes por argumento, como se indica en:
         # https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/using-the-stack-in-aarch64-implementing-push-and-pop
 
@@ -296,7 +301,6 @@ class yaplVisCode(yaplVisitor):
 
     def visitMem_dec(self, ctx:yaplParser.Mem_decContext):
         res = self.visitChildren(ctx)
-        print(res)
         if type(res) == list:
             code = res[0]['code']
             if len(res) > 2:
@@ -313,6 +317,10 @@ class yaplVisCode(yaplVisitor):
         name = self.makeConst(val, STR)
         return {'res_temp':name}
 
+    def visitBool_literal(self, ctx:yaplParser.Bool_literalContext):
+        val = ctx.getText()
+        name = self.makeConst(val, BOOL)
+        return {'res_temp':name, 'branch_op':'B'}
 
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
         func_name = ctx.getText().split('(')[0]
@@ -475,37 +483,42 @@ class yaplVisCode(yaplVisitor):
         
         code = res[0]['comp'] + '\n'
         code+=f'\t{res[0]["branch_op"]} {else_tag}\n'
-        code+=res[1]['code'] + '\n'
+        if 'code' in res[1]:
+            code+=res[1]['code'] + '\n'
         code+=f"\tMOV {res_t}, {res[1]['res_temp']}\n"
         code+=f'\tb {out_tag}\n'
         code+=f'{else_tag}:\n'
-        code+=res[2]['code'] + '\n'
+        if 'code' in res[2]:
+            code+=res[2]['code'] + '\n'
         code+=f"\tMOV {res_t}, {res[2]['res_temp']}\n"
         code+=f'{out_tag}:'
 
         return {'code':code, 'res_temp':res_t}
     
-    #def visitRet_expr(self, ctx:yaplParser.Ret_exprContext):
-    #    res = self.visitChildren(ctx)
-    #    print(type(res))
-    #    return res
+    def visitRet_expr(self, ctx:yaplParser.Ret_exprContext):
+        res = self.visitChildren(ctx)
+        code = res['code'] + '\n'
+        ret_val = res['res_temp']
+        code+= f'\treturn {ret_val}'
+        return {'code':code, 'res_temp':ret_val}
     
     def visitComp_expr(self, ctx:yaplParser.Comp_exprContext):
         res = self.visitChildren(ctx)
-        print(res)
         code = ''
         ret_val = None
         #print(res)
         if type(res) == list:
             ret_val = res[-1]['res_temp']
-            for i in res:
-                if 'code' in i:
-                    code += i['code'] + '\n'
+            for i, e in enumerate(res):
+                if 'code' in e:
+                    if i < len(res)-1:
+                        code += e['code'] + '\n'
+                    else:
+                        code += e['code'] 
         else:
             code = res['code']
             ret_val = res['res_temp']
 
-        code+= f'\treturn {ret_val}'
         return {'code':code, 'res_temp':ret_val}
 
     def visitType(self, ctx:yaplParser.TypeContext):
@@ -515,6 +528,7 @@ class yaplVisCode(yaplVisitor):
         res = self.visitChildren(ctx)
         
         func_name = f"{res['type']}_constructor"
+        self.last_returned = res['type']
         
         code = ''
 
@@ -536,5 +550,55 @@ class yaplVisCode(yaplVisitor):
         
         code += f'\tADD sp, sp, #(8 * {func_name}_displacement)'
         return {'code':code, 'res_temp':ret_val}
-    
+
+    def visitBigexpr(self, ctx:yaplParser.BigexprContext):
+        res = self.visitChildren(ctx)
+
+        func_name = ''
+        
+        code = ''
+        for i in res:
+            if type(i) == dict and 'code' in i:
+                code += i['code'] + '\n'
+                break
+        
+        for i in res:
+            if type(i) == dict and 'func_name' in i:
+                func_name = i['func_name']
+                break
+        args = []
+        for i in res:
+            if type(i) == dict and 'res_temp' in i:
+                args.append(i['res_temp'])
+        
+        ret_t = FUNC_TABLE[func_name]['ret_type']
+        self.last_returned = ret_t
+        # alocar 8 bytes por argumento, como se indica en:
+        # https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/using-the-stack-in-aarch64-implementing-push-and-pop
+
+        code += f'\tSUB sp, sp, #(8 * {func_name}_displacement)\n'
+        for i, arg in enumerate(args):
+            code += f"\tSTR {arg}, [sp, #(8 * {i+2})]\n"
+
+        code+=f'\tcall {func_name}\n'
+        ret_val = self.getTemp(TYPE_TABLE[ret_t]['size'], self.current_scope)
+        code+= f'\tLDR {ret_val}, [sp, #(8 * {func_name}_displacement-1)]\n'
+        
+        code += f'\tADD sp, sp, #(8 * {func_name}_displacement)'
+        return {'code':code, 'res_temp':ret_val}
+
+    def visitCalled_type(self, ctx:yaplParser.Called_typeContext):
+        res = self.visitChildren(ctx)
+        self.last_returned = res[1]['type']
+
+    def visitIsvoid(self, ctx:yaplParser.IsvoidContext):
+        res = self.visitChildren(ctx)
+        code = res['code']
+        temp = self.getTemp(8, self.current_scope)
+        code += f"\tSUB {temp}, {res['res_temp']}, #1\n"
+        comp = f'\tCMP {temp}, #1\n'
+        branch_op = 'BGE'
+        return {'code':code, 'res_temp':temp, 
+                'comp':comp, 'branch_op':branch_op}
+
 del yaplVisitor

@@ -677,6 +677,10 @@ class yaplVisImpl(yaplVisitor):
             FUNC_TABLE[self.current_func['name']]['new_calls'] +=1
         return (True, res[1])
 
+    def visitIsvoid(self, ctx:yaplParser.IsvoidContext):
+        res = self.visitChildren(ctx)
+        return (True, {'type':BOOL})
+
     # Visit a parse tree produced by yaplParser#let_stmt.
     def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
         FUNC_TABLE[self.current_func['name']]['lets'] +=1
