@@ -106,11 +106,23 @@ class yaplVisImpl(yaplVisitor):
         res = self.visitChildren(ctx)
         if self.check_for_func_declaration:
             for i in self.check_for_func_declaration:
+                actually_could_not_find = False
                 if i == 'Main.main':
                     print(f'{bcolors.FAIL}All YAPL programs MUST include a declaration for the class Main. And that class MUST have a function called main{bcolors.ENDC}')
+                    actually_could_not_find = True
                 else:
-                    print(f'{bcolors.FAIL}You called {i}, but I cannot find the declaration for that function{bcolors.ENDC}')
-            return (False, f'{bcolors.FAIL}Build failed. Found errors.{bcolors.ENDC}')
+                    type_name, func_name = i.split('.')
+                    not_found = True
+                    while type_name:
+                        test_name = f'{type_name}.{func_name}'
+                        if test_name in FUNC_TABLE:
+                            not_found = False
+                        type_name = TYPE_TABLE[type_name]['parent']
+                    if not_found:
+                        print(f'{bcolors.FAIL}You called {i}, but I cannot find the declaration for that function{bcolors.ENDC}')
+                        actually_could_not_find = True
+            if actually_could_not_find:
+                return (False, f'{bcolors.FAIL}Build failed. Found errors.{bcolors.ENDC}')
         if self.check_for_type_declaration:
             for i in self.check_for_type_declaration:
                 if i == 'Main':
@@ -129,7 +141,7 @@ class yaplVisImpl(yaplVisitor):
 
     def visitAssignment(self, ctx:yaplParser.AssignmentContext):
         res = self.visitChildren(ctx)
-        
+
         if type(res) == list:
             for i in res:
                 if not i[0]:
@@ -154,7 +166,7 @@ class yaplVisImpl(yaplVisitor):
                     return (False, err_msg)
         var_t = SYM_TABLE[var_name]['type']
         expr_t = res[1][1]['type']
-        
+
         for i in SUPPORTED[ASIG]:
             if (i[0] == var_t and 
                 i[1] == expr_t):
@@ -163,17 +175,11 @@ class yaplVisImpl(yaplVisitor):
                 if self.current_func["name"] not in SYM_TABLE[var_name]['assigned_on']:
                     SYM_TABLE[var_name]['assigned_on'].append(f'{self.current_func["name"]}')
                 return (True, {'type':i[2]})
-        err_str = (f'Cannot assign expresion of type {expr_t["type"]} '
-                f'to {var_t}: {var_name}')
+        err_str = (f'Cannot assign expresion of type {expr_t} '
+                f'to variable of {var_t}: {var_name}\t{ctx.getText()}')
         err_str = f'{bcolors.FAIL}{err_str}{bcolors.ENDC}'
         print(err_str)
         return (False, ERR)
-
-    # Visit a parse tree produced by yaplParser#eos.
-    def visitEos(self, ctx:yaplParser.EosContext):
-        self.last_returned = self.current_type
-        self.call_type = self.current_type
-        return self.visitChildren(ctx)
 
     def visitEq(self, ctx:yaplParser.EqContext):
         return (True, EQUAL)
@@ -240,10 +246,7 @@ class yaplVisImpl(yaplVisitor):
                     return res
             self.last_returned = res[-1][1]['type']
             return (True, {'type':res[-1][1]['type']})
-        if not res[0]:
-            return res
-        #self.last_returned = res[1]['type']
-        return (True, {'type':res[1]['type']})
+        return res
 
     # Visit a parse tree produced by yaplParser#str_literal.
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
@@ -295,6 +298,14 @@ class yaplVisImpl(yaplVisitor):
         if new_id in SYM_TABLE:
             self.last_returned = SYM_TABLE[new_id]['type']
             return (True, {'type':SYM_TABLE[new_id]['type']})
+        
+        if new_id not in SYM_TABLE:
+            for i in reversed(range(1, FUNC_TABLE[self.current_func['name']]['lets']+1)):
+                new_id = f'{self.current_func["name"]}.{i}.{txt}'
+                if new_id in SYM_TABLE:
+                    self.last_returned = SYM_TABLE[new_id]['type']
+                    return (True, {'type':SYM_TABLE[new_id]['type']})
+
         err_msg = f'{bcolors.FAIL}Cannot use variable "{txt}" because it is not declared!{bcolors.ENDC}'
         print(err_msg)
         return (False, err_msg)
@@ -377,6 +388,10 @@ class yaplVisImpl(yaplVisitor):
         TYPE_TABLE[res[0][1]]['parent'] = res[1][1]
         for i in TYPE_TABLE[res[1][1]]['functions']:
             TYPE_TABLE[res[0][1]]['functions'].append(i)
+        assig_t = res[1][1]
+        while assig_t:
+            SUPPORTED[ASIG].append([assig_t, res[0][1], res[0][1]])
+            assig_t = TYPE_TABLE[assig_t]['parent']
         return res[0]
 
     # Visit a parse tree produced by yaplParser#type.
@@ -394,7 +409,8 @@ class yaplVisImpl(yaplVisitor):
     def visitType_def(self, ctx:yaplParser.Type_defContext):
         type_name = ctx.getText()[5::]
         self.current_type = type_name
-        TYPE_TABLE[type_name] = {'parent':OBJ}
+        if type_name not in TYPE_TABLE:
+            TYPE_TABLE[type_name] = {'parent':OBJ}
         TYPE_TABLE[type_name]['functions'] = []
         TYPE_TABLE[type_name]['size'] = 8
         self.class_name = type_name
@@ -409,7 +425,11 @@ class yaplVisImpl(yaplVisitor):
                             'ptr':f'ptr_{self.current_type}[{DISPLACEMENTS[self.current_type]}]',
                             'vars':[]}
         DISPLACEMENTS[self.current_type] += 8
-        SUPPORTED[ASIG].append([type_name, type_name, type_name])
+        assig_t = type_name
+        while assig_t:
+            SUPPORTED[ASIG].append([type_name, assig_t, type_name])
+            assig_t = TYPE_TABLE[assig_t]['parent']
+
         if type_name in self.check_for_type_declaration:
             print(f'{bcolors.OKGREEN}Found the declaration for {type_name}!{bcolors.ENDC}')
             self.check_for_type_declaration.remove(type_name)
@@ -531,8 +551,11 @@ class yaplVisImpl(yaplVisitor):
         table_name = self.current_type+'.'+func_name
         self.current_func['ret_type'] = res[1][1]['type']
         self.current_func['param_type'] = res[0][1]['param_types']
+        ret_type = res[1][1]['type']
+        if ret_type == 'SELF_TYPE':
+            ret_type = self.current_type
         func_info = {'param_types':res[0][1]['param_types'],
-                    'ret_type':res[1][1]['type'],
+                    'ret_type':ret_type,
                     'local':[table_name+'.ret_val'] + res[0][1]['param_names'],#TODO meter estos acá en let
                     'lets':0,#para diferenciar entre variables de diferentes lets
                     'new_calls':0}#para guardar espacio en el stack
@@ -645,9 +668,22 @@ class yaplVisImpl(yaplVisitor):
                 if not res[0]:
                     return (False, res[1]) 
 
-        expected_params = res[1][1]['params']
-        ret_type = res[1][1]['ret_type']
-        func_name = res[1][1]['func_name']
+        expected_params = ''
+        ret_type = ''
+        func_name = 'missing_function_name'
+
+        for i in res:
+            if type(i[1]) == dict and 'params' in i[1]:
+                expected_params = i[1]['params']
+                break
+        for i in res:
+            if type(i[1]) == dict and 'ret_type' in i[1]:
+                ret_type = i[1]['ret_type']
+                break
+        for i in res:
+            if type(i[1]) == dict and 'func_name' in i[1]:
+                func_name = i[1]['func_name']
+                break
         recieved_params = [i[1]['type'] for i in res[2::] if 'type' in i[1]]
         if expected_params == 'TBD':
             expected_params = recieved_params
@@ -658,8 +694,8 @@ class yaplVisImpl(yaplVisitor):
             sz = TYPE_TABLE[ret_type]['size']
             self.last_returned = ret_type
             return (True, {'size':sz, 'type':ret_type})
-        
-        err_msg = f"{bcolors.FAIL}Function {func_name} doesn't take parameters: {recieved_params}. Expecting: {expected_params}{bcolors.ENDC}"
+        print(res)
+        err_msg = f"{bcolors.FAIL}Function {func_name} doesn't take parameters: {recieved_params}. Expecting: {expected_params} in {ctx.getText()}{bcolors.ENDC}"
         print(err_msg)
         return (False, err_msg)
 
