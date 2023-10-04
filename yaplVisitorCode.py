@@ -42,7 +42,7 @@ STR = 'String'
 
 
 #TODO sacar los argumentos del stack al comenzar una función
-
+#TODO list
 
 class yaplVisCode(yaplVisitor):    
 
@@ -85,8 +85,8 @@ class yaplVisCode(yaplVisitor):
 
     def visitYapl_src(self, ctx:yaplParser.Yapl_srcContext):
         res = self.visitChildren(ctx)
-        for k, e in SYM_TABLE.items():
-            print(f'{k}\t{e}')
+        #for k, e in SYM_TABLE.items():
+        #    print(f'{k}\t{e}')
         code = ''
         for i in self.constructors.values():
             code+= i
@@ -95,7 +95,11 @@ class yaplVisCode(yaplVisitor):
                 if type(i) == dict and 'code' in i:
                     code+= i['code'] + '\n'
         else:
+            with open('out.ci', 'w') as f:
+                f.write(res['code'])
             return res['code']
+        with open('out.ci', 'w') as f:
+            f.write(code)
         return code
 
     def visitIdentifier(self, ctx:yaplParser.IdentifierContext):
@@ -259,6 +263,12 @@ class yaplVisCode(yaplVisitor):
             if type(i) == dict and 'res_temp' in i:
                 args.append(i['res_temp'])
                 self.freeTemp(i['res_temp'])
+
+        if type(res) == dict:
+            args = res['params']
+            func_name = res['func_name']
+            if 'code' in res:
+                code = res['code']
         
         ret_t = FUNC_TABLE[func_name]['ret_type']
         self.last_returned = ret_t
@@ -318,13 +328,13 @@ class yaplVisCode(yaplVisitor):
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
         val = ctx.getText()
         name = self.makeConst(val, STR)
-        return {'res_temp':name}
+        return {'res_temp':name, 'code':f'\tLDR {name}\n'}
 
     def visitBool_literal(self, ctx:yaplParser.Bool_literalContext):
         val = ctx.getText()
         val = True if val == 'true' else False
         name = self.makeConst(val, BOOL)
-        return {'res_temp':name, 'branch_op':'B', 'const_val':val}
+        return {'res_temp':name, 'branch_op':'B', 'const_val':val, 'code':f'\tLDR {name}\n'}
 
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
         func_name = ctx.getText().split('(')[0]
@@ -352,7 +362,7 @@ class yaplVisCode(yaplVisitor):
         val = int(ctx.getText())
         name = self.makeConst(val, INT)
         #code = f'\tld {name}'
-        return {'res_temp':name, 'const_val':val}
+        return {'res_temp':name, 'const_val':val, 'code':f'\tLDR {name}\n'}
 
     def visitArith_operation(self, ctx:yaplParser.Arith_operationContext):
         res = self.visitChildren(ctx)
@@ -470,7 +480,6 @@ class yaplVisCode(yaplVisitor):
         self.current_func['name'] = self.current_type+'.'+func_name
         self.current_scope = self.current_func['name']
         self.temp_count = 0
-        print(self.current_scope)
         return self.visitChildren(ctx)
 
     def visitIf_stmt(self, ctx:yaplParser.If_stmtContext):
@@ -578,6 +587,12 @@ class yaplVisCode(yaplVisitor):
             if type(i) == dict and 'res_temp' in i:
                 args.append(i['res_temp'])
                 self.freeTemp(i['res_temp'])
+        
+        if type(res) == dict:
+            args = res['params']
+            func_name = res['func_name']
+            if 'code' in res:
+                code = res['code']
         
         ret_t = FUNC_TABLE[func_name]['ret_type']
         self.last_returned = ret_t
