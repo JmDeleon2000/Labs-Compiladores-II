@@ -72,7 +72,7 @@ FUNC_TABLE = {'IO.out_string':out_string_info,
                 'Object.type_name':type_name_info,
                 'Object.abort':abort_info}
 GLOBAL = 'global scope'
-DISPLACEMENTS = {}
+DISPLACEMENTS = {'IO.out_string':6}
 
 class yaplVisImpl(yaplVisitor):    
 
