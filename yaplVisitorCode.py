@@ -256,6 +256,7 @@ class yaplVisCode(yaplVisitor):
 
     def visitFunc_call(self, ctx:yaplParser.Func_callContext):
         res = self.visitChildren(ctx)
+        print(res)
 
         func_name = ''
         
