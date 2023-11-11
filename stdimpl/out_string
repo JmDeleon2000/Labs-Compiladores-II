@@ -1,21 +1,21 @@
 #out_string implementation
 
 IO.out_string:
-        sw $ra, 0($sp) # store control flow registers in stack
-        sw $s0, 4($sp)
-        sw $s1, 8($sp)
+        SW $ra, 0($sp) # store control flow registers in stack
+        SW $s0, 4($sp)
+        SW $s1, 8($sp)
 
         
-        lw $a0, 16($sp) #leer la dirección de la string a imprimir
+        LW $a0, 16($sp) #leer la dirección de la string a imprimir
         li $v0, 4
-        syscall
+        syscall # imprimir a stdout
 
-return:
-        lw $ra, 0($sp)        # read control flow  registers from stack
-        lw $s0, 4($sp)
-        lw $s1, 8($sp)
-        lw $5, 12($sp) #leer la dirección del objeto padre
-        sw $5, 20($sp) #escribir la dirección del objeto padre en el espacio de retorno
+        LW $ra, 0($sp)        # read control flow  registers from stack
+        LW $s0, 4($sp)
+        LW $s1, 8($sp)
+        LW $5, 12($sp) #leer la dirección del objeto padre
+        SW $5, 20($sp) #escribir la dirección del objeto padre en el espacio de retorno
 
 
         jr $ra
+

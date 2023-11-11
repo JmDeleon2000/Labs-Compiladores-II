@@ -1,0 +1,13 @@
+main:
+    #create main object
+    addi $sp, $sp, -12 
+    jal Main_constructor
+    LW $0, 12($sp)
+    addi $sp, $sp, 12
+
+    #go to user defined main function
+    addi $sp, $sp, -12 
+    SW $v0, 0($sp) # escribir el primer argumento de Main_main
+    j Main_main 
+#end of entrypoint
+

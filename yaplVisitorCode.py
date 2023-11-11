@@ -40,7 +40,8 @@ ASIG = '<-'
 BOOL = 'Bool'
 STR = 'String'
 
-
+CONSTS = []
+TEMPS = []
 #TODO sacar los argumentos del stack al comenzar una función
 #TODO list
 
@@ -66,9 +67,10 @@ class yaplVisCode(yaplVisitor):
                     return SYM_TABLE[i]['ptr']
         SYM_TABLE[const_name] = {'type':var_type, 
                                 'const_val':val, 'scope':{'global'}, 
-                                'size':TYPE_TABLE[var_type]['size'],
-                                'ptr':f"ptr_{self.current_scope}[{DISPLACEMENTS['global']}]"}
-        DISPLACEMENTS['global'] += TYPE_TABLE[var_type]['size']
+                                'size':4,
+                                'ptr':const_name}
+        CONSTS.append(const_name)
+        #DISPLACEMENTS['global'] += TYPE_TABLE[var_type]['size']
         return SYM_TABLE[const_name]['ptr']
 
     def visitEq(self, ctx:yaplParser.EqContext):
@@ -87,7 +89,15 @@ class yaplVisCode(yaplVisitor):
         res = self.visitChildren(ctx)
         #for k, e in SYM_TABLE.items():
         #    print(f'{k}\t{e}')
-        code = ''
+        code = '.data\n'
+        for i in CONSTS:
+            if i in SYM_TABLE:
+                if SYM_TABLE[i]['type'] == STR:
+                    code += f"{i}: .asciiz {SYM_TABLE[i]['const_val']}\n"
+
+        code+='\n.text\n'
+        with open('stdimpl/entrypoint', 'r') as f:
+            code+=f.read()
         for i in self.constructors.values():
             code+= i
         if type(res) == list:
@@ -98,6 +108,8 @@ class yaplVisCode(yaplVisitor):
             with open('out.ci', 'w') as f:
                 f.write(res['code'])
             return res['code']
+        with open('stdimpl/out_string', 'r') as f:
+            code+=f.read()
         with open('out.ci', 'w') as f:
             f.write(code)
         return code
@@ -215,22 +227,25 @@ class yaplVisCode(yaplVisitor):
         self.current_type = type_name
         self.class_name = type_name
         self.current_scope = type_name
-        self.temp_count = 0
-        self.cons_temp = self.getTemp(8, type_name)
-        type_size = TYPE_TABLE[type_name]['size']
+
+
+        type_size = 4
         self.constructors[type_name] = f'{type_name}_constructor:\n'
-        self.constructors[type_name] += '\tsw $ra, 0($sp) # store control flow registers in stack\n'
-        self.constructors[type_name] += '\tsw $s0, 4($sp)\n'
-        self.constructors[type_name] += '\tsw $s1, 8($sp)\n'
-        self.constructors[type_name] += f'\n\tli $a0, {type_size}\n\tli $v0, 9\n\tmove {self.cons_temp}, $v0\n'
+        self.constructors[type_name] += '\tSW $ra, 0($sp) # store control flow registers in stack\n'
+        self.constructors[type_name] += '\tSW $s0, 4($sp)\n'
+        self.constructors[type_name] += '\tSW $s1, 8($sp)\n'
+        self.constructors[type_name] += f'\n\tli $a0, {type_size}\n\tli $v0, 9\n'
+        self.constructors[type_name] += f'\tsw $v0, 12($sp) # return initializated memory\n'
+        #self.constructors[type_name] += f'\tsw $v0, 0($v0) # save the "self" reference\n'
+        
 
     def visitClass_grammar(self, ctx:yaplParser.Class_grammarContext):
         res = self.visitChildren(ctx)
         cons = self.constructors[self.current_type]
-        cons += '\n\tlw $ra, 0($sp)        # read control flow  registers from stack\n'
-        cons += '\tlw $s0, 4($sp)\n'
-        cons += '\tlw $s1, 8($sp)\n'
-        cons += f'\tsw {self.cons_temp}, 12($sp) # return initializated memory\n'
+        cons += '\n\tLW $ra, 0($sp)        # read control flow  registers from stack\n'
+        cons += '\tLW $s0, 4($sp)\n'
+        cons += '\tLW $s1, 8($sp)\n'
+        
         cons += f'\tjr $ra\n'
         self.constructors[self.current_type] = cons
         return res
@@ -256,7 +271,6 @@ class yaplVisCode(yaplVisitor):
 
     def visitFunc_call(self, ctx:yaplParser.Func_callContext):
         res = self.visitChildren(ctx)
-        print(res)
 
         func_name = ''
         
@@ -270,7 +284,9 @@ class yaplVisCode(yaplVisitor):
             if type(i) == dict and 'func_name' in i:
                 func_name = i['func_name']
                 break
-        args = ['parent_object']
+
+        parent_object = 'ptr_Main.main[0]'
+        args = [parent_object]
         for i in res:
             if type(i) == dict and 'res_temp' in i:
                 args.append(i['res_temp'])
@@ -288,7 +304,7 @@ class yaplVisCode(yaplVisitor):
         # https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/using-the-stack-in-aarch64-implementing-push-and-pop
 
         displacement = DISPLACEMENTS[func_name]
-        code += f'\taddi sp, sp, -{4*displacement}\n'
+        code += f'\taddi $sp, $sp, -{4*displacement}\n'
         for i, arg in enumerate(args):
             code += f"\tsw {arg}, {4*(i+3)}($sp)\n"
 
@@ -297,7 +313,7 @@ class yaplVisCode(yaplVisitor):
 
         code+= f'\tlw {ret_val}, {4*(displacement-1)}($sp)\n'
         
-        code += f'\taddi sp, sp, {4*displacement}'
+        code += f'\taddi $sp, $sp, {4*displacement}'
         return {'code':code, 'res_temp':ret_val}
 
     def visitLet_stmt(self, ctx:yaplParser.Let_stmtContext):
@@ -341,7 +357,7 @@ class yaplVisCode(yaplVisitor):
     def visitStr_literal(self, ctx:yaplParser.Str_literalContext):
         val = ctx.getText()
         name = self.makeConst(val, STR)
-        return {'res_temp':name, 'code':f'\tlw {name}\n'}
+        return {'res_temp':name, 'code':f'\tla {name}\n'}
 
     def visitBool_literal(self, ctx:yaplParser.Bool_literalContext):
         val = ctx.getText()
@@ -350,8 +366,13 @@ class yaplVisCode(yaplVisitor):
         return {'res_temp':name, 'branch_op':'B', 'const_val':val, 'code':f'\tlw {name}\n'}
 
     def visitSign_dec(self, ctx:yaplParser.Sign_decContext):
+        res = self.visitChildren(ctx)
         func_name = ctx.getText().split('(')[0]
-        return {'code':f'{self.current_type}_{func_name}:'}
+        code = f'{self.current_type}_{func_name}:\n'
+
+        for i, e in enumerate(res):
+            code += f'\tlw ptr_{self.current_type}.{func_name}[{i*4}], {i*4}($sp)\n'
+        return {'code':code}
 
     def freeTemp(self, t):
         if t in self.temps:
@@ -367,6 +388,7 @@ class yaplVisCode(yaplVisitor):
                             'scope':scope,
                             'ptr':f'ptr_{scope}[{DISPLACEMENTS[scope]}]'}
         DISPLACEMENTS[scope] += size
+        TEMPS.append(new_t)
         self.temp_count+=1
         self.temps[new_t] = False
         return new_t
@@ -410,7 +432,7 @@ class yaplVisCode(yaplVisitor):
             if op == '+':
                 code += f"\tADDI {temp}, {res[2]['res_temp']}, {const_val}"
             if op == '-':
-                code += f"\tSUB {temp}, {res[2]['res_temp']}, #{const_val}"    #no existe en MIPS
+                code += f"\taddi {temp}, {res[2]['res_temp']}, -{const_val}"    #no existe en MIPS
             if op == '*':
                 code += f"\tMUL {temp}, {res[2]['res_temp']}, #{const_val}"    #no existe en MIPS
             if op == '/':
@@ -493,13 +515,15 @@ class yaplVisCode(yaplVisitor):
         self.current_scope = self.current_func['name']
         self.temp_count = 0
         res = self.visitChildren(ctx)
+
+        
         
         code = ''
         if type(res) == list:
             for i in res:
                 code+=i['code'] + '\n'
         else:
-            code = res['code']
+            code += res['code']
         if self.current_func['name'] == 'Main.main':
             code+=f'\tli $v0, 10\n\tsyscall\n'
         return {'code':code}

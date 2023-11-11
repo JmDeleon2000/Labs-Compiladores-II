@@ -1,12 +1,12 @@
 import sys
 from antlr4 import *
 
-
 from yaplLexer import yaplLexer
 from yaplParser import yaplParser
 from yaplVisImpl import yaplVisImpl
 from yaplVisitorCode import yaplVisCode
- 
+from ci_to_asm import convert_to_ASM
+
 def main(argv):
     input_stream = FileStream(argv[1])
     print(f'Lexing:\n{input_stream}')
@@ -20,7 +20,8 @@ def main(argv):
     if res[0]:
         visitor_code = yaplVisCode()
         code = visitor_code.visitYapl_src(tree.getRuleContext())
-        print(code)
- 
+        #print(code)
+        convert_to_ASM(code)
+
 if __name__ == '__main__':
     main(sys.argv)
